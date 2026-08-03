@@ -530,6 +530,65 @@ function loadPlayedScores() {
 
 }
 
+// =========================================
+// SCORES AUS SUPABASE LADEN
+// =========================================
+
+async function loadScoresFromSupabase() {
+
+    if (!supabaseClient) {
+
+        console.error(
+            "Supabase ist nicht verbunden."
+        );
+
+        return {};
+
+    }
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("scores")
+        .select(
+            "round, hole, player, score"
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Scores konnten nicht aus Supabase geladen werden:",
+            error
+        );
+
+        return {};
+
+    }
+
+
+    const scores = {};
+
+
+    data.forEach(
+        row => {
+
+            const key =
+                `${row.round}_${row.hole}_${row.player}`;
+
+
+            scores[key] =
+                Number(row.score);
+
+        }
+    );
+
+
+    return scores;
+
+}
 
 // =========================================
 // SCORE HOLEN
