@@ -207,12 +207,7 @@ async function loadExcel() {
         );
 
 
-        updateAll();
-
-
-        // Results initialisieren
-        updateResults();
-
+       await updateAll();
 
     } catch (error) {
 
