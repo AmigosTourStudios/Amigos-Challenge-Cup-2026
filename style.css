@@ -1,0 +1,1012 @@
+
+/* =========================================
+   GRUNDEINSTELLUNGEN
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #071b2d;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   SEITEN AUSBLENDEN
+   ========================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.header {
+    width: 92%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+
+    min-height: 105px;
+}
+
+
+/* -----------------------------------------
+   AMIGOS TOUR
+   ----------------------------------------- */
+
+.logo {
+    background: #ffffff;
+    color: #777777;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+
+    border-radius: 0 0 28px 28px;
+}
+
+
+/* -----------------------------------------
+   TURNIERTITEL
+   ----------------------------------------- */
+
+.tournament-title {
+    background: #8ec9e6;
+    color: #12324a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 20px;
+
+    font-size: 31px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+
+    text-align: center;
+
+    border-radius: 0 0 28px 28px;
+}
+
+
+/* -----------------------------------------
+   ORT
+   ----------------------------------------- */
+
+.location {
+    background: #ffffff;
+    color: #777777;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+
+    border-radius: 0 0 28px 28px;
+}
+
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+.navigation {
+    width: 92%;
+    max-width: 1400px;
+    margin: 18px auto 0;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.nav-button {
+    border: none;
+    border-radius: 8px 8px 0 0;
+
+    padding: 13px 28px;
+
+    background: #ffffff;
+    color: #12324a;
+
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+}
+
+.nav-button.active {
+    background: #8ec9e6;
+
+    position: relative;
+}
+
+
+/* Aktive Markierung unter dem aktuellen Reiter */
+
+.nav-button.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -5px;
+
+    height: 5px;
+
+    background: #8ec9e6;
+}
+
+
+/* =========================================
+   LEADERBOARD-KOPF
+   ========================================= */
+
+.section-header {
+    width: 92%;
+    max-width: 1400px;
+    margin: 5px auto 0;
+
+    min-height: 58px;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    align-items: center;
+
+    background: #8ec9e6;
+    color: #12324a;
+}
+
+.live {
+    padding-left: 20px;
+
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.section-title {
+    text-align: center;
+
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.round {
+    padding-right: 20px;
+
+    text-align: right;
+
+    font-size: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   LEADERBOARD
+   ========================================= */
+
+.leaderboard {
+    width: 92%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   SPIELERZEILE
+   ========================================= */
+
+.player-row {
+    min-height: 145px;
+
+    display: grid;
+
+    grid-template-columns:
+        90px
+        2fr
+        110px
+        360px;
+
+    align-items: center;
+
+    background: linear-gradient(
+        to bottom,
+        #5d7f95,
+        #42657c
+    );
+
+    border-bottom: 2px solid #8ec9e6;
+}
+
+
+/* =========================================
+   RANG
+   ========================================= */
+
+.rank {
+    font-size: 64px;
+    font-weight: 900;
+
+    text-align: center;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   SPIELERINFORMATIONEN
+   ========================================= */
+
+.player-info {
+    padding-left: 24px;
+}
+
+.player-name {
+    font-size: 25px;
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+.player-country {
+    margin-top: 5px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: #d7e4eb;
+}
+
+
+/* =========================================
+   ERGEBNIS RELATIV ZU PAR
+   ========================================= */
+
+.score-over-par {
+    width: 58px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+
+    background: #f28c28;
+    color: #ffffff;
+
+    border-radius: 4px;
+
+    font-size: 22px;
+    font-weight: 900;
+}
+
+
+/* =========================================
+   STATISTIKEN
+   NETTO / BRUTTO / LWS
+   ========================================= */
+
+.stats {
+    display: flex;
+
+    justify-content: space-around;
+    align-items: center;
+}
+
+.stat {
+    flex: 1;
+
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #d7e4eb;
+}
+
+.stat-value {
+    display: block;
+
+    font-size: 32px;
+    font-weight: 900;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   RESULTS
+   ========================================= */
+
+.results-round-select {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+
+.results-select {
+    height: 34px;
+
+    padding: 0 10px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #12324a;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+
+/* -----------------------------------------
+   GOLFPLATZ
+   ----------------------------------------- */
+
+.results-course {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 12px 20px;
+
+    background: #ffffff;
+    color: #12324a;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    text-align: center;
+}
+
+
+/* -----------------------------------------
+   RESULTS CONTAINER
+   ----------------------------------------- */
+
+.results-container {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+}
+
+
+/* -----------------------------------------
+   SPIELER-SCORECARD
+   ----------------------------------------- */
+
+.result-player-card {
+    margin-bottom: 24px;
+
+    background: #ffffff;
+
+    color: #12324a;
+
+    border-radius: 0 0 8px 8px;
+
+    overflow: hidden;
+}
+
+
+/* -----------------------------------------
+   SPIELERNAME
+   ----------------------------------------- */
+
+.result-player-name {
+    padding: 14px 18px;
+
+    background: #5d7f95;
+
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 900;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* -----------------------------------------
+   HORIZONTALES SCROLLEN
+   ----------------------------------------- */
+
+.scorecard-scroll {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+
+/* -----------------------------------------
+   SCORECARD
+   ----------------------------------------- */
+
+.scorecard {
+    min-width: 1000px;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+/* -----------------------------------------
+   ZEILEN
+   ----------------------------------------- */
+
+.scorecard th,
+.scorecard td {
+
+    height: 48px;
+
+    min-width: 48px;
+
+    padding: 5px;
+
+    border-right: 1px solid #d9e0e5;
+    border-bottom: 1px solid #d9e0e5;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+
+.scorecard th {
+    background: #eef3f6;
+}
+
+
+.scorecard .row-label {
+
+    width: 90px;
+    min-width: 90px;
+
+    position: sticky;
+    left: 0;
+
+    z-index: 2;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    padding-left: 14px;
+}
+
+
+/* -----------------------------------------
+   OUT / IN / TOTAL
+   ----------------------------------------- */
+
+.scorecard .section-total {
+
+    min-width: 65px;
+
+    background: #dce8ee;
+
+    font-weight: 900;
+}
+
+
+.scorecard .total-column {
+
+    background: #e9f0f4;
+
+    font-weight: 900;
+}
+
+
+/* -----------------------------------------
+   PAR-ZEILE
+   ----------------------------------------- */
+
+.scorecard .par-row td {
+
+    background: #f4f6f7;
+
+    color: #5d6870;
+}
+
+
+/* -----------------------------------------
+   SCORE
+   ----------------------------------------- */
+
+.score-value {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    font-size: 14px;
+    font-weight: 900;
+}
+
+
+/* -----------------------------------------
+   BIRDIE / EAGLE
+   KREISE
+   ----------------------------------------- */
+
+.score-value.circle-1 {
+    border: 2px solid #12324a;
+    border-radius: 50%;
+}
+
+
+.score-value.circle-2 {
+    border: 2px solid #12324a;
+    border-radius: 50%;
+}
+
+
+.score-value.circle-2::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    border: 2px solid #12324a;
+
+    border-radius: 50%;
+}
+
+
+/* -----------------------------------------
+   BOGEY / DOUBLE BOGEY
+   QUADRATE
+   ----------------------------------------- */
+
+.score-value.square-1 {
+
+    border: 2px solid #12324a;
+
+    border-radius: 2px;
+}
+
+
+.score-value.square-2 {
+
+    border: 2px solid #12324a;
+
+    border-radius: 2px;
+}
+
+
+.score-value.square-2::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    border: 2px solid #12324a;
+
+    border-radius: 2px;
+}
+
+
+/* -----------------------------------------
+   ZUSAMMENFASSUNG
+   ----------------------------------------- */
+
+.result-summary {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 28px;
+
+    padding: 12px 18px;
+
+    background: #f4f6f7;
+
+    border-top: 1px solid #d9e0e5;
+}
+
+
+.result-summary-item {
+
+    text-align: center;
+}
+
+
+.result-summary-label {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #687780;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+
+.result-summary-value {
+
+    display: block;
+
+    color: #12324a;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+
+/* =========================================
+   PLAYERS
+   ========================================= */
+
+.players-placeholder {
+    width: 92%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 40px;
+
+    background: #ffffff;
+    color: #12324a;
+
+    text-align: center;
+
+    font-size: 24px;
+    font-weight: 900;
+}
+
+
+/* =========================================
+   HANDYANSICHT
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    /* -------------------------------------
+       HEADER
+       ------------------------------------- */
+
+    .header {
+        width: 100%;
+
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+    }
+
+    .logo {
+        min-height: 55px;
+
+        border-radius: 0;
+    }
+
+    .tournament-title {
+        min-height: 75px;
+
+        padding: 10px;
+
+        font-size: 24px;
+
+        border-radius: 0;
+    }
+
+    .location {
+        min-height: 50px;
+
+        border-radius: 0;
+    }
+
+
+    /* -------------------------------------
+       NAVIGATION
+       ------------------------------------- */
+
+    .navigation {
+        width: 100%;
+
+        margin-top: 0;
+
+        gap: 2px;
+    }
+
+    .nav-button {
+        flex: 1;
+
+        padding: 14px 5px;
+
+        font-size: 12px;
+    }
+
+
+    /* -------------------------------------
+       LEADERBOARD-KOPF
+       ------------------------------------- */
+
+    .section-header {
+        width: 100%;
+
+        grid-template-columns: 1fr 2fr 1fr;
+
+        min-height: 50px;
+    }
+
+    .live {
+        padding-left: 8px;
+
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .round {
+        padding-right: 8px;
+
+        font-size: 10px;
+    }
+
+
+    /* -------------------------------------
+       LEADERBOARD
+       ------------------------------------- */
+
+    .leaderboard {
+        width: 100%;
+    }
+
+
+    /* -------------------------------------
+       SPIELERZEILE
+       ------------------------------------- */
+
+    .player-row {
+        padding: 16px 12px;
+
+        display: grid;
+
+        grid-template-columns:
+            50px
+            1fr
+            70px;
+
+        grid-template-rows:
+            auto
+            auto;
+
+        min-height: auto;
+    }
+
+
+    /* -------------------------------------
+       RANG
+       ------------------------------------- */
+
+    .rank {
+        grid-column: 1;
+        grid-row: 1 / 3;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: 48px;
+    }
+
+
+    /* -------------------------------------
+       SPIELER
+       ------------------------------------- */
+
+    .player-info {
+        grid-column: 2;
+        grid-row: 1;
+
+        padding-left: 8px;
+    }
+
+    .player-name {
+        font-size: 19px;
+
+        line-height: 1.1;
+    }
+
+    .player-country {
+        margin-top: 4px;
+
+        font-size: 11px;
+    }
+
+
+    /* -------------------------------------
+       ERGEBNIS
+       ------------------------------------- */
+
+    .score-over-par {
+        grid-column: 3;
+        grid-row: 1 / 3;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: 28px;
+    }
+
+
+    /* -------------------------------------
+       NETTO / BRUTTO / LWS
+       ------------------------------------- */
+
+    .stats {
+        grid-column: 2;
+        grid-row: 2;
+
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+
+        margin-top: 12px;
+
+        padding-left: 8px;
+    }
+
+    .stat {
+        flex: 1;
+
+        margin-top: 0;
+
+        text-align: center;
+    }
+
+    .stat-label {
+        margin-bottom: 4px;
+
+        font-size: 9px;
+    }
+
+    .stat-value {
+        font-size: 21px;
+    }
+
+
+    /* =====================================
+       RESULTS – HANDY
+       ===================================== */
+
+    .results-course {
+
+        width: 100%;
+
+        padding: 10px;
+
+        font-size: 11px;
+
+        white-space: nowrap;
+    }
+
+
+    .results-container {
+
+        width: 100%;
+    }
+
+
+    .result-player-card {
+
+        margin-bottom: 16px;
+
+        border-radius: 0;
+    }
+
+
+    .result-player-name {
+
+        padding: 12px;
+
+        font-size: 17px;
+    }
+
+
+    .scorecard {
+
+        min-width: 930px;
+    }
+
+
+    .scorecard th,
+    .scorecard td {
+
+        min-width: 44px;
+
+        height: 44px;
+
+        font-size: 12px;
+    }
+
+
+    .scorecard .row-label {
+
+        width: 70px;
+        min-width: 70px;
+
+        padding-left: 8px;
+    }
+
+
+    .result-summary {
+
+        justify-content: space-around;
+
+        gap: 5px;
+
+        padding: 10px;
+    }
+
+
+    .result-summary-value {
+
+        font-size: 18px;
+    }
+
+}
+
