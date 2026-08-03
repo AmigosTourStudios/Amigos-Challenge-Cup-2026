@@ -277,7 +277,7 @@ body {
     min-height: 64px;
 
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1.2fr 1.6fr 1.2fr;
 
     align-items: center;
 
@@ -292,7 +292,7 @@ body {
 .live {
     padding-left: 22px;
 
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 900;
 
     letter-spacing: 2px;
@@ -319,7 +319,7 @@ body {
     font-size: 13px;
     font-weight: 800;
 
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
 
     color: #b8c8d1;
 
@@ -948,15 +948,17 @@ body {
     .section-header {
         width: 100%;
 
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1.1fr 1.8fr 1.3fr;
 
         min-height: 50px;
     }
 
     .live {
-        padding-left: 8px;
+        padding-left: 10px;
 
-        font-size: 13px;
+        font-size: 12px;
+
+       letter-spacing: 1.5px;
     }
 
     .section-title {
@@ -964,11 +966,13 @@ body {
     }
 
     .round {
-        padding-right: 8px;
+        padding-right: 10px;
 
-        font-size: 11px;
+        font-size: 10px;
 
-       letter-spacing: 0.5px;
+       letter-spacing: 0.3px;
+
+       white-space: nowrap;
     }
 
 
