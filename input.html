@@ -404,6 +404,281 @@
 
         }
 
+/* =====================================
+   NEWS MESSENGER
+   ===================================== */
+
+.news-fab {
+
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    width: 58px;
+    height: 58px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #2e7d32;
+    color: white;
+
+    font-size: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+}
+
+
+.news-fab:active {
+
+    transform: scale(0.95);
+
+}
+
+
+/* =====================================
+   NEWS PANEL
+   ===================================== */
+
+.news-panel {
+
+    position: fixed;
+
+    right: 20px;
+    bottom: 90px;
+
+    width: min(
+        360px,
+        calc(100vw - 30px)
+    );
+
+    background: white;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.22);
+
+    overflow: hidden;
+
+    z-index: 999;
+
+    display: none;
+
+}
+
+
+.news-panel.open {
+
+    display: block;
+
+}
+
+
+/* =====================================
+   PANEL HEADER
+   ===================================== */
+
+.news-panel-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 16px;
+
+    background: #071b2d;
+
+    color: white;
+
+}
+
+
+.news-panel-header strong {
+
+    display: block;
+
+    font-size: 14px;
+
+    letter-spacing: 0.5px;
+
+}
+
+
+.news-panel-header span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+
+    opacity: 0.7;
+
+}
+
+
+.news-close {
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.12
+    );
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================
+   FORMULAR
+   ===================================== */
+
+.news-form {
+
+    padding: 16px;
+
+}
+
+
+.news-form label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    color: #555;
+
+}
+
+
+.news-form input,
+.news-form textarea {
+
+    width: 100%;
+
+    border: 1px solid #d5d5d5;
+
+    border-radius: 8px;
+
+    padding: 10px 11px;
+
+    margin-bottom: 14px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+}
+
+
+.news-form textarea {
+
+    min-height: 120px;
+
+    resize: vertical;
+
+}
+
+
+.news-form input:focus,
+.news-form textarea:focus {
+
+    outline: none;
+
+    border-color: #2e7d32;
+
+}
+
+
+.news-submit {
+
+    width: 100%;
+
+    height: 46px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2e7d32;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.news-submit:disabled {
+
+    opacity: 0.6;
+
+    cursor: wait;
+
+}
+
+
+/* =====================================
+   HANDY
+   ===================================== */
+
+@media (max-width: 420px) {
+
+    .news-fab {
+
+        right: 16px;
+        bottom: 16px;
+
+        width: 54px;
+        height: 54px;
+
+    }
+
+
+    .news-panel {
+
+        right: 15px;
+        bottom: 80px;
+
+        width: calc(100vw - 30px);
+
+    }
+
+}
+        
     </style>
 
 </head>
@@ -641,6 +916,79 @@
         id="status"
     ></div>
 
+    <!-- =====================================
+     NEWS MESSENGER
+     ===================================== -->
+
+<button
+    type="button"
+    class="news-fab"
+    id="news-fab"
+    aria-label="News erstellen"
+>
+    💬
+</button>
+
+
+<div
+    class="news-panel"
+    id="news-panel"
+>
+
+    <div class="news-panel-header">
+
+        <div>
+            <strong>NEWS POSTEN</strong>
+            <span>Amigos Challenge Cup</span>
+        </div>
+
+        <button
+            type="button"
+            class="news-close"
+            id="news-close"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="news-form">
+
+        <label for="news-title">
+            Überschrift
+        </label>
+
+        <input
+            type="text"
+            id="news-title"
+            placeholder="z. B. Runde 1 gestartet"
+            maxlength="100"
+        >
+
+
+        <label for="news-content">
+            Nachricht
+        </label>
+
+        <textarea
+            id="news-content"
+            placeholder="Was gibt es Neues?"
+            maxlength="1000"
+        ></textarea>
+
+
+        <button
+            type="button"
+            class="news-submit"
+            id="news-submit"
+        >
+            NEWS VERÖFFENTLICHEN
+        </button>
+
+    </div>
+
+</div>
 
 </main>
 
@@ -1885,7 +2233,216 @@ function showStatus(
 
 }
 
+ // =========================================
+// NEWS MESSENGER
+// =========================================
 
+const newsFab =
+    document.getElementById(
+        "news-fab"
+    );
+
+const newsPanel =
+    document.getElementById(
+        "news-panel"
+    );
+
+const newsClose =
+    document.getElementById(
+        "news-close"
+    );
+
+const newsSubmit =
+    document.getElementById(
+        "news-submit"
+    );
+
+const newsTitle =
+    document.getElementById(
+        "news-title"
+    );
+
+const newsContent =
+    document.getElementById(
+        "news-content"
+    );
+
+
+// =========================================
+// PANEL ÖFFNEN
+// =========================================
+
+newsFab.addEventListener(
+    "click",
+    () => {
+
+        newsPanel.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+// =========================================
+// PANEL SCHLIESSEN
+// =========================================
+
+newsClose.addEventListener(
+    "click",
+    () => {
+
+        newsPanel.classList.remove(
+            "open"
+        );
+
+    }
+);
+
+
+// =========================================
+// NEWS VERÖFFENTLICHEN
+// =========================================
+
+newsSubmit.addEventListener(
+    "click",
+    async () => {
+
+        const title =
+            newsTitle.value.trim();
+
+        const content =
+            newsContent.value.trim();
+
+
+        if (!title) {
+
+            showStatus(
+                "Bitte eine Überschrift eingeben.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        if (!content) {
+
+            showStatus(
+                "Bitte eine Nachricht eingeben.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        if (!supabaseClient) {
+
+            showStatus(
+                "Supabase ist nicht verbunden.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        newsSubmit.disabled = true;
+
+        newsSubmit.textContent =
+            "WIRD VERÖFFENTLICHT …";
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("news")
+                    .insert([
+                        {
+                            title:
+                                title,
+
+                            content:
+                                content,
+
+                            published:
+                                true
+                        }
+                    ]);
+
+
+            if (error) {
+
+                console.error(
+                    "News konnte nicht veröffentlicht werden:",
+                    error
+                );
+
+                showStatus(
+                    "News konnte nicht veröffentlicht werden.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // ERFOLGREICH
+            // =================================
+
+            newsTitle.value =
+                "";
+
+            newsContent.value =
+                "";
+
+
+            newsPanel.classList.remove(
+                "open"
+            );
+
+
+            showStatus(
+                "News wurde veröffentlicht.",
+                false
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+
+            showStatus(
+                "Beim Veröffentlichen ist ein Fehler aufgetreten.",
+                true
+            );
+
+        } finally {
+
+            newsSubmit.disabled =
+                false;
+
+            newsSubmit.textContent =
+                "NEWS VERÖFFENTLICHEN";
+
+        }
+
+    }
+);   
+
+    
 // =========================================
 // START
 // =========================================
