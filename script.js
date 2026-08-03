@@ -2173,30 +2173,6 @@ function renderResults() {
 
 
 // =========================================
-// RESULTS AKTUALISIEREN
-// =========================================
-
-function updateResults() {
-
-    playedScores =
-        loadPlayedScores();
-
-
-    if (
-        !workbook
-    ) {
-
-        return;
-
-    }
-
-
-    renderResults();
-
-}
-
-
-// =========================================
 // GESAMT AKTUALISIEREN
 // =========================================
 
