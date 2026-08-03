@@ -1283,6 +1283,8 @@ if (playersWithScores.length > 0) {
     }
 );
 
+}
+
 
 // =========================================
 // AKTUELLEN TURNIERSTAND ERMITTELN
