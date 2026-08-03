@@ -199,37 +199,55 @@ body {
 .navigation {
     width: 92%;
     max-width: 1400px;
-    margin: 18px auto 0;
+
+    margin: 0 auto;
 
     display: flex;
-    align-items: flex-end;
-    gap: 3px;
+
+    background: #0a2238;
+
+    border-bottom: 1px solid #3b5668;
 }
+
 
 .nav-button {
+    position: relative;
+
     border: none;
-    border-radius: 8px 8px 0 0;
+    border-radius: 0;
 
-    padding: 13px 28px;
+    background: transparent;
+    color: #b8c8d1;
 
-    background: #ffffff;
-    color: #12324a;
+    padding: 16px 28px;
 
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 0.3px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
 
     cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
 }
+
+
+.nav-button:hover {
+    background: #122f47;
+    color: #ffffff;
+}
+
 
 .nav-button.active {
-    background: #8ec9e6;
-
-    position: relative;
+    background: #f5f5f1;
+    color: #0a2238;
 }
 
 
-/* Aktive Markierung unter dem aktuellen Reiter */
+/* dezente Linie unter aktivem Tab */
 
 .nav-button.active::after {
     content: "";
@@ -238,59 +256,75 @@ body {
 
     left: 0;
     right: 0;
-    bottom: -5px;
+    bottom: 0;
 
-    height: 5px;
+    height: 3px;
 
     background: #8ec9e6;
 }
 
 
 /* =========================================
-   LEADERBOARD-KOPF
+   SECTION HEADER
    ========================================= */
 
 .section-header {
     width: 92%;
     max-width: 1400px;
-    margin: 5px auto 0;
 
-    min-height: 58px;
+    margin: 28px auto 0;
+
+    min-height: 64px;
 
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
 
     align-items: center;
 
-    background: #8ec9e6;
-    color: #12324a;
+    background: #0a2238;
+    color: #ffffff;
+
+    border-top: 1px solid #29475b;
+    border-bottom: 1px solid #29475b;
 }
+
 
 .live {
-    padding-left: 20px;
+    padding-left: 22px;
 
-    font-size: 17px;
+    font-size: 11px;
     font-weight: 900;
+
+    letter-spacing: 2px;
+
+    color: #8ec9e6;
 }
+
 
 .section-title {
     text-align: center;
 
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 900;
-    letter-spacing: 0.5px;
+
+    letter-spacing: 2px;
 }
 
+
 .round {
-    padding-right: 20px;
+    padding-right: 22px;
 
     text-align: right;
 
-    font-size: 14px;
-    font-weight: 900;
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #b8c8d1;
+
     white-space: nowrap;
 }
-
 
 /* =========================================
    LEADERBOARD
