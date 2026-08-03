@@ -1621,12 +1621,8 @@ const {
 } =
     await supabaseClient
         .from("scores")
-        .upsert(
-            scoresToSave,
-            {
-                onConflict:
-                    "round,hole,player"
-            }
+        .insert(
+            scoresToSave
         );
 
 
