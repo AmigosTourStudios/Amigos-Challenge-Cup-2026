@@ -1769,7 +1769,7 @@ showStatus(
 document.getElementById("reset-tournament")
     .addEventListener(
         "click",
-        () => {
+        async () => {
 
             const confirmed =
                 confirm(
@@ -1784,7 +1784,41 @@ document.getElementById("reset-tournament")
             }
 
 
-            // Alle lokal gespeicherten Schläge löschen
+            // =================================
+            // SUPABASE: ALLE SCORES LÖSCHEN
+            // =================================
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("scores")
+                    .delete()
+                    .not("id", "is", null);
+
+
+            if (error) {
+
+                console.error(
+                    "Fehler beim Zurücksetzen von Supabase:",
+                    error
+                );
+
+
+                showStatus(
+                    "Turnier konnte online nicht zurückgesetzt werden.",
+                    true
+                );
+
+
+                return;
+
+            }
+
+
+            // =================================
+            // LOKALE DATEN LÖSCHEN
+            // =================================
 
             localStorage.removeItem(
                 "golfHoleData"
@@ -1795,65 +1829,31 @@ document.getElementById("reset-tournament")
             );
 
 
-            // Aktuelle Daten im Speicher löschen
+            // =================================
+            // AKTUELLE DATEN LEEREN
+            // =================================
 
-            if (
-                typeof holeData !== "undefined"
-            ) {
-
-                for (
-                    const key of Object.keys(holeData)
-                ) {
-
-                    if (
-                        holeData[key].existingScores
-                    ) {
-
-                        holeData[key].existingScores = {};
-
-                    }
-
-                }
-
-            }
+            playedScores = {};
 
 
-            if (
-                typeof playedScores !== "undefined"
-            ) {
+            // =================================
+            // ERSTES LOCH ANZEIGEN
+            // =================================
 
-                playedScores = {};
-
-            }
+            showHole(0);
 
 
-            // Erstes Loch anzeigen
+            // =================================
+            // STATUS
+            // =================================
 
-            if (
-                typeof showHole === "function"
-            ) {
-
-                showHole(0);
-
-            }
-
-
-            // Status anzeigen
-
-            if (
-                typeof showStatus === "function"
-            ) {
-
-                showStatus(
-                    "Das komplette Turnier wurde zurückgesetzt.",
-                    false
-                );
-
-            }
+            showStatus(
+                "Das komplette Turnier wurde zurückgesetzt.",
+                false
+            );
 
         }
     );
-
 
 // =========================================
 // STATUS
