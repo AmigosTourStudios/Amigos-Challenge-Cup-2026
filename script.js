@@ -2408,6 +2408,10 @@ async function updateAll() {
 // SEITENNAVIGATION
 // =========================================
 
+// =========================================
+// SEITENNAVIGATION
+// =========================================
+
 function setupNavigation() {
 
     const navLeaderboard =
@@ -2423,9 +2427,9 @@ function setupNavigation() {
 
 
     const navNews =
-    document.getElementById(
-        "nav-news"
-    );
+        document.getElementById(
+            "nav-news"
+        );
 
 
     const leaderboardSection =
@@ -2441,24 +2445,23 @@ function setupNavigation() {
 
 
     const newsSection =
-    document.getElementById(
-        "news-section"
-    );
+        document.getElementById(
+            "news-section"
+        );
 
 
     if (
-    !navLeaderboard ||
-    !navResults ||
-    !navNews ||
-    !leaderboardSection ||
-    !resultsSection ||
-    !newsSection
-) {
+        !navLeaderboard ||
+        !navResults ||
+        !navNews ||
+        !leaderboardSection ||
+        !resultsSection ||
+        !newsSection
+    ) {
 
         console.error(
             "Navigationselemente wurden nicht vollständig gefunden."
         );
-
 
         return;
 
@@ -2522,25 +2525,27 @@ function setupNavigation() {
                 "active"
             );
 
-
             renderResults();
 
         }
 
 
         if (
-    page === "news"
-) {
+            page === "news"
+        ) {
 
-    newsSection.classList.remove(
-        "hidden"
-    );
+            newsSection.classList.remove(
+                "hidden"
+            );
 
-    navNews.classList.add(
-        "active"
-    );
+            navNews.classList.add(
+                "active"
+            );
 
-}
+        }
+
+    } // <-- DIESE KLAMMER HAT IN DEINER VERSION GEFEHLT
+
 
     navLeaderboard.addEventListener(
         "click",
@@ -2567,15 +2572,15 @@ function setupNavigation() {
 
 
     navNews.addEventListener(
-    "click",
-    () => {
+        "click",
+        () => {
 
-        showPage(
-            "news"
-        );
+            showPage(
+                "news"
+            );
 
-    }
-);
+        }
+    );
 
 
     const resultsRound =
@@ -2584,7 +2589,9 @@ function setupNavigation() {
         );
 
 
-    if (resultsRound) {
+    if (
+        resultsRound
+    ) {
 
         resultsRound.addEventListener(
             "change",
