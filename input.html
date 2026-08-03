@@ -1616,37 +1616,118 @@ for (
 }
 
 
-const {
-    error
-} =
-    await supabaseClient
+// =================================
+// SUPABASE SPEICHERN
+// UPDATE → falls nicht vorhanden INSERT
+// =================================
+
+for (const scoreData of scoresToSave) {
+
+    // Zuerst vorhandenen Datensatz suchen
+    const {
+        data: existingScore,
+        error: selectError
+    } = await supabaseClient
         .from("scores")
-        .upsert(
-            scoresToSave,
-            {
-                onConflict:
-                    "round,hole,player"
-            }
+        .select("id")
+        .eq("round", scoreData.round)
+        .eq("hole", scoreData.hole)
+        .eq("player", scoreData.player)
+        .maybeSingle();
+
+
+    if (selectError) {
+
+        console.error(
+            "Fehler beim Suchen des Scores:",
+            selectError
         );
 
+        showStatus(
+            "Scores konnten online nicht geprüft werden.",
+            true
+        );
 
-if (error) {
-
-    console.error(
-        "Fehler beim Speichern in Supabase:",
-        error
-    );
-
-
-    showStatus(
-        "Scores konnten nicht online gespeichert werden.",
-        true
-    );
+        return;
+    }
 
 
-    return;
+    // =================================
+    // VORHANDEN → UPDATE
+    // =================================
+
+    if (existingScore) {
+
+        const {
+            error: updateError
+        } = await supabaseClient
+            .from("scores")
+            .update({
+                score: scoreData.score
+            })
+            .eq("id", existingScore.id);
+
+
+        if (updateError) {
+
+            console.error(
+                "Fehler beim Aktualisieren des Scores:",
+                updateError
+            );
+
+            showStatus(
+                "Score konnte online nicht aktualisiert werden.",
+                true
+            );
+
+            return;
+        }
+
+    }
+
+    // =================================
+    // NICHT VORHANDEN → INSERT
+    // =================================
+
+    else {
+
+        const {
+            error: insertError
+        } = await supabaseClient
+            .from("scores")
+            .insert([
+                scoreData
+            ]);
+
+
+        if (insertError) {
+
+            console.error(
+                "Fehler beim Anlegen des Scores:",
+                insertError
+            );
+
+            showStatus(
+                "Score konnte online nicht gespeichert werden.",
+                true
+            );
+
+            return;
+        }
+
+    }
 
 }
+
+
+// =================================
+// ERFOLGREICH
+// =================================
+
+showStatus(
+    `${hole.label} gespeichert.`,
+    false
+);
 
 
 showStatus(
