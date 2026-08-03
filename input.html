@@ -1462,7 +1462,7 @@ document
     .getElementById("save")
     .addEventListener(
         "click",
-        () => {
+        async () => {
 
             const hole =
                 holes[
@@ -1549,18 +1549,96 @@ document
             // SPEICHERN
             // =================================
 
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(
-                    playedScores
-                )
-            );
+            // =================================
+// LOKAL SPEICHERN
+// =================================
+
+localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(
+        playedScores
+    )
+);
 
 
-            showStatus(
-                `${hole.label} gespeichert.`,
-                false
-            );
+// =================================
+// SUPABASE SPEICHERN
+// =================================
+
+const scoresToSave = [];
+
+
+for (
+    const player
+    of Object.keys(
+        playerColumns
+    )
+) {
+
+    const scoreKey =
+        getScoreKey(
+            hole.round,
+            hole.hole,
+            player
+        );
+
+
+    scoresToSave.push({
+
+        round:
+            hole.round,
+
+        hole:
+            hole.hole,
+
+        player:
+            player,
+
+        score:
+            playedScores[scoreKey]
+
+    });
+
+}
+
+
+const {
+    error
+} =
+    await supabaseClient
+        .from("scores")
+        .upsert(
+            scoresToSave,
+            {
+                onConflict:
+                    "round,hole,player"
+            }
+        );
+
+
+if (error) {
+
+    console.error(
+        "Fehler beim Speichern in Supabase:",
+        error
+    );
+
+
+    showStatus(
+        "Scores konnten nicht online gespeichert werden.",
+        true
+    );
+
+
+    return;
+
+}
+
+
+showStatus(
+    `${hole.label} gespeichert.`,
+    false
+);
 
 
             // =================================
