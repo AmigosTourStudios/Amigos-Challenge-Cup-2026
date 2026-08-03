@@ -2531,18 +2531,20 @@ function setupNavigation() {
 
 
         if (
-            page === "news"
-        ) {
+    page === "news"
+) {
 
-            newsSection.classList.remove(
-                "hidden"
-            );
+    newsSection.classList.remove(
+        "hidden"
+    );
 
-            navNews.classList.add(
-                "active"
-            );
+    navNews.classList.add(
+        "active"
+    );
 
-        }
+    loadNews();
+
+}
 
     } // <-- DIESE KLAMMER HAT IN DEINER VERSION GEFEHLT
 
@@ -2662,6 +2664,146 @@ function loadSheetJS() {
 
 }
 
+// =========================================
+// NEWS LADEN
+// =========================================
+
+async function loadNews() {
+
+    const container =
+        document.getElementById(
+            "news-container"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    if (!supabaseClient) {
+
+        console.error(
+            "Supabase ist nicht verbunden."
+        );
+
+        return;
+    }
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("news")
+        .select(
+            "id, created_id, title, content, published"
+        )
+        .eq(
+            "published",
+            true
+        )
+        .order(
+            "created_id",
+            {
+                ascending: false
+            }
+        );
+
+    if (error) {
+
+        console.error(
+            "News konnten nicht geladen werden:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="news-empty">
+                News konnten nicht geladen werden.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    if (!data || data.length === 0) {
+
+        container.innerHTML = `
+            <div class="news-empty">
+                Noch keine News vorhanden.
+            </div>
+        `;
+
+        return;
+    }
+
+    data.forEach(
+        post => {
+
+            const article =
+                document.createElement(
+                    "article"
+                );
+
+            article.className =
+                "news-item";
+
+            const date =
+                new Date(
+                    post.created_id
+                );
+
+            const formattedDate =
+                date.toLocaleDateString(
+                    "de-DE",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                ).toUpperCase();
+
+            article.innerHTML = `
+
+                <div class="news-date">
+                    ${formattedDate}
+                </div>
+
+                <h2 class="news-title">
+                    ${escapeHtml(post.title)}
+                </h2>
+
+                <p class="news-text">
+                    ${escapeHtml(post.content)}
+                </p>
+
+            `;
+
+            container.appendChild(
+                article
+            );
+
+        }
+    );
+
+}
+
+// =========================================
+// HTML-SICHERHEIT
+// =========================================
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+
+}
 
 // =========================================
 // AUTOMATISCHE AKTUALISIERUNG
