@@ -1618,14 +1618,16 @@ for (
 
 const {
     error
-} = await supabaseClient
-    .from("scores")
-    .upsert(
-        scoresToSave,
-        {
-            onConflict: "round,hole,player"
-        }
-    );
+} =
+    await supabaseClient
+        .from("scores")
+        .upsert(
+            scoresToSave,
+            {
+                onConflict:
+                    "round,hole,player"
+            }
+        );
 
 
 if (error) {
