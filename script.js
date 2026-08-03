@@ -207,7 +207,7 @@ async function loadExcel() {
         );
 
 
-        updateLeaderboard();
+        updateAll();
 
 
         // Results initialisieren
