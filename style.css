@@ -354,11 +354,7 @@ body {
 
     align-items: center;
 
-    background: linear-gradient(
-        to bottom,
-        #5d7f95,
-        #42657c
-    );
+    background: #718b9d;
 
     border-bottom: 2px solid #8ec9e6;
 }
@@ -390,7 +386,7 @@ body {
     font-size: 25px;
     font-weight: 800;
 
-    color: #ffffff;
+    color: #12324a;
 }
 
 .player-country {
