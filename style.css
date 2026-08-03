@@ -342,7 +342,7 @@ body {
    ========================================= */
 
 .player-row {
-    min-height: 145px;
+    min-height: 115px;
 
     display: grid;
 
@@ -365,14 +365,13 @@ body {
    ========================================= */
 
 .rank {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 900;
 
     text-align: center;
 
-    color: #dce7ec;
+    color: #d5e0e7;
 }
-
 
 /* =========================================
    SPIELERINFORMATIONEN
