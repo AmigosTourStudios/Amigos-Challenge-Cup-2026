@@ -1032,46 +1032,219 @@ function calculateLeaderboardData() {
         }
     );
 
+    // =========================================
+// NEUE GESAMTWERTUNG
+// =========================================
+//
+// Vier gleich gewichtete Wertungen:
+//
+// 1. Brutto zu PAR  → niedrigster Wert gewinnt
+// 2. LWS            → höchster Wert gewinnt
+// 3. Netto STB      → höchster Wert gewinnt
+// 4. Brutto STB     → höchster Wert gewinnt
+//
+// Führende bzw. geteilt führende Spieler
+// erhalten jeweils 1 Wertungspunkt.
+//
 
-    players.sort(
-        (
-            a,
-            b
-        ) => {
+players.forEach(
+    player => {
 
+        player.rankingPoints = 0;
+
+    }
+);
+
+
+// -----------------------------------------
+// 1. BRUTTO ZU PAR
+// -----------------------------------------
+
+const playersWithScores =
+    players.filter(
+        player =>
+            player.playedHoles > 0
+    );
+
+
+if (playersWithScores.length > 0) {
+
+    const bestScoreToPar =
+        Math.min(
+            ...playersWithScores.map(
+                player =>
+                    player.scoreToPar
+            )
+        );
+
+
+    playersWithScores.forEach(
+        player => {
 
             if (
-                a.playedHoles === 0 &&
-                b.playedHoles > 0
+                player.scoreToPar ===
+                bestScoreToPar
             ) {
 
-                return 1;
+                player.rankingPoints++;
 
             }
 
+        }
+    );
+
+}
+
+
+// -----------------------------------------
+// 2. LWS
+// -----------------------------------------
+
+if (playersWithScores.length > 0) {
+
+    const bestLws =
+        Math.max(
+            ...playersWithScores.map(
+                player =>
+                    player.totalLws
+            )
+        );
+
+
+    playersWithScores.forEach(
+        player => {
 
             if (
-                b.playedHoles === 0 &&
-                a.playedHoles > 0
+                player.totalLws ===
+                bestLws
             ) {
 
-                return -1;
+                player.rankingPoints++;
 
             }
 
+        }
+    );
+
+}
+
+
+// -----------------------------------------
+// 3. NETTO STABLEFORD
+// -----------------------------------------
+
+if (playersWithScores.length > 0) {
+
+    const bestNetStableford =
+        Math.max(
+            ...playersWithScores.map(
+                player =>
+                    player.totalNetStableford
+            )
+        );
+
+
+    playersWithScores.forEach(
+        player => {
 
             if (
-                a.scoreToPar !==
+                player.totalNetStableford ===
+                bestNetStableford
+            ) {
+
+                player.rankingPoints++;
+
+            }
+
+        }
+    );
+
+}
+
+
+// -----------------------------------------
+// 4. BRUTTO STABLEFORD
+// -----------------------------------------
+
+if (playersWithScores.length > 0) {
+
+    const bestGrossStableford =
+        Math.max(
+            ...playersWithScores.map(
+                player =>
+                    player.totalGrossStableford
+            )
+        );
+
+
+    playersWithScores.forEach(
+        player => {
+
+            if (
+                player.totalGrossStableford ===
+                bestGrossStableford
+            ) {
+
+                player.rankingPoints++;
+
+            }
+
+        }
+    );
+
+}
+
+   players.sort(
+    (
+        a,
+        b
+    ) => {
+
+        // =================================
+        // 1. GESAMT-WERTUNGSPUNKTE
+        // Mehr ist besser.
+        // =================================
+
+        if (
+            a.rankingPoints !==
+            b.rankingPoints
+        ) {
+
+            return (
+                b.rankingPoints -
+                a.rankingPoints
+            );
+
+        }
+
+
+        // =================================
+        // 2. BRUTTO ZU PAR
+        // Weniger ist besser.
+        // =================================
+
+        if (
+            a.scoreToPar !==
+            b.scoreToPar
+        ) {
+
+            return (
+                a.scoreToPar -
                 b.scoreToPar
-            ) {
+            );
 
-                return (
-                    a.scoreToPar -
-                    b.scoreToPar
-                );
+        }
 
-            }
 
+        // =================================
+        // 3. LWS
+        // Mehr ist besser.
+        // =================================
+
+        if (
+            a.totalLws !==
+            b.totalLws
+        ) {
 
             return (
                 b.totalLws -
@@ -1079,9 +1252,36 @@ function calculateLeaderboardData() {
             );
 
         }
-    );
 
-}
+
+        // =================================
+        // 4. NACHNAME
+        // Alphabetisch.
+        // =================================
+
+        const lastNameA =
+            a.name
+                .trim()
+                .split(/\s+/)
+                .pop()
+                .toLowerCase();
+
+
+        const lastNameB =
+            b.name
+                .trim()
+                .split(/\s+/)
+                .pop()
+                .toLowerCase();
+
+
+        return lastNameA.localeCompare(
+            lastNameB,
+            "de"
+        );
+
+    }
+);
 
 
 // =========================================
