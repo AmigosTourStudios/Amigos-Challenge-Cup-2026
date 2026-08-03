@@ -2450,6 +2450,8 @@ setInterval(
 
     try {
 
+        initializeSupabase();
+
         setupNavigation();
 
         await loadSheetJS();
