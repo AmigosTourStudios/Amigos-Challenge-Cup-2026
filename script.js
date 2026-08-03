@@ -2205,10 +2205,10 @@ function updateResults() {
 // GESAMT AKTUALISIEREN
 // =========================================
 
-function updateAll() {
+async function updateAll() {
 
     playedScores =
-        loadPlayedScores();
+        await loadScoresFromSupabase();
 
 
     if (
