@@ -2694,14 +2694,14 @@ async function loadNews() {
     } = await supabaseClient
         .from("news")
         .select(
-            "id, created_id, title, content, published"
+            "id, created_at, title, content, published"
         )
         .eq(
             "published",
             true
         )
         .order(
-            "created_id",
+            "created_at",
             {
                 ascending: false
             }
@@ -2752,7 +2752,7 @@ async function loadNews() {
 
             const date =
                 new Date(
-                    post.created_id
+                    post.created_at
                 );
 
             const formattedDate =
