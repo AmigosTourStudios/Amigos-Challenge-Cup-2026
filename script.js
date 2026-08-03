@@ -2710,9 +2710,12 @@ async function loadNews() {
     if (error) {
 
         console.error(
-            "News konnten nicht geladen werden:",
-            error
-        );
+    "News konnten nicht geladen werden:",
+    error.message,
+    error.details,
+    error.hint,
+    error.code
+);
 
         container.innerHTML = `
             <div class="news-empty">
