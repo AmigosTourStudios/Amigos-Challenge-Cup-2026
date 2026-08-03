@@ -2422,10 +2422,10 @@ function setupNavigation() {
         );
 
 
-    const navPlayers =
-        document.getElementById(
-            "nav-players"
-        );
+    const navNews =
+    document.getElementById(
+        "nav-news"
+    );
 
 
     const leaderboardSection =
@@ -2440,20 +2440,20 @@ function setupNavigation() {
         );
 
 
-    const playersSection =
-        document.getElementById(
-            "players-section"
-        );
+    const newsSection =
+    document.getElementById(
+        "news-section"
+    );
 
 
     if (
-        !navLeaderboard ||
-        !navResults ||
-        !navPlayers ||
-        !leaderboardSection ||
-        !resultsSection ||
-        !playersSection
-    ) {
+    !navLeaderboard ||
+    !navResults ||
+    !navNews ||
+    !leaderboardSection ||
+    !resultsSection ||
+    !newsSection
+) {
 
         console.error(
             "Navigationselemente wurden nicht vollständig gefunden."
@@ -2477,7 +2477,7 @@ function setupNavigation() {
             "hidden"
         );
 
-        playersSection.classList.add(
+        newsSection.classList.add(
             "hidden"
         );
 
@@ -2490,7 +2490,7 @@ function setupNavigation() {
             "active"
         );
 
-        navPlayers.classList.remove(
+        navNews.classList.remove(
             "active"
         );
 
@@ -2529,21 +2529,18 @@ function setupNavigation() {
 
 
         if (
-            page === "players"
-        ) {
+    page === "news"
+) {
 
-            playersSection.classList.remove(
-                "hidden"
-            );
+    newsSection.classList.remove(
+        "hidden"
+    );
 
-            navPlayers.classList.add(
-                "active"
-            );
+    navNews.classList.add(
+        "active"
+    );
 
-        }
-
-    }
-
+}
 
     navLeaderboard.addEventListener(
         "click",
@@ -2569,16 +2566,16 @@ function setupNavigation() {
     );
 
 
-    navPlayers.addEventListener(
-        "click",
-        () => {
+    navNews.addEventListener(
+    "click",
+    () => {
 
-            showPage(
-                "players"
-            );
+        showPage(
+            "news"
+        );
 
-        }
-    );
+    }
+);
 
 
     const resultsRound =
