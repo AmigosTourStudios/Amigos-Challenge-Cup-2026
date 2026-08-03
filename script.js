@@ -12,6 +12,53 @@ const excelFile =
 const STORAGE_KEY =
     "golfPlayedScores";
 
+// =========================================
+// SUPABASE
+// =========================================
+
+const SUPABASE_URL =
+    "https://pdwgmbheawyulnxvzzzb.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_Fw5AztwZqtUJfQMFJTWvvA_aqH-83hG";
+
+let supabaseClient = null;
+
+
+// =========================================
+// SUPABASE VERBINDUNG
+// =========================================
+
+function initializeSupabase() {
+
+    if (
+        typeof supabase === "undefined"
+    ) {
+
+        console.error(
+            "Supabase-Bibliothek wurde nicht geladen."
+        );
+
+        return false;
+
+    }
+
+
+    supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    console.log(
+        "Supabase-Verbindung hergestellt."
+    );
+
+
+    return true;
+
+}
 
 // Startzeilen der vier Scorekarten
 
