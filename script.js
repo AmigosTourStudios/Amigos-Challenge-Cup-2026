@@ -2795,10 +2795,13 @@ async function loadNews() {
         newsData
     );
 
-    console.log(
-        "NEWS MEDIA:",
-        mediaData
-    );
+    alert(
+    JSON.stringify(
+        mediaData,
+        null,
+        2
+    )
+);
 
     console.log(
     "NEWS MEDIA DETAILS:",
