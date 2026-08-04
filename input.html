@@ -2169,645 +2169,6 @@ let currentNewsId = null;
 
 
 // =========================================
-// NEWS MEDIEN
-// =========================================
-
-async function uploadNewsMedia(
-    file,
-    newsId
-) {
-
-    if (!file) {
-
-        return null;
-
-    }
-
-
-    if (!newsId) {
-
-        throw new Error(
-            "Keine News-ID für den Medien-Upload vorhanden."
-        );
-
-    }
-
-
-    let mediaType = null;
-
-
-    if (
-        file.type.startsWith("image/")
-    ) {
-
-        mediaType = "image";
-
-    }
-
-    else if (
-        file.type.startsWith("video/")
-    ) {
-
-        mediaType = "video";
-
-    }
-
-    else {
-
-        throw new Error(
-            "Nur Bilder und Videos sind erlaubt."
-        );
-
-    }
-
-
-    const maxFileSize =
-        100 * 1024 * 1024;
-
-
-    if (
-        file.size > maxFileSize
-    ) {
-
-        throw new Error(
-            "Die Datei ist zu groß. Maximum: 100 MB."
-        );
-
-    }
-
-
-    const fileExtension =
-        file.name.includes(".")
-            ? file.name
-                .split(".")
-                .pop()
-                .toLowerCase()
-            : "";
-
-
-    const fileName =
-        `${crypto.randomUUID()}` +
-        (
-            fileExtension
-                ? `.${fileExtension}`
-                : ""
-        );
-
-
-    const storagePath =
-        `${newsId}/${fileName}`;
-
-
-    const {
-        error: uploadError
-    } =
-        await supabaseClient
-            .storage
-            .from("news-media")
-            .upload(
-                storagePath,
-                file,
-                {
-                    contentType:
-                        file.type,
-
-                    upsert:
-                        false
-                }
-            );
-
-
-    if (uploadError) {
-
-        console.error(
-            "News-Medium konnte nicht hochgeladen werden:",
-            uploadError
-        );
-
-
-        throw uploadError;
-
-    }
-
-
-    const {
-        data: publicUrlData
-    } =
-        supabaseClient
-            .storage
-            .from("news-media")
-            .getPublicUrl(
-                storagePath
-            );
-
-
-    const publicUrl =
-        publicUrlData.publicUrl;
-
-
-    const {
-        data: mediaData,
-        error: mediaError
-    } =
-        await supabaseClient
-            .from("news_media")
-            .insert([
-                {
-
-                    news_id:
-                        newsId,
-
-                    storage_path:
-                        storagePath,
-
-                    media_type:
-                        mediaType
-
-                }
-            ])
-            .select()
-            .single();
-
-
-    if (mediaError) {
-
-        console.error(
-            "News-Medium konnte nicht gespeichert werden:",
-            mediaError
-        );
-
-
-        await supabaseClient
-            .storage
-            .from("news-media")
-            .remove([
-                storagePath
-            ]);
-
-
-        throw mediaError;
-
-    }
-
-
-    return {
-
-        ...mediaData,
-
-        publicUrl:
-            publicUrl
-
-    };
-
-}
-
-
-// =========================================
-// MEDIEN DES POSTS LADEN
-// =========================================
-
-async function loadNewsMedia(
-    newsId
-) {
-
-    if (!newsId) {
-
-        return [];
-
-    }
-
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("news_media")
-            .select(
-                "id, news_id, storage_path, media_type, created_at"
-            )
-            .eq(
-                "news_id",
-                newsId
-            )
-            .order(
-                "created_at",
-                {
-                    ascending: true
-                }
-            );
-
-
-    if (error) {
-
-        console.error(
-            "News-Medien konnten nicht geladen werden:",
-            error
-        );
-
-
-        return [];
-
-    }
-
-
-    return (
-        data || []
-    )
-    .map(
-        media => {
-
-            const {
-                data: publicUrlData
-            } =
-                supabaseClient
-                    .storage
-                    .from("news-media")
-                    .getPublicUrl(
-                        media.storage_path
-                    );
-
-
-            return {
-
-                ...media,
-
-                publicUrl:
-                    publicUrlData.publicUrl
-
-            };
-
-        }
-    );
-
-}
-
-
-// =========================================
-// MEDIEN-VORSCHAU RENDERN
-// =========================================
-
-function renderNewsMediaPreview(
-    mediaList
-) {
-
-    newsMediaPreview.innerHTML =
-        "";
-
-
-    if (
-        !mediaList ||
-        mediaList.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    mediaList.forEach(
-        media => {
-
-            const wrapper =
-                document.createElement(
-                    "div"
-                );
-
-
-            const label =
-                document.createElement(
-                    "div"
-                );
-
-
-            label.className =
-                "news-media-preview-label";
-
-
-            label.textContent =
-                media.media_type === "video"
-                    ? "Vorhandenes Video"
-                    : "Vorhandenes Bild";
-
-
-            wrapper.appendChild(
-                label
-            );
-
-
-            if (
-                media.media_type === "image"
-            ) {
-
-                const image =
-                    document.createElement(
-                        "img"
-                    );
-
-
-                image.src =
-                    media.publicUrl;
-
-
-                image.alt =
-                    "News-Bild";
-
-
-                image.loading =
-                    "lazy";
-
-
-                wrapper.appendChild(
-                    image
-                );
-
-            }
-
-            else if (
-                media.media_type === "video"
-            ) {
-
-                const video =
-                    document.createElement(
-                        "video"
-                    );
-
-
-                video.src =
-                    media.publicUrl;
-
-
-                video.controls =
-                    true;
-
-
-                video.playsInline =
-                    true;
-
-
-                wrapper.appendChild(
-                    video
-                );
-
-            }
-
-
-            newsMediaPreview.appendChild(
-                wrapper
-            );
-
-        }
-    );
-
-}
-
-
-// =========================================
-// AUSGEWÄHLTE DATEI VORSCHAUEN
-// =========================================
-
-function previewSelectedNewsMedia() {
-
-    const file =
-        newsMedia.files.length > 0
-            ? newsMedia.files[0]
-            : null;
-
-
-    if (!file) {
-
-        return;
-
-    }
-
-
-    newsMediaPreview.innerHTML =
-        "";
-
-
-    const label =
-        document.createElement(
-            "div"
-        );
-
-
-    label.className =
-        "news-media-preview-label";
-
-
-    label.textContent =
-        "Ausgewähltes Medium";
-
-
-    newsMediaPreview.appendChild(
-        label
-    );
-
-
-    const objectUrl =
-        URL.createObjectURL(
-            file
-        );
-
-
-    if (
-        file.type.startsWith("image/")
-    ) {
-
-        const image =
-            document.createElement(
-                "img"
-            );
-
-
-        image.src =
-            objectUrl;
-
-
-        image.alt =
-            "Vorschau";
-
-
-        newsMediaPreview.appendChild(
-            image
-        );
-
-    }
-
-    else if (
-        file.type.startsWith("video/")
-    ) {
-
-        const video =
-            document.createElement(
-                "video"
-            );
-
-
-        video.src =
-            objectUrl;
-
-
-        video.controls =
-            true;
-
-
-        video.playsInline =
-            true;
-
-
-        newsMediaPreview.appendChild(
-            video
-        );
-
-    }
-
-
-    const removeButton =
-        document.createElement(
-            "button"
-        );
-
-
-    removeButton.type =
-        "button";
-
-
-    removeButton.className =
-        "news-media-remove";
-
-
-    removeButton.textContent =
-        "Auswahl entfernen";
-
-
-    removeButton.addEventListener(
-        "click",
-        () => {
-
-            newsMedia.value =
-                "";
-
-
-            URL.revokeObjectURL(
-                objectUrl
-            );
-
-
-            if (
-                currentNewsId
-            ) {
-
-                loadNewsMedia(
-                    currentNewsId
-                )
-                .then(
-                    renderNewsMediaPreview
-                );
-
-            }
-
-            else {
-
-                newsMediaPreview.innerHTML =
-                    "";
-
-            }
-
-        }
-    );
-
-
-    newsMediaPreview.appendChild(
-        removeButton
-    );
-
-}
-
-
-// =========================================
-// DATEI-AUSWAHL
-// =========================================
-
-newsMedia.addEventListener(
-    "change",
-    () => {
-
-        const file =
-            newsMedia.files.length > 0
-                ? newsMedia.files[0]
-                : null;
-
-
-        if (!file) {
-
-            if (currentNewsId) {
-
-                loadNewsMedia(
-                    currentNewsId
-                )
-                .then(
-                    renderNewsMediaPreview
-                );
-
-            }
-
-            else {
-
-                newsMediaPreview.innerHTML =
-                    "";
-
-            }
-
-
-            return;
-
-        }
-
-
-        const isImage =
-            file.type.startsWith(
-                "image/"
-            );
-
-
-        const isVideo =
-            file.type.startsWith(
-                "video/"
-            );
-
-
-        if (
-            !isImage &&
-            !isVideo
-        ) {
-
-            newsMedia.value =
-                "";
-
-
-            newsMediaPreview.innerHTML =
-                "";
-
-
-            showStatus(
-                "Bitte nur Bilder oder Videos auswählen.",
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        previewSelectedNewsMedia();
-
-    }
-);
-
-
-// =========================================
 // NEWS PANEL ÖFFNEN
 // =========================================
 
@@ -2837,7 +2198,21 @@ newsFab.addEventListener(
         );
 
 
+        // =====================================
+        // NEWS LADEN
+        // =====================================
+        //
+        // Wichtig:
+        // Beim Öffnen wird KEIN bestehender
+        // Post automatisch ausgewählt.
+        //
+        // Das Formular bleibt zunächst
+        // im Modus "Neuer Post".
+        // =====================================
+
         await loadNews();
+
+        prepareNewNews();
 
     }
 );
@@ -2895,7 +2270,7 @@ async function loadNews() {
                 .order(
                     "created_at",
                     {
-                        ascending: false
+                        ascending: true
                     }
                 );
 
@@ -2923,20 +2298,23 @@ async function loadNews() {
             data || [];
 
 
-        /*
-         * WICHTIG:
-         *
-         * Beim Öffnen wird NICHT automatisch
-         * ein vorhandener Post ausgewählt.
-         *
-         * Stattdessen startet das Formular
-         * immer als "Neuer Post".
-         *
-         * Die vorhandenen Posts bleiben aber
-         * über den linken Pfeil erreichbar.
-         */
+        // =====================================
+        // WICHTIG
+        // =====================================
+        //
+        // Hier wird absichtlich KEIN
+        // currentNewsIndex gesetzt.
+        //
+        // Das Formular soll nach dem Öffnen
+        // immer zuerst "Neuer Post" anzeigen.
+        // =====================================
 
-        prepareNewNews();
+        currentNewsIndex =
+            -1;
+
+
+        currentNewsId =
+            null;
 
 
     } catch (error) {
@@ -3003,23 +2381,21 @@ function prepareNewNews() {
         true;
 
 
-    /*
-     * Wenn vorhandene Posts existieren,
-     * kann der linke Pfeil zum neuesten
-     * vorhandenen Post wechseln.
-     *
-     * Wenn keine Posts existieren,
-     * bleibt er deaktiviert.
-     */
+    // =====================================
+    // NAVIGATION
+    // =====================================
+    //
+    // Wenn bestehende Posts vorhanden sind,
+    // kann mit "‹" zum letzten/neueste
+    // vorhandenen Post gewechselt werden.
+    //
+    // "›" ist im Modus "Neuer Post"
+    // deaktiviert.
+    // =====================================
 
     previousNews.disabled =
         newsPosts.length === 0;
 
-
-    /*
-     * Vom Zustand "Neuer Post" gibt es
-     * keinen direkten nächsten Post.
-     */
 
     nextNews.disabled =
         true;
@@ -3065,7 +2441,7 @@ async function showNewsPost() {
 
 
     // =====================================
-    // BESTEHENDEN POST HOLEN
+    // AKTUELLEN POST HOLEN
     // =====================================
 
     const post =
@@ -3167,34 +2543,29 @@ function showPreviousNews() {
     }
 
 
-    /*
-     * Wir befinden uns aktuell bei
-     * "Neuer Post".
-     *
-     * Dann soll der linke Pfeil den
-     * neuesten vorhandenen Post öffnen.
-     */
+    // =====================================
+    // VOM MODUS "NEUER POST" AUS
+    // ZUM NEUESTEN BESTEHENDEN POST
+    // =====================================
 
     if (
-        currentNewsIndex === -1
+        currentNewsIndex < 0
     ) {
 
         currentNewsIndex =
-            0;
+            newsPosts.length - 1;
 
 
         showNewsPost();
-
 
         return;
 
     }
 
 
-    /*
-     * Bereits beim neuesten Post:
-     * Es gibt keinen noch neueren.
-     */
+    // =====================================
+    // NORMAL ZURÜCK
+    // =====================================
 
     if (
         currentNewsIndex <= 0
@@ -3228,23 +2599,18 @@ function showNextNews() {
     }
 
 
-    /*
-     * "Neuer Post" hat keinen nächsten
-     * vorhandenen Post.
-     */
+    // =====================================
+    // AUS "NEUER POST" NICHT NACH VORNE
+    // =====================================
 
     if (
-        currentNewsIndex === -1
+        currentNewsIndex < 0
     ) {
 
         return;
 
     }
 
-
-    /*
-     * Bereits beim ältesten Post.
-     */
 
     if (
         currentNewsIndex >=
@@ -3263,15 +2629,16 @@ function showNextNews() {
 
 }
 
+
 // =========================================
 // NAVIGATION BUTTONS
 // =========================================
 
 previousNews.addEventListener(
     "click",
-    async () => {
+    () => {
 
-        await showPreviousNews();
+        showPreviousNews();
 
     }
 );
@@ -3279,9 +2646,9 @@ previousNews.addEventListener(
 
 nextNews.addEventListener(
     "click",
-    async () => {
+    () => {
 
-        await showNextNews();
+        showNextNews();
 
     }
 );
@@ -3293,7 +2660,7 @@ nextNews.addEventListener(
 
 document.addEventListener(
     "keydown",
-    async event => {
+    event => {
 
         if (
             !newsPanel.classList.contains(
@@ -3329,7 +2696,7 @@ document.addEventListener(
             event.preventDefault();
 
 
-            await showPreviousNews();
+            showPreviousNews();
 
         }
 
@@ -3341,7 +2708,7 @@ document.addEventListener(
             event.preventDefault();
 
 
-            await showNextNews();
+            showNextNews();
 
         }
 
@@ -3476,6 +2843,10 @@ newsSubmit.addEventListener(
         }
 
 
+        // =====================================
+        // BUTTON SPERREN
+        // =====================================
+
         newsSubmit.disabled =
             true;
 
@@ -3489,9 +2860,7 @@ newsSubmit.addEventListener(
             // BESTEHENDEN POST AKTUALISIEREN
             // =====================================
 
-            if (
-                currentNewsId !== null
-            ) {
+            if (currentNewsId) {
 
                 newsSubmit.textContent =
                     "WIRD AKTUALISIERT …";
@@ -3533,7 +2902,6 @@ newsSubmit.addEventListener(
                         true
                     );
 
-
                     return;
 
                 }
@@ -3547,23 +2915,20 @@ newsSubmit.addEventListener(
                 // LOKALE LISTE AKTUALISIEREN
                 // =================================
 
-                if (
-                    currentNewsIndex >= 0 &&
-                    currentNewsIndex < newsPosts.length
-                ) {
+                newsPosts[
+                    currentNewsIndex
+                ] =
+                    {
+                        ...newsPosts[
+                            currentNewsIndex
+                        ],
 
-                    newsPosts[
-                        currentNewsIndex
-                    ] =
-                        {
-                            ...newsPosts[
-                                currentNewsIndex
-                            ],
+                        title:
+                            title,
 
-                            ...savedPost
-                        };
-
-                }
+                        content:
+                            content
+                    };
 
 
                 // =================================
@@ -3590,7 +2955,7 @@ newsSubmit.addEventListener(
 
 
                     // =================================
-                    // ALTE MEDIEN ENTFERNEN
+                    // ALTE MEDIEN AUS STORAGE LÖSCHEN
                     // =================================
 
                     if (
@@ -3637,6 +3002,10 @@ newsSubmit.addEventListener(
 
                         }
 
+
+                        // =================================
+                        // ALTE MEDIEN-DATENSÄTZE LÖSCHEN
+                        // =================================
 
                         const {
                             error:
@@ -3728,7 +3097,6 @@ newsSubmit.addEventListener(
                         true
                     );
 
-
                     return;
 
                 }
@@ -3739,8 +3107,7 @@ newsSubmit.addEventListener(
 
 
                 // =================================
-                // MEDIUM NACH NEWS-ERSTELLUNG
-                // HOCHLADEN
+                // MEDIUM HOCHLADEN
                 // =================================
 
                 if (
@@ -3761,13 +3128,16 @@ newsSubmit.addEventListener(
 
 
                 // =================================
-                // NEUEN POST IN DIE SORTIERTE
-                // LISTE EINFÜGEN
+                // NEUEN POST KORREKT AN LISTE
+                // ANHÄNGEN
                 // =================================
                 //
-                // Die Liste ist ASCENDING sortiert.
-                // Deshalb gehört ein neuer Post
-                // ans Ende und nicht an den Anfang.
+                // Die Liste ist nach created_at
+                // aufsteigend sortiert.
+                //
+                // Deshalb push() und NICHT
+                // unshift().
+                // =================================
 
                 if (savedPost) {
 
@@ -3816,9 +3186,7 @@ newsSubmit.addEventListener(
             // AKTUELLES MEDIUM ERNEUT LADEN
             // =====================================
 
-            if (
-                currentNewsId !== null
-            ) {
+            if (currentNewsId) {
 
                 const mediaList =
                     await loadNewsMedia(
@@ -3840,11 +3208,7 @@ newsSubmit.addEventListener(
             }
 
 
-            // =====================================
-            // NAVIGATION AKTUALISIEREN
-            // =====================================
-
-            await showNewsPost();
+            updateNewsNavigation();
 
 
         } catch (error) {
@@ -3869,7 +3233,7 @@ newsSubmit.addEventListener(
 
 
             newsSubmit.textContent =
-                currentNewsId !== null
+                currentNewsId
                     ? "NEWS ÄNDERN"
                     : "NEWS VERÖFFENTLICHEN";
 
@@ -3890,36 +3254,11 @@ function updateNewsNavigation() {
     // =====================================
 
     if (
-        currentNewsIndex === -1
+        currentNewsIndex < 0
     ) {
 
         previousNews.disabled =
             newsPosts.length === 0;
-
-
-        nextNews.disabled =
-            true;
-
-
-        newsCounter.textContent =
-            "Neuer Post";
-
-
-        return;
-
-    }
-
-
-    // =====================================
-    // KEINE POSTS
-    // =====================================
-
-    if (
-        newsPosts.length === 0
-    ) {
-
-        previousNews.disabled =
-            true;
 
 
         nextNews.disabled =
@@ -4177,7 +3516,7 @@ newsDelete.addEventListener(
 
 
             // =================================
-            // NACHBARTPOST AUSWÄHLEN
+            // NACHBARPOST AUSWÄHLEN
             // =================================
 
             if (
@@ -4187,20 +3526,12 @@ newsDelete.addEventListener(
                 currentNewsIndex =
                     -1;
 
-
                 currentNewsId =
                     null;
-
-
-                prepareNewNews();
 
             }
 
             else {
-
-                // Wenn der gelöschte Post
-                // der letzte war, wird der
-                // nun letzte Post ausgewählt.
 
                 if (
                     currentNewsIndex >=
@@ -4218,10 +3549,14 @@ newsDelete.addEventListener(
                         currentNewsIndex
                     ].id;
 
-
-                await showNewsPost();
-
             }
+
+
+            // =================================
+            // FORMULAR AKTUALISIEREN
+            // =================================
+
+            showNewsPost();
 
 
             showStatus(
@@ -4260,6 +3595,8 @@ newsDelete.addEventListener(
 
     }
 );
+
+
 
 
 // =========================================
