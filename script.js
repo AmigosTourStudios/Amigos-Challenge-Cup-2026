@@ -2790,17 +2790,6 @@ async function loadNews() {
         }
 
 
-        console.log(
-            "NEWS:",
-            post
-        );
-
-        console.log(
-            "NEWS MEDIA:",
-            media
-        );
-
-
         // -----------------------------------------
         // ARTIKEL ERSTELLEN
         // -----------------------------------------
@@ -2919,12 +2908,6 @@ async function loadNews() {
                         return;
 
                     }
-
-
-                    console.log(
-                        "BILD URL:",
-                        imageUrl
-                    );
 
 
                     // ---------------------------------
