@@ -2823,24 +2823,34 @@ async function loadNews() {
 
 
         // =====================================
-        // DATUM
-        // =====================================
+// DATUM + UHRZEIT
+// =====================================
 
-        const date =
-            new Date(
-                post.created_at
-            );
+const date =
+    new Date(
+        post.created_at
+    );
 
 
-        const formattedDate =
-            date.toLocaleDateString(
-                "de-DE",
-                {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric"
-                }
-            ).toUpperCase();
+const formattedDate =
+    date.toLocaleDateString(
+        "de-DE",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    ).toUpperCase();
+
+
+const formattedTime =
+    date.toLocaleTimeString(
+        "de-DE",
+        {
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
 
 
         // =====================================
@@ -2850,8 +2860,8 @@ async function loadNews() {
         article.innerHTML = `
 
             <div class="news-date">
-                ${formattedDate}
-            </div>
+    ${formattedDate} | ${formattedTime} UHR
+</div>
 
             <div class="news-content">
 
