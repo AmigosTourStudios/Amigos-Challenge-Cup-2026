@@ -2718,6 +2718,10 @@ async function loadNews() {
         }
     );
 
+   console.log("NEWS:", data);
+console.log("NEWS MEDIA:", data?.map(post => post.news_media)); 
+
+    
     if (error) {
 
         console.error(
