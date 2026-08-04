@@ -2895,7 +2895,7 @@ async function loadNews() {
                 .order(
                     "created_at",
                     {
-                        ascending: true
+                        ascending: false
                     }
                 );
 
@@ -2923,36 +2923,21 @@ async function loadNews() {
             data || [];
 
 
-        // =====================================
-        // KEINE NEWS
-        // =====================================
+        /*
+         * WICHTIG:
+         *
+         * Beim Öffnen wird NICHT automatisch
+         * ein vorhandener Post ausgewählt.
+         *
+         * Stattdessen startet das Formular
+         * immer als "Neuer Post".
+         *
+         * Die vorhandenen Posts bleiben aber
+         * über den linken Pfeil erreichbar.
+         */
 
-        if (
-            newsPosts.length === 0
-        ) {
+        prepareNewNews();
 
-            prepareNewNews();
-
-            return;
-
-        }
-
-
-        // =====================================
-        // NEUESTEN BESTEHENDEN POST ANZEIGEN
-        // =====================================
-
-        currentNewsIndex =
-            newsPosts.length - 1;
-
-
-        currentNewsId =
-            newsPosts[
-                currentNewsIndex
-            ].id;
-
-
-        await showNewsPost();
 
     } catch (error) {
 
@@ -3018,17 +3003,23 @@ function prepareNewNews() {
         true;
 
 
-    // Im neuen Post-Modus kann man
-    // mit dem linken Pfeil zum letzten
-    // vorhandenen Post zurückgehen.
-    //
-    // Der rechte Pfeil bleibt deaktiviert,
-    // weil es rechts vom neuen Post nichts
-    // gibt.
+    /*
+     * Wenn vorhandene Posts existieren,
+     * kann der linke Pfeil zum neuesten
+     * vorhandenen Post wechseln.
+     *
+     * Wenn keine Posts existieren,
+     * bleibt er deaktiviert.
+     */
 
     previousNews.disabled =
         newsPosts.length === 0;
 
+
+    /*
+     * Vom Zustand "Neuer Post" gibt es
+     * keinen direkten nächsten Post.
+     */
 
     nextNews.disabled =
         true;
@@ -3165,41 +3156,7 @@ async function showNewsPost() {
 // VORHERIGE NEWS
 // =========================================
 
-async function showPreviousNews() {
-
-    // Wenn gerade "Neuer Post" aktiv ist,
-    // führt der linke Pfeil zum neuesten
-    // vorhandenen Post.
-
-    if (
-        currentNewsIndex === -1
-    ) {
-
-        if (
-            newsPosts.length === 0
-        ) {
-
-            return;
-
-        }
-
-
-        currentNewsIndex =
-            newsPosts.length - 1;
-
-
-        currentNewsId =
-            newsPosts[
-                currentNewsIndex
-            ].id;
-
-
-        await showNewsPost();
-
-        return;
-
-    }
-
+function showPreviousNews() {
 
     if (
         newsPosts.length === 0
@@ -3209,6 +3166,35 @@ async function showPreviousNews() {
 
     }
 
+
+    /*
+     * Wir befinden uns aktuell bei
+     * "Neuer Post".
+     *
+     * Dann soll der linke Pfeil den
+     * neuesten vorhandenen Post öffnen.
+     */
+
+    if (
+        currentNewsIndex === -1
+    ) {
+
+        currentNewsIndex =
+            0;
+
+
+        showNewsPost();
+
+
+        return;
+
+    }
+
+
+    /*
+     * Bereits beim neuesten Post:
+     * Es gibt keinen noch neueren.
+     */
 
     if (
         currentNewsIndex <= 0
@@ -3222,7 +3208,7 @@ async function showPreviousNews() {
     currentNewsIndex--;
 
 
-    await showNewsPost();
+    showNewsPost();
 
 }
 
@@ -3231,7 +3217,7 @@ async function showPreviousNews() {
 // NÄCHSTE NEWS
 // =========================================
 
-async function showNextNews() {
+function showNextNews() {
 
     if (
         newsPosts.length === 0
@@ -3242,16 +3228,28 @@ async function showNextNews() {
     }
 
 
-    // Vom letzten vorhandenen Post aus
-    // führt der rechte Pfeil zum neuen
-    // Post-Modus.
+    /*
+     * "Neuer Post" hat keinen nächsten
+     * vorhandenen Post.
+     */
+
+    if (
+        currentNewsIndex === -1
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * Bereits beim ältesten Post.
+     */
 
     if (
         currentNewsIndex >=
         newsPosts.length - 1
     ) {
-
-        prepareNewNews();
 
         return;
 
@@ -3261,10 +3259,9 @@ async function showNextNews() {
     currentNewsIndex++;
 
 
-    await showNewsPost();
+    showNewsPost();
 
 }
-
 
 // =========================================
 // NAVIGATION BUTTONS
