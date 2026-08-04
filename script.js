@@ -2688,49 +2688,37 @@ async function loadNews() {
         return;
     }
 
+
+    // =========================================
+    // NEWS LADEN
+    // =========================================
+
     const {
-    data,
-    error
-} = await supabaseClient
-    .from("news")
-    .select(`
-        id,
-        created_at,
-        title,
-        content,
-        published,
-        news_media (
-            id,
-            news_id,
-            storage_path,
-            media_type,
-            created_at
+        data: newsData,
+        error: newsError
+    } = await supabaseClient
+        .from("news")
+        .select(
+            "id, created_at, title, content, published"
         )
-    `)
-    .eq(
-        "published",
-        true
-    )
-    .order(
-        "created_at",
-        {
-            ascending: false
-        }
-    );
+        .eq(
+            "published",
+            true
+        )
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
 
-   console.log("NEWS:", data);
-console.log("NEWS MEDIA:", data?.map(post => post.news_media)); 
 
-    
-    if (error) {
+    if (newsError) {
 
         console.error(
-    "News konnten nicht geladen werden:",
-    error.message,
-    error.details,
-    error.hint,
-    error.code
-);
+            "News konnten nicht geladen werden:",
+            newsError
+        );
 
         container.innerHTML = `
             <div class="news-empty">
@@ -2741,9 +2729,15 @@ console.log("NEWS MEDIA:", data?.map(post => post.news_media));
         return;
     }
 
-    container.innerHTML = "";
 
-    if (!data || data.length === 0) {
+    // =========================================
+    // KEINE NEWS
+    // =========================================
+
+    if (
+        !newsData ||
+        newsData.length === 0
+    ) {
 
         container.innerHTML = `
             <div class="news-empty">
@@ -2754,7 +2748,95 @@ console.log("NEWS MEDIA:", data?.map(post => post.news_media));
         return;
     }
 
-    data.forEach(
+
+    // =========================================
+    // NEWS-MEDIA LADEN
+    // =========================================
+
+    const newsIds =
+        newsData.map(
+            news => news.id
+        );
+
+
+    const {
+        data: mediaData,
+        error: mediaError
+    } = await supabaseClient
+        .from("news_media")
+        .select(
+            "id, news_id, storage_path, media_type, created_at"
+        )
+        .in(
+            "news_id",
+            newsIds
+        )
+        .order(
+            "created_at",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (mediaError) {
+
+        console.error(
+            "News-Medien konnten nicht geladen werden:",
+            mediaError
+        );
+
+        // Die News selbst sollen trotzdem erscheinen.
+    }
+
+
+    console.log(
+        "NEWS:",
+        newsData
+    );
+
+    console.log(
+        "NEWS MEDIA:",
+        mediaData
+    );
+
+
+    // =========================================
+    // MEDIEN NACH NEWS-ID GRUPPIEREN
+    // =========================================
+
+    const mediaByNews =
+        {};
+
+
+    (mediaData || []).forEach(
+        media => {
+
+            if (
+                !mediaByNews[media.news_id]
+            ) {
+
+                mediaByNews[media.news_id] = [];
+
+            }
+
+
+            mediaByNews[media.news_id].push(
+                media
+            );
+
+        }
+    );
+
+
+    // =========================================
+    // NEWS DARSTELLEN
+    // =========================================
+
+    container.innerHTML = "";
+
+
+    newsData.forEach(
         post => {
 
             const article =
@@ -2765,10 +2847,16 @@ console.log("NEWS MEDIA:", data?.map(post => post.news_media));
             article.className =
                 "news-item";
 
+
+            // =====================================
+            // DATUM
+            // =====================================
+
             const date =
                 new Date(
                     post.created_at
                 );
+
 
             const formattedDate =
                 date.toLocaleDateString(
@@ -2780,6 +2868,97 @@ console.log("NEWS MEDIA:", data?.map(post => post.news_media));
                     }
                 ).toUpperCase();
 
+
+            // =====================================
+            // MEDIEN
+            // =====================================
+
+            let mediaHtml =
+                "";
+
+
+            const postMedia =
+                mediaByNews[post.id]
+                || [];
+
+
+            postMedia.forEach(
+                media => {
+
+                    // Nur Bilder zunächst darstellen.
+
+                    if (
+                        media.media_type !== "image"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        !media.storage_path
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    // =================================
+                    // ÖFFENTLICHE STORAGE-URL
+                    // =================================
+
+                    const {
+                        data: publicUrlData
+                    } =
+                        supabaseClient
+                            .storage
+                            .from(
+                                "news-media"
+                            )
+                            .getPublicUrl(
+                                media.storage_path
+                            );
+
+
+                    const imageUrl =
+                        publicUrlData
+                            ?.publicUrl;
+
+
+                    if (
+                        !imageUrl
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    mediaHtml += `
+
+                        <div class="news-media">
+
+                            <img
+                                src="${imageUrl}"
+                                alt="${escapeHtml(post.title)}"
+                                class="news-image"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+
+            // =====================================
+            // NEWS-HTML
+            // =====================================
+
             article.innerHTML = `
 
                 <div class="news-date">
@@ -2790,11 +2969,14 @@ console.log("NEWS MEDIA:", data?.map(post => post.news_media));
                     ${escapeHtml(post.title)}
                 </h2>
 
+                ${mediaHtml}
+
                 <p class="news-text">
                     ${escapeHtml(post.content)}
                 </p>
 
             `;
+
 
             container.appendChild(
                 article
@@ -2804,6 +2986,7 @@ console.log("NEWS MEDIA:", data?.map(post => post.news_media));
     );
 
 }
+
 
 // =========================================
 // HTML-SICHERHEIT
