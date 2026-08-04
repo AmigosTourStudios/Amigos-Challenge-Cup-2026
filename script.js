@@ -2834,13 +2834,13 @@ article.innerHTML = `
         ${formattedDate}
     </div>
 
-    <h2 class="news-title">
-        ${escapeHtml(post.title)}
-    </h2>
-
     <div class="news-content">
 
         <div class="news-text-content">
+
+            <h2 class="news-title">
+                ${escapeHtml(post.title)}
+            </h2>
 
             <p class="news-text">
                 ${escapeHtml(post.content)}
@@ -2851,8 +2851,8 @@ article.innerHTML = `
     </div>
 
 `;
-
-
+const newsContent =
+    article.querySelector(".news-content");
 // =========================================
 // BILDER
 // =========================================
@@ -3060,9 +3060,9 @@ if (
                 mediaContainer.children.length > 0
             ) {
 
-                article.appendChild(
-                    mediaContainer
-                );
+               newsContent.appendChild(
+    mediaContainer
+);
 
             }
 
