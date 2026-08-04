@@ -125,7 +125,7 @@ body {
 
     letter-spacing: 6px;
 
-    color: #8ec9e6;
+    color: #a9c5d3;
 }
 
 
@@ -1040,25 +1040,24 @@ body {
     }
 
 
-    /* -------------------------------------
-   SPIELERZEILE
+/* -------------------------------------
+   SPIELERZEILE – HANDY
    ------------------------------------- */
 
 .player-row {
-    padding: 11px 9px;
+    padding: 8px 7px;
 
     display: grid;
 
     grid-template-columns:
+        32px
+        minmax(100px, 1fr)
         42px
-        1fr
-        58px;
+        1.8fr;
 
-    grid-template-rows:
-        auto
-        auto;
+    align-items: center;
 
-    min-height: auto;
+    min-height: 68px;
 }
 
 
@@ -1067,15 +1066,9 @@ body {
    ------------------------------------- */
 
 .rank {
-    grid-column: 1;
-    grid-row: 1 / 3;
+    font-size: 28px;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 38px;
+    text-align: center;
 }
 
 
@@ -1084,22 +1077,19 @@ body {
    ------------------------------------- */
 
 .player-info {
-    grid-column: 2;
-    grid-row: 1;
-
-    padding-left: 5px;
+    padding-left: 4px;
 }
 
 .player-name {
-    font-size: 16px;
+    font-size: 13px;
 
     line-height: 1.05;
 }
 
 .player-country {
-    margin-top: 3px;
+    margin-top: 2px;
 
-    font-size: 10px;
+    font-size: 8px;
 }
 
 
@@ -1108,18 +1098,12 @@ body {
    ------------------------------------- */
 
 .score-over-par {
-    grid-column: 3;
-    grid-row: 1 / 3;
+    width: 38px;
+    height: 30px;
 
-    width: 48px;
-    height: 36px;
+    font-size: 17px;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 22px;
+    margin: 0 auto;
 }
 
 
@@ -1128,17 +1112,15 @@ body {
    ------------------------------------- */
 
 .stats {
-    grid-column: 2;
-    grid-row: 2;
-
     display: flex;
 
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 8px;
+    gap: 2px;
 
-    padding-left: 5px;
+    margin-top: 0;
+    padding-left: 0;
 }
 
 .stat {
@@ -1150,13 +1132,13 @@ body {
 }
 
 .stat-label {
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 
-    font-size: 8px;
+    font-size: 7px;
 }
 
 .stat-value {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 
