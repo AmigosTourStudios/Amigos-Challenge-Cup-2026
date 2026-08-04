@@ -2853,59 +2853,64 @@ article.innerHTML = `
 `;
 const newsContent =
     article.querySelector(".news-content");
+        
 // =========================================
-// BILDER
+// BILD ZUR NEWS
 // =========================================
 
+const newsContent =
+    article.querySelector(
+        ".news-content"
+    );
+
+
+const textContent =
+    article.querySelector(
+        ".news-text-content"
+    );
+
+
 if (
+    newsContent &&
     media &&
     media.length > 0
 ) {
 
-    const mediaContainer =
-        document.createElement(
-            "div"
+    const imageMedia =
+        media.find(
+            mediaItem =>
+                mediaItem.media_type === "image"
         );
 
-    mediaContainer.className =
-        "news-media";
+
+    if (imageMedia) {
+
+        const {
+            data: publicUrlData
+        } =
+            supabaseClient
+                .storage
+                .from(
+                    "news-media"
+                )
+                .getPublicUrl(
+                    imageMedia.storage_path
+                );
 
 
-    media.forEach(
-        mediaItem => {
-
-            if (
-                mediaItem.media_type !==
-                "image"
-            ) {
-
-                return;
-
-            }
+        const imageUrl =
+            publicUrlData?.publicUrl;
 
 
-            const {
-                data: publicUrlData
-            } =
-                supabaseClient
-                    .storage
-                    .from(
-                        "news-media"
-                    )
-                    .getPublicUrl(
-                        mediaItem.storage_path
-                    );
+        if (imageUrl) {
 
+            const mediaContainer =
+                document.createElement(
+                    "div"
+                );
 
-            const imageUrl =
-                publicUrlData?.publicUrl;
-
-
-            if (!imageUrl) {
-
-                return;
-
-            }
+            mediaContainer.className =
+                "news-media";
 
 
             const image =
@@ -2916,12 +2921,15 @@ if (
             image.className =
                 "news-image";
 
+
             image.src =
                 imageUrl;
+
 
             image.alt =
                 post.title ||
                 "News Bild";
+
 
             image.loading =
                 "lazy";
@@ -2931,25 +2939,16 @@ if (
                 image
             );
 
-        }
-    );
 
-
-    if (
-        mediaContainer.children.length > 0
-    ) {
-
-        const newsContent =
-            article.querySelector(
-                ".news-content"
+            newsContent.appendChild(
+                mediaContainer
             );
 
-
-        newsContent.appendChild(
-            mediaContainer
-        );
+        }
 
     }
+
+}
 
 }
 
