@@ -859,6 +859,31 @@ body {
     color: #52636e;
 }
 
+/* =========================================
+   NEWS MEDIEN
+   ========================================= */
+
+.news-media {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 0 20px;
+}
+
+
+.news-image {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    max-height: 600px;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+}
+
 
 /* =========================================
    HANDYANSICHT
