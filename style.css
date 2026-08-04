@@ -860,28 +860,87 @@ body {
 }
 
 /* =========================================
-   NEWS MEDIEN
+   NEWS MIT BILD
    ========================================= */
 
-.news-media {
-    width: 100%;
-    max-width: 900px;
-
-    margin: 0 0 20px;
+.news-item {
+    position: relative;
 }
 
 
+/* Inhalt der News */
+
+.news-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+
+/* Textbereich */
+
+.news-text-content {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* Bildbereich */
+
+.news-media {
+    flex: 0 0 280px;
+    width: 280px;
+}
+
+
+/* Vorschaubild */
+
 .news-image {
     display: block;
-
     width: 100%;
-    height: auto;
-
-    max-height: 600px;
+    height: 220px;
 
     object-fit: cover;
 
-    border-radius: 4px;
+    border-radius: 10px;
+
+    cursor: zoom-in;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.news-image:hover {
+    transform: scale(1.02);
+    opacity: 0.92;
+}
+
+
+/* =========================================
+   MOBIL
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .news-content {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+
+    .news-media {
+        flex: none;
+        width: 100%;
+    }
+
+
+    .news-image {
+        width: 100%;
+        height: 180px;
+    }
+
 }
 
 
