@@ -2689,23 +2689,34 @@ async function loadNews() {
     }
 
     const {
-        data,
-        error
-    } = await supabaseClient
-        .from("news")
-        .select(
-            "id, created_at, title, content, published"
+    data,
+    error
+} = await supabaseClient
+    .from("news")
+    .select(`
+        id,
+        created_at,
+        title,
+        content,
+        published,
+        news_media (
+            id,
+            news_id,
+            storage_path,
+            media_type,
+            created_at
         )
-        .eq(
-            "published",
-            true
-        )
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
+    `)
+    .eq(
+        "published",
+        true
+    )
+    .order(
+        "created_at",
+        {
+            ascending: false
+        }
+    );
 
     if (error) {
 
