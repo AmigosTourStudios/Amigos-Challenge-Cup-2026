@@ -2800,6 +2800,11 @@ async function loadNews() {
         mediaData
     );
 
+    console.log(
+    "NEWS MEDIA DETAILS:",
+    JSON.stringify(mediaData, null, 2)
+);
+
 
     // =========================================
     // MEDIEN NACH NEWS-ID GRUPPIEREN
