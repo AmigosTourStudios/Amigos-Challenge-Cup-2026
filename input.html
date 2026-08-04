@@ -12,14 +12,8 @@
 
     <title>Score Eingabe</title>
 
-
-    <!--
-        SheetJS liest die Excel-Datei im Browser.
-    -->
-
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
     <style>
 
@@ -27,343 +21,199 @@
             box-sizing: border-box;
         }
 
-
         body {
-
             margin: 0;
-
-            font-family:
-                Arial,
-                sans-serif;
-
+            font-family: Arial, sans-serif;
             background: #f3f3f3;
-
             color: #111;
-
         }
-
 
         .input-page {
-
             width: 100%;
-
             max-width: 600px;
-
             margin: 0 auto;
-
             padding: 16px;
-
         }
-
 
         /* =====================================
            KOPF
            ===================================== */
 
         .input-title {
-
             margin-bottom: 15px;
-
         }
-
 
         .input-title h1 {
-
             margin: 0;
-
             font-size: 27px;
-
         }
-
 
         .input-title p {
-
             margin: 5px 0 0;
-
             color: #666;
-
         }
-
 
         /* =====================================
            LOCH-NAVIGATION
            ===================================== */
 
         .hole-navigation {
-
             display: grid;
-
             grid-template-columns: 48px 1fr 48px;
-
             gap: 8px;
-
             align-items: center;
-
             margin-bottom: 12px;
-
         }
-
 
         .navigation-button {
-
             height: 48px;
-
             border: none;
-
             border-radius: 9px;
-
             background: #ddd;
-
             font-size: 24px;
-
             cursor: pointer;
-
         }
-
 
         .hole-select {
-
             width: 100%;
-
             height: 48px;
-
             padding: 0 10px;
-
             border: 1px solid #ccc;
-
             border-radius: 9px;
-
             background: white;
-
             font-size: 16px;
-
         }
-
 
         /* =====================================
            PAR
            ===================================== */
 
         .par-display {
-
             text-align: center;
-
             margin-bottom: 15px;
-
             padding: 10px;
-
             background: white;
-
             border-radius: 10px;
-
             box-shadow:
                 0 2px 8px rgba(0, 0, 0, 0.06);
-
         }
-
 
         .par-label {
-
             font-size: 12px;
-
             color: #777;
-
             text-transform: uppercase;
-
             letter-spacing: 1px;
-
         }
-
 
         .par-value {
-
             margin-top: 2px;
-
             font-size: 28px;
-
             font-weight: bold;
-
         }
-
 
         /* =====================================
            SPIELER
            ===================================== */
 
         .players-card {
-
             background: white;
-
             border-radius: 14px;
-
             padding: 8px 16px;
-
             box-shadow:
                 0 3px 12px rgba(0, 0, 0, 0.08);
-
         }
-
 
         .player-row {
-
             display: grid;
-
             grid-template-columns: 1fr auto;
-
             align-items: center;
-
             gap: 12px;
-
             min-height: 72px;
-
             border-bottom: 1px solid #eee;
-
         }
-
 
         .player-row:last-child {
-
             border-bottom: none;
-
         }
-
 
         .player-name {
-
             font-size: 16px;
-
             font-weight: bold;
-
         }
-
 
         .player-controls {
-
             display: flex;
-
             align-items: center;
-
             gap: 7px;
-
         }
-
 
         .score-button {
-
             width: 42px;
-
             height: 42px;
-
             border: none;
-
             border-radius: 8px;
-
             background: #ddd;
-
             font-size: 22px;
-
             cursor: pointer;
-
         }
-
 
         .score-input {
-
             width: 48px;
-
             height: 42px;
-
             padding: 0;
-
             border: 1px solid #ccc;
-
             border-radius: 8px;
-
             text-align: center;
-
             font-size: 18px;
-
             font-weight: bold;
-
         }
-
 
         /* =====================================
            SPEICHERN
            ===================================== */
 
         .save-button {
-
             width: 100%;
-
             height: 54px;
-
             margin-top: 16px;
-
             border: none;
-
             border-radius: 9px;
-
             background: #111;
-
             color: white;
-
             font-size: 17px;
-
             font-weight: bold;
-
             cursor: pointer;
-
         }
-/* =====================================
-           reset
+
+        /* =====================================
+           RESET
            ===================================== */
 
         .reset-button {
-
-    width: 100%;
-
-    height: 48px;
-
-    margin-top: 10px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background: #c62828;
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
+            width: 100%;
+            height: 48px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 9px;
+            background: #c62828;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
         /* =====================================
            STATUS
            ===================================== */
 
         .status {
-
             display: none;
-
             margin-top: 12px;
-
             padding: 12px;
-
             border-radius: 8px;
-
             background: #eee;
-
             font-size: 14px;
-
         }
-
 
         /* =====================================
            MOBILE
@@ -372,313 +222,241 @@
         @media (max-width: 420px) {
 
             .input-page {
-
                 padding: 12px;
-
             }
-
 
             .player-name {
-
                 font-size: 14px;
-
             }
-
 
             .score-button {
-
                 width: 40px;
-
                 height: 40px;
-
             }
-
 
             .score-input {
-
                 width: 44px;
-
                 height: 40px;
-
             }
-
         }
 
-/* =====================================
-   NEWS MESSENGER
-   ===================================== */
+        /* =====================================
+           NEWS MESSENGER
+           ===================================== */
+
+        .news-fab {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 58px;
+            height: 58px;
+            border: none;
+            border-radius: 50%;
+            background: #2e7d32;
+            color: white;
+            font-size: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 4px 14px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .news-fab:active {
+            transform: scale(0.95);
+        }
+
+        /* =====================================
+           NEWS PANEL
+           ===================================== */
+
+        .news-panel {
+            position: fixed;
+            right: 20px;
+            bottom: 90px;
+            width: min(
+                360px,
+                calc(100vw - 30px)
+            );
+            background: white;
+            border-radius: 14px;
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.22);
+            overflow: hidden;
+            z-index: 999;
+            display: none;
+        }
+
+        .news-panel.open {
+            display: block;
+        }
+
+        /* =====================================
+           PANEL HEADER
+           ===================================== */
+
+        .news-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 16px;
+            background: #071b2d;
+            color: white;
+        }
+
+        .news-panel-header strong {
+            display: block;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .news-panel-header span {
+            display: block;
+            margin-top: 3px;
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .news-header-title {
+            flex: 1;
+            text-align: center;
+        }
+
+        .news-navigation-button {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            border: none;
+            border-radius: 50%;
+            background: rgba(
+                255,
+                255,
+                255,
+                0.12
+            );
+            color: white;
+            font-size: 24px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .news-navigation-button:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .news-close {
+            width: 32px;
+            height: 32px;
+            margin-left: 8px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(
+                255,
+                255,
+                255,
+                0.12
+            );
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* =====================================
+           FORMULAR
+           ===================================== */
+
+        .news-form {
+            padding: 16px;
+        }
+
+        .news-form label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .news-form input,
+        .news-form textarea {
+            width: 100%;
+            border: 1px solid #d5d5d5;
+            border-radius: 8px;
+            padding: 10px 11px;
+            margin-bottom: 14px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .news-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .news-form input:focus,
+        .news-form textarea:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+
+        .news-submit {
+            width: 100%;
+            height: 46px;
+            border: none;
+            border-radius: 8px;
+            background: #2e7d32;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .news-submit:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .news-delete {
+            width: 100%;
+            height: 46px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #c62828;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .news-delete:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        /* =====================================
+           HANDY
+           ===================================== */
+
+        @media (max-width: 420px) {
+
+            .news-fab {
+                right: 16px;
+                bottom: 16px;
+                width: 54px;
+                height: 54px;
+            }
+
+            .news-panel {
+                right: 15px;
+                bottom: 80px;
+                width: calc(100vw - 30px);
+            }
+        }
 
-.news-fab {
-
-    position: fixed;
-
-    right: 20px;
-    bottom: 20px;
-
-    width: 58px;
-    height: 58px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: #2e7d32;
-    color: white;
-
-    font-size: 25px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow:
-        0 4px 14px rgba(0, 0, 0, 0.25);
-
-    cursor: pointer;
-
-    z-index: 1000;
-
-}
-
-
-.news-fab:active {
-
-    transform: scale(0.95);
-
-}
-
-
-/* =====================================
-   NEWS PANEL
-   ===================================== */
-
-.news-panel {
-
-    position: fixed;
-
-    right: 20px;
-    bottom: 90px;
-
-    width: min(
-        360px,
-        calc(100vw - 30px)
-    );
-
-    background: white;
-
-    border-radius: 14px;
-
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.22);
-
-    overflow: hidden;
-
-    z-index: 999;
-
-    display: none;
-
-}
-
-
-.news-panel.open {
-
-    display: block;
-
-}
-
-
-/* =====================================
-   PANEL HEADER
-   ===================================== */
-
-.news-panel-header {
-
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 15px 16px;
-
-    background: #071b2d;
-
-    color: white;
-
-}
-
-
-.news-panel-header strong {
-
-    display: block;
-
-    font-size: 14px;
-
-    letter-spacing: 0.5px;
-
-}
-
-
-.news-panel-header span {
-
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 11px;
-
-    opacity: 0.7;
-
-}
-
-
-.news-close {
-
-    width: 32px;
-    height: 32px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: rgba(
-        255,
-        255,
-        255,
-        0.12
-    );
-
-    color: white;
-
-    font-size: 22px;
-
-    cursor: pointer;
-
-}
-
-
-/* =====================================
-   FORMULAR
-   ===================================== */
-
-.news-form {
-
-    padding: 16px;
-
-}
-
-
-.news-form label {
-
-    display: block;
-
-    margin-bottom: 6px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    color: #555;
-
-}
-
-
-.news-form input,
-.news-form textarea {
-
-    width: 100%;
-
-    border: 1px solid #d5d5d5;
-
-    border-radius: 8px;
-
-    padding: 10px 11px;
-
-    margin-bottom: 14px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 14px;
-
-}
-
-
-.news-form textarea {
-
-    min-height: 120px;
-
-    resize: vertical;
-
-}
-
-
-.news-form input:focus,
-.news-form textarea:focus {
-
-    outline: none;
-
-    border-color: #2e7d32;
-
-}
-
-
-.news-submit {
-
-    width: 100%;
-
-    height: 46px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #2e7d32;
-
-    color: white;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-
-.news-submit:disabled {
-
-    opacity: 0.6;
-
-    cursor: wait;
-
-}
-
-
-/* =====================================
-   HANDY
-   ===================================== */
-
-@media (max-width: 420px) {
-
-    .news-fab {
-
-        right: 16px;
-        bottom: 16px;
-
-        width: 54px;
-        height: 54px;
-
-    }
-
-
-    .news-panel {
-
-        right: 15px;
-        bottom: 80px;
-
-        width: calc(100vw - 30px);
-
-    }
-
-}
-        
     </style>
 
 </head>
@@ -903,92 +681,150 @@
         SCHLÄGE SPEICHERN
     </button>
 
+
     <button
-    type="button"
-    class="reset-button"
-    id="reset-tournament"
->
+        type="button"
+        class="reset-button"
+        id="reset-tournament"
+    >
         TURNIER ZURÜCKSETZEN
     </button>
+
 
     <div
         class="status"
         id="status"
     ></div>
 
+
     <!-- =====================================
-     NEWS MESSENGER
-     ===================================== -->
+         NEWS MESSENGER
+         ===================================== -->
 
-<button
-    type="button"
-    class="news-fab"
-    id="news-fab"
-    aria-label="News erstellen"
->
-    💬
-</button>
+    <button
+        type="button"
+        class="news-fab"
+        id="news-fab"
+        aria-label="News erstellen"
+    >
+        💬
+    </button>
 
 
-<div
-    class="news-panel"
-    id="news-panel"
->
+    <div
+        class="news-panel"
+        id="news-panel"
+    >
 
-    <div class="news-panel-header">
+        <!-- =====================================
+             NEWS HEADER
+             ===================================== -->
 
-        <div>
-            <strong>NEWS POSTEN</strong>
-            <span>Amigos Challenge Cup</span>
+        <div class="news-panel-header">
+
+
+            <button
+                type="button"
+                class="news-navigation-button"
+                id="previous-news"
+                aria-label="Vorherige News"
+            >
+                ‹
+            </button>
+
+
+            <div class="news-header-title">
+
+                <strong id="news-header-title">
+                    NEWS POSTEN
+                </strong>
+
+                <span id="news-counter">
+                    Neuer Post
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="news-navigation-button"
+                id="next-news"
+                aria-label="Nächste News"
+            >
+                ›
+            </button>
+
+
+            <button
+                type="button"
+                class="news-close"
+                id="news-close"
+                aria-label="News schließen"
+            >
+                ×
+            </button>
+
+
         </div>
 
-        <button
-            type="button"
-            class="news-close"
-            id="news-close"
-        >
-            ×
-        </button>
+
+        <!-- =====================================
+             NEWS FORMULAR
+             ===================================== -->
+
+        <div class="news-form">
+
+
+            <label for="news-title">
+                Überschrift
+            </label>
+
+
+            <input
+                type="text"
+                id="news-title"
+                placeholder="z. B. Runde 1 gestartet"
+                maxlength="100"
+            >
+
+
+            <label for="news-content">
+                Nachricht
+            </label>
+
+
+            <textarea
+                id="news-content"
+                placeholder="Was gibt es Neues?"
+                maxlength="1000"
+            ></textarea>
+
+
+            <button
+                type="button"
+                class="news-submit"
+                id="news-submit"
+            >
+                NEWS VERÖFFENTLICHEN
+            </button>
+
+
+            <button
+                type="button"
+                class="news-delete"
+                id="news-delete"
+                disabled
+            >
+                NEWS LÖSCHEN
+            </button>
+
+
+        </div>
+
 
     </div>
 
-
-    <div class="news-form">
-
-        <label for="news-title">
-            Überschrift
-        </label>
-
-        <input
-            type="text"
-            id="news-title"
-            placeholder="z. B. Runde 1 gestartet"
-            maxlength="100"
-        >
-
-
-        <label for="news-content">
-            Nachricht
-        </label>
-
-        <textarea
-            id="news-content"
-            placeholder="Was gibt es Neues?"
-            maxlength="1000"
-        ></textarea>
-
-
-        <button
-            type="button"
-            class="news-submit"
-            id="news-submit"
-        >
-            NEWS VERÖFFENTLICHEN
-        </button>
-
-    </div>
-
-</div>
 
 </main>
 
@@ -1000,21 +836,13 @@
 // KONFIGURATION
 // =========================================
 
-// Excel-Datei im selben Verzeichnis
-
 const excelFile =
     "scorekarte_leaderboard.xlsx";
 
 
-// Neuer Speicher für tatsächlich
-// eingegebene Schläge.
-//
-// Wichtig:
-// Der alte "golfHoleData"-Speicher wird
-// absichtlich NICHT mehr verwendet.
-
 const STORAGE_KEY =
     "golfPlayedScores";
+
 
 // =========================================
 // SUPABASE
@@ -1023,8 +851,10 @@ const STORAGE_KEY =
 const SUPABASE_URL =
     "https://pdwgmbheawyulnxvzzzb.supabase.co";
 
+
 const SUPABASE_KEY =
     "sb_publishable_Fw5AztwZqtUJfQMFJTWvvA_aqH-83hG";
+
 
 let supabaseClient = null;
 
@@ -1054,26 +884,31 @@ function initializeSupabase() {
     console.log(
         "Supabase-Verbindung hergestellt."
     );
-    
+
+
     console.log(
-    "Supabase Client:",
-    supabaseClient
-);
+        "Supabase Client:",
+        supabaseClient
+    );
 
-console.log(
-    "Supabase URL:",
-    SUPABASE_URL
-);
 
-console.log(
-    "Supabase Key beginnt mit:",
-    SUPABASE_KEY.substring(0, 15)
-);
+    console.log(
+        "Supabase URL:",
+        SUPABASE_URL
+    );
+
+
+    console.log(
+        "Supabase Key beginnt mit:",
+        SUPABASE_KEY.substring(0, 15)
+    );
+
 
     return true;
 
 }
-    
+
+
 // =========================================
 // RUNDEN
 // =========================================
@@ -1091,13 +926,6 @@ const roundStartRows = {
 // =========================================
 // SPIELER / EXCEL-SPALTEN
 // =========================================
-//
-// PAR wird aus Excel gelesen.
-//
-// shots wird hier NICHT mehr aus Excel
-// gelesen. Die Schläge kommen ausschließlich
-// aus der Eingabemaske.
-//
 
 const playerColumns = {
 
@@ -1202,11 +1030,6 @@ holes.forEach(
 // =========================================
 // GESPEICHERTE SCHLÄGE LADEN
 // =========================================
-//
-// Hier werden ausschließlich Werte
-// geladen, die über die Eingabemaske
-// gespeichert wurden.
-//
 
 function loadPlayedScores() {
 
@@ -1295,9 +1118,6 @@ async function loadExcel() {
         readExcelData();
 
 
-        // Jetzt erst die tatsächlich
-        // gespeicherten Schläge laden.
-
         playedScores =
             loadPlayedScores();
 
@@ -1330,12 +1150,6 @@ async function loadExcel() {
 // =========================================
 // EXCEL-DATEN AUSLESEN
 // =========================================
-//
-// Hier lesen wir NUR das PAR.
-//
-// Keine Schlagzahl aus Excel wird
-// als gespielt übernommen.
-//
 
 function readExcelData() {
 
@@ -1364,7 +1178,7 @@ function readExcelData() {
 
         const excelRow =
             startRow +
-             8 +
+            8 +
             hole.hole;
 
 
@@ -1625,9 +1439,6 @@ function showHole(index) {
             );
 
 
-        // Wenn bereits gespielt:
-        // gespeicherten Score anzeigen.
-
         if (
             savedScore !== null
         ) {
@@ -1636,9 +1447,6 @@ function showHole(index) {
                 savedScore;
 
         }
-
-        // Wenn noch nicht gespielt:
-        // PAR als Startwert anzeigen.
 
         else if (
             par !== null
@@ -1836,10 +1644,6 @@ document
                 true;
 
 
-            // =================================
-            // ALLE DREI SPIELER
-            // =================================
-
             for (
                 const player
                 of Object.keys(
@@ -1873,13 +1677,6 @@ document
                 }
 
 
-                // =================================
-                // WICHTIG:
-                // Nur hier wird ein Score
-                // tatsächlich als gespielt
-                // gespeichert.
-                // =================================
-
                 const scoreKey =
                     getScoreKey(
                         hole.round,
@@ -1908,185 +1705,181 @@ document
 
 
             // =================================
-            // SPEICHERN
+            // LOKAL SPEICHERN
             // =================================
 
-            // =================================
-// LOKAL SPEICHERN
-// =================================
-
-localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(
-        playedScores
-    )
-);
-
-
-// =================================
-// SUPABASE SPEICHERN
-// =================================
-
-const scoresToSave = [];
-
-
-for (
-    const player
-    of Object.keys(
-        playerColumns
-    )
-) {
-
-    const scoreKey =
-        getScoreKey(
-            hole.round,
-            hole.hole,
-            player
-        );
-
-
-    scoresToSave.push({
-
-        round:
-            hole.round,
-
-        hole:
-            hole.hole,
-
-        player:
-            player,
-
-        score:
-            playedScores[scoreKey]
-
-    });
-
-}
-
-
-// =================================
-// SUPABASE SPEICHERN
-// UPDATE → falls nicht vorhanden INSERT
-// =================================
-
-for (const scoreData of scoresToSave) {
-
-    // Zuerst vorhandenen Datensatz suchen
-    const {
-        data: existingScore,
-        error: selectError
-    } = await supabaseClient
-        .from("scores")
-        .select("id")
-        .eq("round", scoreData.round)
-        .eq("hole", scoreData.hole)
-        .eq("player", scoreData.player)
-        .maybeSingle();
-
-
-    if (selectError) {
-
-        console.error(
-            "Fehler beim Suchen des Scores:",
-            selectError
-        );
-
-        showStatus(
-            "Scores konnten online nicht geprüft werden.",
-            true
-        );
-
-        return;
-    }
-
-
-    // =================================
-    // VORHANDEN → UPDATE
-    // =================================
-
-    if (existingScore) {
-
-        const {
-            error: updateError
-        } = await supabaseClient
-            .from("scores")
-            .update({
-                score: scoreData.score
-            })
-            .eq("id", existingScore.id);
-
-
-        if (updateError) {
-
-            console.error(
-                "Fehler beim Aktualisieren des Scores:",
-                updateError
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(
+                    playedScores
+                )
             );
+
+
+            // =================================
+            // SUPABASE SPEICHERN
+            // =================================
+
+            const scoresToSave = [];
+
+
+            for (
+                const player
+                of Object.keys(
+                    playerColumns
+                )
+            ) {
+
+                const scoreKey =
+                    getScoreKey(
+                        hole.round,
+                        hole.hole,
+                        player
+                    );
+
+
+                scoresToSave.push({
+
+                    round:
+                        hole.round,
+
+                    hole:
+                        hole.hole,
+
+                    player:
+                        player,
+
+                    score:
+                        playedScores[scoreKey]
+
+                });
+
+            }
+
+
+            for (
+                const scoreData
+                of scoresToSave
+            ) {
+
+                const {
+                    data: existingScore,
+                    error: selectError
+                } =
+                    await supabaseClient
+                        .from("scores")
+                        .select("id")
+                        .eq(
+                            "round",
+                            scoreData.round
+                        )
+                        .eq(
+                            "hole",
+                            scoreData.hole
+                        )
+                        .eq(
+                            "player",
+                            scoreData.player
+                        )
+                        .maybeSingle();
+
+
+                if (selectError) {
+
+                    console.error(
+                        "Fehler beim Suchen des Scores:",
+                        selectError
+                    );
+
+
+                    showStatus(
+                        "Scores konnten online nicht geprüft werden.",
+                        true
+                    );
+
+
+                    return;
+
+                }
+
+
+                if (existingScore) {
+
+                    const {
+                        error: updateError
+                    } =
+                        await supabaseClient
+                            .from("scores")
+                            .update({
+                                score:
+                                    scoreData.score
+                            })
+                            .eq(
+                                "id",
+                                existingScore.id
+                            );
+
+
+                    if (updateError) {
+
+                        console.error(
+                            "Fehler beim Aktualisieren des Scores:",
+                            updateError
+                        );
+
+
+                        showStatus(
+                            "Score konnte online nicht aktualisiert werden.",
+                            true
+                        );
+
+
+                        return;
+
+                    }
+
+                }
+
+                else {
+
+                    const {
+                        error: insertError
+                    } =
+                        await supabaseClient
+                            .from("scores")
+                            .insert([
+                                scoreData
+                            ]);
+
+
+                    if (insertError) {
+
+                        console.error(
+                            "Fehler beim Anlegen des Scores:",
+                            insertError
+                        );
+
+
+                        showStatus(
+                            "Score konnte online nicht gespeichert werden.",
+                            true
+                        );
+
+
+                        return;
+
+                    }
+
+                }
+
+            }
+
 
             showStatus(
-                "Score konnte online nicht aktualisiert werden.",
-                true
+                `${hole.label} gespeichert.`,
+                false
             );
 
-            return;
-        }
-
-    }
-
-    // =================================
-    // NICHT VORHANDEN → INSERT
-    // =================================
-
-    else {
-
-        const {
-            error: insertError
-        } = await supabaseClient
-            .from("scores")
-            .insert([
-                scoreData
-            ]);
-
-
-        if (insertError) {
-
-            console.error(
-                "Fehler beim Anlegen des Scores:",
-                insertError
-            );
-
-            showStatus(
-                "Score konnte online nicht gespeichert werden.",
-                true
-            );
-
-            return;
-        }
-
-    }
-
-}
-
-
-// =================================
-// ERFOLGREICH
-// =================================
-
-showStatus(
-    `${hole.label} gespeichert.`,
-    false
-);
-
-
-showStatus(
-    `${hole.label} gespeichert.`,
-    false
-);
-
-
-            // =================================
-            // AUTOMATISCH WEITER
-            // =================================
 
             if (
                 currentHoleIndex
@@ -2110,6 +1903,7 @@ showStatus(
         }
     );
 
+
 // =========================================
 // KOMPLETTES TURNIER ZURÜCKSETZEN
 // =========================================
@@ -2131,10 +1925,6 @@ document.getElementById("reset-tournament")
 
             }
 
-
-            // =================================
-            // SUPABASE: ALLE SCORES LÖSCHEN
-            // =================================
 
             const {
                 error
@@ -2164,36 +1954,21 @@ document.getElementById("reset-tournament")
             }
 
 
-            // =================================
-            // LOKALE DATEN LÖSCHEN
-            // =================================
-
             localStorage.removeItem(
                 "golfHoleData"
             );
+
 
             localStorage.removeItem(
                 "golfPlayedScores"
             );
 
 
-            // =================================
-            // AKTUELLE DATEN LEEREN
-            // =================================
-
             playedScores = {};
 
 
-            // =================================
-            // ERSTES LOCH ANZEIGEN
-            // =================================
-
             showHole(0);
 
-
-            // =================================
-            // STATUS
-            // =================================
 
             showStatus(
                 "Das komplette Turnier wurde zurückgesetzt.",
@@ -2202,6 +1977,7 @@ document.getElementById("reset-tournament")
 
         }
     );
+
 
 // =========================================
 // STATUS
@@ -2233,8 +2009,39 @@ function showStatus(
 
 }
 
- // =========================================
+
+// =========================================
 // NEWS MESSENGER
+// =========================================
+//
+// Ausschließlich die News-Funktion.
+// Die Score-/Loch-Logik wird hier nicht
+// verändert.
+//
+// Verhalten:
+//
+// - Panel öffnen
+// - vorhandene News aus Supabase laden
+// - mit ‹ / › durch News blättern
+// - bestehende News bearbeiten
+// - bestehende News löschen
+// - neuen Post erstellen
+// - Pfeiltasten ← / → verwenden
+// - nach Erstellung wird der neue Post
+//   automatisch ausgewählt
+//
+// Die Reihenfolge ist:
+// älteste News -> neueste News
+//
+// Dadurch bedeutet:
+// ← = ältere News
+// → = neuere News
+//
+// Der neueste Post liegt am Ende der Liste.
+
+
+// =========================================
+// NEWS ELEMENTE
 // =========================================
 
 const newsFab =
@@ -2242,25 +2049,30 @@ const newsFab =
         "news-fab"
     );
 
+
 const newsPanel =
     document.getElementById(
         "news-panel"
     );
+
 
 const newsClose =
     document.getElementById(
         "news-close"
     );
 
+
 const newsSubmit =
     document.getElementById(
         "news-submit"
     );
 
+
 const newsTitle =
     document.getElementById(
         "news-title"
     );
+
 
 const newsContent =
     document.getElementById(
@@ -2268,24 +2080,85 @@ const newsContent =
     );
 
 
+const newsDelete =
+    document.getElementById(
+        "news-delete"
+    );
+
+
+const previousNews =
+    document.getElementById(
+        "previous-news"
+    );
+
+
+const nextNews =
+    document.getElementById(
+        "next-news"
+    );
+
+
+const newsCounter =
+    document.getElementById(
+        "news-counter"
+    );
+
+
+const newsHeaderTitle =
+    document.getElementById(
+        "news-header-title"
+    );
+
+
 // =========================================
-// PANEL ÖFFNEN
+// NEWS DATEN
+// =========================================
+
+let newsPosts = [];
+
+let currentNewsIndex = -1;
+
+let currentNewsId = null;
+
+
+// =========================================
+// NEWS PANEL ÖFFNEN
 // =========================================
 
 newsFab.addEventListener(
     "click",
-    () => {
+    async () => {
 
-        newsPanel.classList.toggle(
+        const isOpen =
+            newsPanel.classList.contains(
+                "open"
+            );
+
+
+        if (isOpen) {
+
+            newsPanel.classList.remove(
+                "open"
+            );
+
+            return;
+
+        }
+
+
+        newsPanel.classList.add(
             "open"
         );
+
+
+        await loadNews();
 
     }
 );
 
 
 // =========================================
-// PANEL SCHLIESSEN
+// NEWS PANEL SCHLIESSEN
 // =========================================
 
 newsClose.addEventListener(
@@ -2301,7 +2174,446 @@ newsClose.addEventListener(
 
 
 // =========================================
-// NEWS VERÖFFENTLICHEN
+// NEWS AUS SUPABASE LADEN
+// =========================================
+
+async function loadNews() {
+
+    if (!supabaseClient) {
+
+        showStatus(
+            "Supabase ist nicht verbunden.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("news")
+                .select(
+                    "id, title, content, published, created_at"
+                )
+                .eq(
+                    "published",
+                    true
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "News konnten nicht geladen werden:",
+                error
+            );
+
+
+            showStatus(
+                "News konnten nicht geladen werden.",
+                true
+            );
+
+
+            return;
+
+        }
+
+
+        newsPosts =
+            data || [];
+
+
+        if (
+            newsPosts.length === 0
+        ) {
+
+            currentNewsIndex =
+                -1;
+
+            currentNewsId =
+                null;
+
+
+            showNewsPost();
+
+
+            return;
+
+        }
+
+
+        // =====================================
+        // NACH DEM LADEN:
+        // NEUESTEN POST AUSWÄHLEN
+        // =====================================
+
+        currentNewsIndex =
+            newsPosts.length - 1;
+
+
+        currentNewsId =
+            newsPosts[
+                currentNewsIndex
+            ].id;
+
+
+        showNewsPost();
+
+
+    } catch (error) {
+
+        console.error(
+            "Fehler beim Laden der News:",
+            error
+        );
+
+
+        showStatus(
+            "News konnten nicht geladen werden.",
+            true
+        );
+
+    }
+
+}
+
+
+// =========================================
+// NEWS FORMULAR AUF "NEUER POST" SETZEN
+// =========================================
+
+function prepareNewNews() {
+
+    currentNewsIndex =
+        -1;
+
+
+    currentNewsId =
+        null;
+
+
+    newsTitle.value =
+        "";
+
+
+    newsContent.value =
+        "";
+
+
+    newsHeaderTitle.textContent =
+        "NEWS POSTEN";
+
+
+    newsCounter.textContent =
+        "Neuer Post";
+
+
+    newsSubmit.textContent =
+        "NEWS VERÖFFENTLICHEN";
+
+
+    newsDelete.disabled =
+        true;
+
+
+    previousNews.disabled =
+        newsPosts.length === 0;
+
+
+    nextNews.disabled =
+        true;
+
+}
+
+
+// =========================================
+// AKTUELLEN NEWS-POST ANZEIGEN
+// =========================================
+
+function showNewsPost() {
+
+    // =====================================
+    // KEINE NEWS VORHANDEN
+    // =====================================
+
+    if (
+        newsPosts.length === 0
+    ) {
+
+        prepareNewNews();
+
+        return;
+
+    }
+
+
+    // =====================================
+    // NEUER POST
+    // =====================================
+
+    if (
+        currentNewsIndex < 0 ||
+        currentNewsIndex >= newsPosts.length
+    ) {
+
+        prepareNewNews();
+
+        return;
+
+    }
+
+
+    // =====================================
+    // AKTUELLEN POST HOLEN
+    // =====================================
+
+    const post =
+        newsPosts[
+            currentNewsIndex
+        ];
+
+
+    currentNewsId =
+        post.id;
+
+
+    // =====================================
+    // FORMULAR FÜLLEN
+    // =====================================
+
+    newsTitle.value =
+        post.title || "";
+
+
+    newsContent.value =
+        post.content || "";
+
+
+    // =====================================
+    // HEADER
+    // =====================================
+
+    newsHeaderTitle.textContent =
+        "NEWS BEARBEITEN";
+
+
+    newsCounter.textContent =
+        `${currentNewsIndex + 1} von ${newsPosts.length}`;
+
+
+    // =====================================
+    // NAVIGATION
+    // =====================================
+
+    previousNews.disabled =
+        currentNewsIndex <= 0;
+
+
+    nextNews.disabled =
+        currentNewsIndex >=
+        newsPosts.length - 1;
+
+
+    // =====================================
+    // BUTTONS
+    // =====================================
+
+    newsDelete.disabled =
+        false;
+
+
+    newsSubmit.textContent =
+        "NEWS ÄNDERN";
+
+}
+
+
+// =========================================
+// VORHERIGE NEWS
+// =========================================
+
+function showPreviousNews() {
+
+    if (
+        newsPosts.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        currentNewsIndex <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    currentNewsIndex--;
+
+
+    showNewsPost();
+
+}
+
+
+// =========================================
+// NÄCHSTE NEWS
+// =========================================
+
+function showNextNews() {
+
+    if (
+        newsPosts.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        currentNewsIndex >=
+        newsPosts.length - 1
+    ) {
+
+        return;
+
+    }
+
+
+    currentNewsIndex++;
+
+
+    showNewsPost();
+
+}
+
+
+// =========================================
+// NAVIGATION BUTTONS
+// =========================================
+
+previousNews.addEventListener(
+    "click",
+    () => {
+
+        showPreviousNews();
+
+    }
+);
+
+
+nextNews.addEventListener(
+    "click",
+    () => {
+
+        showNextNews();
+
+    }
+);
+
+
+// =========================================
+// PFEILTASTEN FÜR NEWS
+// =========================================
+//
+// Die Tasten funktionieren nur,
+// wenn das News-Panel geöffnet ist.
+//
+// Wenn gerade ein Eingabefeld aktiv ist,
+// werden die Pfeiltasten NICHT abgefangen.
+// Dadurch bleibt normales Cursor-Navigieren
+// im Textfeld möglich.
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            !newsPanel.classList.contains(
+                "open"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const activeElement =
+            document.activeElement;
+
+
+        const isTextInput =
+            activeElement === newsTitle ||
+            activeElement === newsContent;
+
+
+        if (isTextInput) {
+
+            return;
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            event.preventDefault();
+
+
+            showPreviousNews();
+
+        }
+
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            event.preventDefault();
+
+
+            showNextNews();
+
+        }
+
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            newsPanel.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+// =========================================
+// NEWS ERSTELLEN ODER ÄNDERN
 // =========================================
 
 newsSubmit.addEventListener(
@@ -2311,9 +2623,14 @@ newsSubmit.addEventListener(
         const title =
             newsTitle.value.trim();
 
+
         const content =
             newsContent.value.trim();
 
+
+        // =====================================
+        // EINGABEN PRÜFEN
+        // =====================================
 
         if (!title) {
 
@@ -2321,6 +2638,8 @@ newsSubmit.addEventListener(
                 "Bitte eine Überschrift eingeben.",
                 true
             );
+
+            newsTitle.focus();
 
             return;
 
@@ -2333,6 +2652,8 @@ newsSubmit.addEventListener(
                 "Bitte eine Nachricht eingeben.",
                 true
             );
+
+            newsContent.focus();
 
             return;
 
@@ -2351,81 +2672,205 @@ newsSubmit.addEventListener(
         }
 
 
-        newsSubmit.disabled = true;
-
-        newsSubmit.textContent =
-            "WIRD VERÖFFENTLICHT …";
+        newsSubmit.disabled =
+            true;
 
 
         try {
 
-            const {
-                error
-            } =
-                await supabaseClient
-                    .from("news")
-                    .insert([
-                        {
+            // =================================
+            // BESTEHENDEN POST ÄNDERN
+            // =================================
+
+            if (
+                currentNewsId !== null
+            ) {
+
+                newsSubmit.textContent =
+                    "WIRD AKTUALISIERT …";
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("news")
+                        .update({
+
                             title:
                                 title,
 
                             content:
-                                content,
+                                content
 
-                            published:
-                                true
-                        }
-                    ]);
+                        })
+                        .eq(
+                            "id",
+                            currentNewsId
+                        )
+                        .select(
+                            "id, title, content, published, created_at"
+                        )
+                        .single();
 
 
-            if (error) {
+                if (error) {
 
-                console.error(
-                    "News konnte nicht veröffentlicht werden:",
-                    error
-                );
+                    console.error(
+                        "News konnte nicht aktualisiert werden:",
+                        error
+                    );
+
+
+                    showStatus(
+                        "News konnte nicht aktualisiert werden.",
+                        true
+                    );
+
+
+                    return;
+
+                }
+
+
+                // =================================
+                // LOKALE NEWS AKTUALISIEREN
+                // =================================
+
+                if (data) {
+
+                    newsPosts[
+                        currentNewsIndex
+                    ] =
+                        data;
+
+                }
+
+                else {
+
+                    newsPosts[
+                        currentNewsIndex
+                    ].title =
+                        title;
+
+
+                    newsPosts[
+                        currentNewsIndex
+                    ].content =
+                        content;
+
+                }
+
+
+                showNewsPost();
+
 
                 showStatus(
-                    "News konnte nicht veröffentlicht werden.",
-                    true
+                    "News wurde aktualisiert.",
+                    false
                 );
-
-                return;
 
             }
 
 
             // =================================
-            // ERFOLGREICH
+            // NEUEN POST ERSTELLEN
             // =================================
 
-            newsTitle.value =
-                "";
+            else {
 
-            newsContent.value =
-                "";
-
-
-            newsPanel.classList.remove(
-                "open"
-            );
+                newsSubmit.textContent =
+                    "WIRD VERÖFFENTLICHT …";
 
 
-            showStatus(
-                "News wurde veröffentlicht.",
-                false
-            );
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("news")
+                        .insert([
+                            {
+
+                                title:
+                                    title,
+
+                                content:
+                                    content,
+
+                                published:
+                                    true
+
+                            }
+                        ])
+                        .select(
+                            "id, title, content, published, created_at"
+                        )
+                        .single();
+
+
+                if (error) {
+
+                    console.error(
+                        "News konnte nicht veröffentlicht werden:",
+                        error
+                    );
+
+
+                    showStatus(
+                        "News konnte nicht veröffentlicht werden.",
+                        true
+                    );
+
+
+                    return;
+
+                }
+
+
+                // =================================
+                // NEUEN POST EINORDNEN
+                // =================================
+
+                if (data) {
+
+                    newsPosts.push(
+                        data
+                    );
+
+
+                    currentNewsIndex =
+                        newsPosts.length - 1;
+
+
+                    currentNewsId =
+                        data.id;
+
+                }
+
+
+                showNewsPost();
+
+
+                showStatus(
+                    "News wurde veröffentlicht.",
+                    false
+                );
+
+            }
 
 
         } catch (error) {
 
             console.error(
+                "Fehler beim Speichern der News:",
                 error
             );
 
 
             showStatus(
-                "Beim Veröffentlichen ist ein Fehler aufgetreten.",
+                "Beim Speichern der News ist ein Fehler aufgetreten.",
                 true
             );
 
@@ -2434,15 +2879,223 @@ newsSubmit.addEventListener(
             newsSubmit.disabled =
                 false;
 
-            newsSubmit.textContent =
-                "NEWS VERÖFFENTLICHEN";
+
+            if (
+                currentNewsId !== null
+            ) {
+
+                newsSubmit.textContent =
+                    "NEWS ÄNDERN";
+
+            }
+
+            else {
+
+                newsSubmit.textContent =
+                    "NEWS VERÖFFENTLICHEN";
+
+            }
 
         }
 
     }
-);   
+);
 
-    
+
+// =========================================
+// NEWS LÖSCHEN
+// =========================================
+
+newsDelete.addEventListener(
+    "click",
+    async () => {
+
+        // =====================================
+        // PRÜFEN
+        // =====================================
+
+        if (
+            currentNewsId === null ||
+            currentNewsIndex < 0 ||
+            currentNewsIndex >= newsPosts.length
+        ) {
+
+            showStatus(
+                "Es ist kein bestehender Post ausgewählt.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        const confirmed =
+            confirm(
+                "Soll dieser News-Post wirklich gelöscht werden?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        if (!supabaseClient) {
+
+            showStatus(
+                "Supabase ist nicht verbunden.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        newsDelete.disabled =
+            true;
+
+
+        newsSubmit.disabled =
+            true;
+
+
+        newsDelete.textContent =
+            "WIRD GELÖSCHT …";
+
+
+        try {
+
+            // =================================
+            // SUPABASE LÖSCHEN
+            // =================================
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("news")
+                    .delete()
+                    .eq(
+                        "id",
+                        currentNewsId
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "News konnte nicht gelöscht werden:",
+                    error
+                );
+
+
+                showStatus(
+                    "News konnte nicht gelöscht werden.",
+                    true
+                );
+
+
+                return;
+
+            }
+
+
+            // =================================
+            // LOKAL ENTFERNEN
+            // =================================
+
+            newsPosts.splice(
+                currentNewsIndex,
+                1
+            );
+
+
+            // =================================
+            // NACHBARPOST AUSWÄHLEN
+            // =================================
+
+            if (
+                newsPosts.length === 0
+            ) {
+
+                currentNewsIndex =
+                    -1;
+
+                currentNewsId =
+                    null;
+
+            }
+
+            else {
+
+                // Wenn der bisherige Index jetzt
+                // außerhalb der Liste liegt,
+                // wird der vorherige Post gewählt.
+
+                if (
+                    currentNewsIndex >=
+                    newsPosts.length
+                ) {
+
+                    currentNewsIndex =
+                        newsPosts.length - 1;
+
+                }
+
+
+                currentNewsId =
+                    newsPosts[
+                        currentNewsIndex
+                    ].id;
+
+            }
+
+
+            showNewsPost();
+
+
+            showStatus(
+                "News wurde gelöscht.",
+                false
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Fehler beim Löschen der News:",
+                error
+            );
+
+
+            showStatus(
+                "Beim Löschen der News ist ein Fehler aufgetreten.",
+                true
+            );
+
+        } finally {
+
+            newsDelete.disabled =
+                currentNewsId === null;
+
+
+            newsSubmit.disabled =
+                false;
+
+
+            newsDelete.textContent =
+                "NEWS LÖSCHEN";
+
+        }
+
+    }
+);
+
+
 // =========================================
 // START
 // =========================================
@@ -2450,6 +3103,7 @@ newsSubmit.addEventListener(
 initializeSupabase();
 
 loadExcel();
+
 
 </script>
 
