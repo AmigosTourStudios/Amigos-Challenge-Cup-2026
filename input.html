@@ -3544,26 +3544,39 @@ newsSubmit.addEventListener(
 
 
                 const {
-                    data,
-                    error
-                } =
-                    await supabaseClient
-                        .from("news")
-                        .update({
+    error
+} =
+    await supabaseClient
+        .from("news")
+        .update({
 
-                            title:
-                                title,
+            title:
+                title,
 
-                            content:
-                                content
+            content:
+                content
 
-                        })
-                        .eq(
-                            "id",
-                            currentNewsId
-                        )
-                        .select()
-                        .single();
+        })
+        .eq(
+            "id",
+            currentNewsId
+        );
+
+if (error) {
+
+    console.error(
+        "News konnte nicht aktualisiert werden:",
+        error
+    );
+
+    showStatus(
+        "News konnte nicht aktualisiert werden.",
+        true
+    );
+
+    return;
+
+}
 
 
                 if (error) {
@@ -3585,7 +3598,13 @@ newsSubmit.addEventListener(
 
 
                 savedPost =
-                    data;
+    {
+        ...newsPosts[currentNewsIndex],
+        title:
+            title,
+        content:
+            content
+    };
 
 
                 newsPosts[
