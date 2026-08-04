@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="de">
@@ -523,7 +524,6 @@
 
 <main class="input-page">
 
-```
 <div class="input-title">
 
     <h1>Score Eingabe</h1>
@@ -541,7 +541,6 @@
 
 <div class="hole-navigation">
 
-
     <button
         type="button"
         class="navigation-button"
@@ -550,13 +549,11 @@
         ‹
     </button>
 
-
     <select
         class="hole-select"
         id="hole-select"
     >
     </select>
-
 
     <button
         type="button"
@@ -565,7 +562,6 @@
     >
         ›
     </button>
-
 
 </div>
 
@@ -596,14 +592,11 @@
 
 <section class="players-card">
 
-
     <div class="player-row">
-
 
         <div class="player-name">
             Ludwig LENZ
         </div>
-
 
         <div class="player-controls">
 
@@ -615,7 +608,6 @@
             >
                 −
             </button>
-
 
             <input
                 type="number"
@@ -625,7 +617,6 @@
                 max="20"
             >
 
-
             <button
                 type="button"
                 class="score-button"
@@ -642,11 +633,9 @@
 
     <div class="player-row">
 
-
         <div class="player-name">
             Andreas SCHLEHHUBER
         </div>
-
 
         <div class="player-controls">
 
@@ -659,7 +648,6 @@
                 −
             </button>
 
-
             <input
                 type="number"
                 class="score-input"
@@ -667,7 +655,6 @@
                 min="1"
                 max="20"
             >
-
 
             <button
                 type="button"
@@ -685,11 +672,9 @@
 
     <div class="player-row">
 
-
         <div class="player-name">
             Peter RASER
         </div>
-
 
         <div class="player-controls">
 
@@ -702,7 +687,6 @@
                 −
             </button>
 
-
             <input
                 type="number"
                 class="score-input"
@@ -710,7 +694,6 @@
                 min="1"
                 max="20"
             >
-
 
             <button
                 type="button"
@@ -724,7 +707,6 @@
         </div>
 
     </div>
-
 
 </section>
 
@@ -778,7 +760,6 @@
 
     <div class="news-panel-header">
 
-
         <button
             type="button"
             class="news-navigation-button"
@@ -814,13 +795,22 @@
 
         <button
             type="button"
+            class="news-navigation-button"
+            id="new-news"
+            aria-label="Neue News"
+        >
+            +
+        </button>
+
+
+        <button
+            type="button"
             class="news-close"
             id="news-close"
             aria-label="News schließen"
         >
             ×
         </button>
-
 
     </div>
 
@@ -831,11 +821,9 @@
 
     <div class="news-form">
 
-
         <label for="news-title">
             Überschrift
         </label>
-
 
         <input
             type="text"
@@ -849,7 +837,6 @@
             Nachricht
         </label>
 
-
         <textarea
             id="news-content"
             placeholder="Was gibt es Neues?"
@@ -860,7 +847,6 @@
         <label for="news-media">
             Bild oder Video
         </label>
-
 
         <input
             type="file"
@@ -893,9 +879,7 @@
             NEWS LÖSCHEN
         </button>
 
-
     </div>
-
 
 </div>
 
@@ -2087,9 +2071,8 @@ function showStatus(
 // NEWS MESSENGER
 // =========================================
 //
-// Die Score-/Loch-Logik bleibt unverändert.
-//
 // News-Funktionen:
+//
 // - Posts laden
 // - Posts erstellen
 // - Posts bearbeiten
@@ -2193,6 +2176,12 @@ const nextNews =
     );
 
 
+const newNews =
+    document.getElementById(
+        "new-news"
+    );
+
+
 const newsCounter =
     document.getElementById(
         "news-counter"
@@ -2265,10 +2254,6 @@ async function uploadNewsMedia(
     // =====================================
     // DATEIGRÖSSE PRÜFEN
     // =====================================
-
-    // 100 MB maximale Dateigröße.
-    // Das schützt vor versehentlich sehr
-    // großen Video-Dateien.
 
     const maxFileSize =
         100 * 1024 * 1024;
@@ -2400,10 +2385,6 @@ async function uploadNewsMedia(
             mediaError
         );
 
-
-        // Datenbank-Eintrag fehlgeschlagen.
-        // Deshalb hochgeladene Datei
-        // wieder aus Storage entfernen.
 
         await supabaseClient
             .storage
@@ -2915,6 +2896,12 @@ newsFab.addEventListener(
 
         await loadNews();
 
+
+        // Beim Öffnen immer direkt
+        // einen neuen Post vorbereiten.
+
+        prepareNewNews();
+
     }
 );
 
@@ -2971,7 +2958,7 @@ async function loadNews() {
                 .order(
                     "created_at",
                     {
-                        ascending: true
+                        ascending: false
                     }
                 );
 
@@ -3010,7 +2997,7 @@ async function loadNews() {
                 null;
 
 
-            showNewsPost();
+            prepareNewNews();
 
 
             return;
@@ -3018,21 +3005,12 @@ async function loadNews() {
         }
 
 
-        // =====================================
-        // NEUESTEN POST AUSWÄHLEN
-        // =====================================
-
-        currentNewsIndex =
-            newsPosts.length - 1;
-
-
-        currentNewsId =
-            newsPosts[
-                currentNewsIndex
-            ].id;
-
-
-        showNewsPost();
+        // Die News werden nur geladen.
+        // Es wird hier bewusst KEIN Post
+        // automatisch geöffnet.
+        //
+        // Das Öffnen des News-Fensters soll
+        // immer mit "Neuer Post" beginnen.
 
 
     } catch (error) {
@@ -3100,7 +3078,7 @@ function prepareNewNews() {
 
 
     previousNews.disabled =
-        newsPosts.length === 0;
+        true;
 
 
     nextNews.disabled =
@@ -3324,6 +3302,20 @@ nextNews.addEventListener(
 
 
 // =========================================
+// NEUEN POST ERSTELLEN
+// =========================================
+
+newNews.addEventListener(
+    "click",
+    () => {
+
+        prepareNewNews();
+
+    }
+);
+
+
+// =========================================
 // PFEILTASTEN FÜR NEWS
 // =========================================
 
@@ -3407,8 +3399,10 @@ newsSubmit.addEventListener(
         const title =
             newsTitle.value.trim();
 
+
         const content =
             newsContent.value.trim();
+
 
         const selectedFile =
             newsMedia.files.length > 0
@@ -3466,6 +3460,7 @@ newsSubmit.addEventListener(
                 selectedFile.type.startsWith(
                     "image/"
                 );
+
 
             const isVideo =
                 selectedFile.type.startsWith(
@@ -3631,10 +3626,6 @@ newsSubmit.addEventListener(
                     // =================================
                     // ALTE MEDIEN ENTFERNEN
                     // =================================
-                    //
-                    // Dadurch hat ein Post immer
-                    // nur das zuletzt ausgewählte
-                    // Bild bzw. Video.
 
                     if (
                         oldMedia.length > 0
@@ -3803,7 +3794,8 @@ newsSubmit.addEventListener(
 
 
                 // =================================
-                // NEUEN POST ZUR LISTE
+                // NEUEN POST AN DEN ANFANG
+                // DER AKTUELLEN LISTE SETZEN
                 // =================================
 
                 if (savedPost) {
@@ -3839,6 +3831,7 @@ newsSubmit.addEventListener(
 
             newsTitle.value =
                 title;
+
 
             newsContent.value =
                 content;
@@ -3921,7 +3914,7 @@ function updateNewsNavigation() {
     ) {
 
         previousNews.disabled =
-            newsPosts.length === 0;
+            true;
 
 
         nextNews.disabled =
@@ -4211,7 +4204,19 @@ newsDelete.addEventListener(
             // FORMULAR AKTUALISIEREN
             // =================================
 
-            showNewsPost();
+            if (
+                newsPosts.length === 0
+            ) {
+
+                prepareNewNews();
+
+            }
+
+            else {
+
+                await showNewsPost();
+
+            }
 
 
             showStatus(
@@ -4266,3 +4271,4 @@ loadExcel();
 </body>
 
 </html>
+
