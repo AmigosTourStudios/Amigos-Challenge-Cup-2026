@@ -2790,59 +2790,168 @@ async function loadNews() {
         }
 
 
-        // -----------------------------------------
-        // ARTIKEL ERSTELLEN
-        // -----------------------------------------
+        // =========================================
+// ARTIKEL ERSTELLEN
+// =========================================
 
-        const article =
-            document.createElement(
-                "article"
-            );
+const article =
+    document.createElement(
+        "article"
+    );
 
-        article.className =
-            "news-item";
-
-
-        // -----------------------------------------
-        // DATUM
-        // -----------------------------------------
-
-        const date =
-            new Date(
-                post.created_at
-            );
+article.className =
+    "news-item";
 
 
-        const formattedDate =
-            date.toLocaleDateString(
-                "de-DE",
-                {
-                    day: "2-digit",
-                    month: "short",
-                    year: "numeric"
-                }
-            ).toUpperCase();
+// =========================================
+// DATUM
+// =========================================
+
+const date =
+    new Date(
+        post.created_at
+    );
 
 
-        // -----------------------------------------
-        // TEXT
-        // -----------------------------------------
+const formattedDate =
+    date.toLocaleDateString(
+        "de-DE",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    ).toUpperCase();
 
-        article.innerHTML = `
 
-            <div class="news-date">
-                ${formattedDate}
-            </div>
+// =========================================
+// GRUNDSTRUKTUR
+// =========================================
 
-            <h2 class="news-title">
-                ${escapeHtml(post.title)}
-            </h2>
+article.innerHTML = `
+
+    <div class="news-date">
+        ${formattedDate}
+    </div>
+
+    <h2 class="news-title">
+        ${escapeHtml(post.title)}
+    </h2>
+
+    <div class="news-content">
+
+        <div class="news-text-content">
 
             <p class="news-text">
                 ${escapeHtml(post.content)}
             </p>
 
-        `;
+        </div>
+
+    </div>
+
+`;
+
+
+// =========================================
+// BILDER
+// =========================================
+
+if (
+    media &&
+    media.length > 0
+) {
+
+    const mediaContainer =
+        document.createElement(
+            "div"
+        );
+
+    mediaContainer.className =
+        "news-media";
+
+
+    media.forEach(
+        mediaItem => {
+
+            if (
+                mediaItem.media_type !==
+                "image"
+            ) {
+
+                return;
+
+            }
+
+
+            const {
+                data: publicUrlData
+            } =
+                supabaseClient
+                    .storage
+                    .from(
+                        "news-media"
+                    )
+                    .getPublicUrl(
+                        mediaItem.storage_path
+                    );
+
+
+            const imageUrl =
+                publicUrlData?.publicUrl;
+
+
+            if (!imageUrl) {
+
+                return;
+
+            }
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.className =
+                "news-image";
+
+            image.src =
+                imageUrl;
+
+            image.alt =
+                post.title ||
+                "News Bild";
+
+            image.loading =
+                "lazy";
+
+
+            mediaContainer.appendChild(
+                image
+            );
+
+        }
+    );
+
+
+    if (
+        mediaContainer.children.length > 0
+    ) {
+
+        const newsContent =
+            article.querySelector(
+                ".news-content"
+            );
+
+
+        newsContent.appendChild(
+            mediaContainer
+        );
+
+    }
+
+}
 
 
         // =========================================
