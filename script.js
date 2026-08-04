@@ -2694,7 +2694,7 @@ async function loadNews() {
     // =========================================
 
     const {
-        data: newsData,
+        data: news,
         error: newsError
     } = await supabaseClient
         .from("news")
@@ -2730,13 +2730,12 @@ async function loadNews() {
     }
 
 
-    // =========================================
-    // KEINE NEWS
-    // =========================================
+    container.innerHTML = "";
+
 
     if (
-        !newsData ||
-        newsData.length === 0
+        !news ||
+        news.length === 0
     ) {
 
         container.innerHTML = `
@@ -2750,153 +2749,138 @@ async function loadNews() {
 
 
     // =========================================
-    // NEWS-MEDIA LADEN
+    // JEDE NEWS-MELDUNG DARSTELLEN
     // =========================================
 
-    const newsIds =
-        newsData.map(
-            news => news.id
-        );
+    for (
+        const post of news
+    ) {
+
+        // -----------------------------------------
+        // MEDIA ZUR NEWS LADEN
+        // -----------------------------------------
+
+        const {
+            data: media,
+            error: mediaError
+        } = await supabaseClient
+            .from("news_media")
+            .select(
+                "id, news_id, storage_path, media_type, created_at"
+            )
+            .eq(
+                "news_id",
+                post.id
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: true
+                }
+            );
 
 
-    const {
-        data: mediaData,
-        error: mediaError
-    } = await supabaseClient
-        .from("news_media")
-        .select(
-            "id, news_id, storage_path, media_type, created_at"
-        )
-        .in(
-            "news_id",
-            newsIds
-        )
-        .order(
-            "created_at",
-            {
-                ascending: true
-            }
-        );
+        if (mediaError) {
 
-
-    if (mediaError) {
-
-        console.error(
-            "News-Medien konnten nicht geladen werden:",
-            mediaError
-        );
-
-        // Die News selbst sollen trotzdem erscheinen.
-    }
-
-
-    console.log(
-        "NEWS:",
-        newsData
-    );
-
-    alert(
-    JSON.stringify(
-        mediaData,
-        null,
-        2
-    )
-);
-
-    console.log(
-    "NEWS MEDIA DETAILS:",
-    JSON.stringify(mediaData, null, 2)
-);
-
-
-    // =========================================
-    // MEDIEN NACH NEWS-ID GRUPPIEREN
-    // =========================================
-
-    const mediaByNews =
-        {};
-
-
-    (mediaData || []).forEach(
-        media => {
-
-            if (
-                !mediaByNews[media.news_id]
-            ) {
-
-                mediaByNews[media.news_id] = [];
-
-            }
-
-
-            mediaByNews[media.news_id].push(
-                media
+            console.error(
+                "News-Media konnte nicht geladen werden:",
+                mediaError
             );
 
         }
-    );
 
 
-    // =========================================
-    // NEWS DARSTELLEN
-    // =========================================
+        console.log(
+            "NEWS:",
+            post
+        );
 
-    container.innerHTML = "";
+        console.log(
+            "NEWS MEDIA:",
+            media
+        );
 
 
-    newsData.forEach(
-        post => {
+        // -----------------------------------------
+        // ARTIKEL ERSTELLEN
+        // -----------------------------------------
 
-            const article =
+        const article =
+            document.createElement(
+                "article"
+            );
+
+        article.className =
+            "news-item";
+
+
+        // -----------------------------------------
+        // DATUM
+        // -----------------------------------------
+
+        const date =
+            new Date(
+                post.created_at
+            );
+
+
+        const formattedDate =
+            date.toLocaleDateString(
+                "de-DE",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            ).toUpperCase();
+
+
+        // -----------------------------------------
+        // TEXT
+        // -----------------------------------------
+
+        article.innerHTML = `
+
+            <div class="news-date">
+                ${formattedDate}
+            </div>
+
+            <h2 class="news-title">
+                ${escapeHtml(post.title)}
+            </h2>
+
+            <p class="news-text">
+                ${escapeHtml(post.content)}
+            </p>
+
+        `;
+
+
+        // =========================================
+        // BILDER
+        // =========================================
+
+        if (
+            media &&
+            media.length > 0
+        ) {
+
+            const mediaContainer =
                 document.createElement(
-                    "article"
+                    "div"
                 );
 
-            article.className =
-                "news-item";
+            mediaContainer.className =
+                "news-media";
 
 
-            // =====================================
-            // DATUM
-            // =====================================
+            media.forEach(
+                mediaItem => {
 
-            const date =
-                new Date(
-                    post.created_at
-                );
-
-
-            const formattedDate =
-                date.toLocaleDateString(
-                    "de-DE",
-                    {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                    }
-                ).toUpperCase();
-
-
-            // =====================================
-            // MEDIEN
-            // =====================================
-
-            let mediaHtml =
-                "";
-
-
-            const postMedia =
-                mediaByNews[post.id]
-                || [];
-
-
-            postMedia.forEach(
-                media => {
-
-                    // Nur Bilder zunächst darstellen.
-
+                    // Nur Bilder anzeigen
                     if (
-                        media.media_type !== "image"
+                        mediaItem.media_type !==
+                        "image"
                     ) {
 
                         return;
@@ -2904,18 +2888,9 @@ async function loadNews() {
                     }
 
 
-                    if (
-                        !media.storage_path
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    // =================================
+                    // ---------------------------------
                     // ÖFFENTLICHE STORAGE-URL
-                    // =================================
+                    // ---------------------------------
 
                     const {
                         data: publicUrlData
@@ -2926,74 +2901,95 @@ async function loadNews() {
                                 "news-media"
                             )
                             .getPublicUrl(
-                                media.storage_path
+                                mediaItem.storage_path
                             );
 
 
                     const imageUrl =
-                        publicUrlData
-                            ?.publicUrl;
+                        publicUrlData?.publicUrl;
 
 
-                    if (
-                        !imageUrl
-                    ) {
+                    if (!imageUrl) {
+
+                        console.error(
+                            "Keine öffentliche URL für:",
+                            mediaItem.storage_path
+                        );
 
                         return;
 
                     }
 
 
-                    mediaHtml += `
+                    console.log(
+                        "BILD URL:",
+                        imageUrl
+                    );
 
-                        <div class="news-media">
 
-                            <img
-                                src="${imageUrl}"
-                                alt="${escapeHtml(post.title)}"
-                                class="news-image"
-                                loading="lazy"
-                            >
+                    // ---------------------------------
+                    // BILD
+                    // ---------------------------------
 
-                        </div>
+                    const image =
+                        document.createElement(
+                            "img"
+                        );
 
-                    `;
+                    image.className =
+                        "news-image";
+
+
+                    image.src =
+                        imageUrl;
+
+
+                    image.alt =
+                        post.title ||
+                        "News Bild";
+
+
+                    image.loading =
+                        "lazy";
+
+
+                    mediaContainer.appendChild(
+                        image
+                    );
 
                 }
             );
 
 
-            // =====================================
-            // NEWS-HTML
-            // =====================================
+            // Nur hinzufügen, wenn tatsächlich
+            // Bilder vorhanden sind.
 
-            article.innerHTML = `
+            if (
+                mediaContainer.children.length > 0
+            ) {
 
-                <div class="news-date">
-                    ${formattedDate}
-                </div>
+                article.appendChild(
+                    mediaContainer
+                );
 
-                <h2 class="news-title">
-                    ${escapeHtml(post.title)}
-                </h2>
-
-                ${mediaHtml}
-
-                <p class="news-text">
-                    ${escapeHtml(post.content)}
-                </p>
-
-            `;
-
-
-            container.appendChild(
-                article
-            );
+            }
 
         }
-    );
+
+
+        // =========================================
+        // ARTIKEL AUF SEITE SETZEN
+        // =========================================
+
+        container.appendChild(
+            article
+        );
+
+    }
 
 }
+
+
 
 
 // =========================================
