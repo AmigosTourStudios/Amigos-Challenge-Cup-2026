@@ -2672,11 +2672,17 @@ function loadSheetJS() {
 async function loadNews() {
 
     const container =
-        document.getElementById("news-container");
+        document.getElementById(
+            "news-container"
+        );
+
 
     if (!container) {
+
         return;
+
     }
+
 
     if (!supabaseClient) {
 
@@ -2685,6 +2691,7 @@ async function loadNews() {
         );
 
         return;
+
     }
 
 
@@ -2695,21 +2702,22 @@ async function loadNews() {
     const {
         data: news,
         error: newsError
-    } = await supabaseClient
-        .from("news")
-        .select(
-            "id, created_at, title, content, published"
-        )
-        .eq(
-            "published",
-            true
-        )
-        .order(
-            "created_at",
-            {
-                ascending: false
-            }
-        );
+    } =
+        await supabaseClient
+            .from("news")
+            .select(
+                "id, created_at, title, content, published"
+            )
+            .eq(
+                "published",
+                true
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
 
 
     if (newsError) {
@@ -2719,20 +2727,30 @@ async function loadNews() {
             newsError
         );
 
+
         container.innerHTML = `
             <div class="news-empty">
                 News konnten nicht geladen werden.
             </div>
         `;
 
+
         return;
+
     }
 
+
+    // =========================================
+    // CONTAINER LEEREN
+    // =========================================
 
     container.innerHTML = "";
 
 
-    if (!news || news.length === 0) {
+    if (
+        !news ||
+        news.length === 0
+    ) {
 
         container.innerHTML = `
             <div class="news-empty">
@@ -2740,39 +2758,44 @@ async function loadNews() {
             </div>
         `;
 
+
         return;
+
     }
 
 
     // =========================================
-    // JEDE NEWS-MELDUNG
+    // NEWS DURCHLAUFEN
     // =========================================
 
-    for (const post of news) {
+    for (
+        const post of news
+    ) {
 
 
-        // =========================================
+        // =====================================
         // MEDIA ZUR NEWS LADEN
-        // =========================================
+        // =====================================
 
         const {
             data: media,
             error: mediaError
-        } = await supabaseClient
-            .from("news_media")
-            .select(
-                "id, news_id, storage_path, media_type, created_at"
-            )
-            .eq(
-                "news_id",
-                post.id
-            )
-            .order(
-                "created_at",
-                {
-                    ascending: true
-                }
-            );
+        } =
+            await supabaseClient
+                .from("news_media")
+                .select(
+                    "id, news_id, storage_path, media_type, created_at"
+                )
+                .eq(
+                    "news_id",
+                    post.id
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: true
+                    }
+                );
 
 
         if (mediaError) {
@@ -2785,23 +2808,28 @@ async function loadNews() {
         }
 
 
-        // =========================================
-        // ARTIKEL
-        // =========================================
+        // =====================================
+        // ARTIKEL ERSTELLEN
+        // =====================================
 
         const article =
-            document.createElement("article");
+            document.createElement(
+                "article"
+            );
+
 
         article.className =
             "news-item";
 
 
-        // =========================================
+        // =====================================
         // DATUM
-        // =========================================
+        // =====================================
 
         const date =
-            new Date(post.created_at);
+            new Date(
+                post.created_at
+            );
 
 
         const formattedDate =
@@ -2815,9 +2843,9 @@ async function loadNews() {
             ).toUpperCase();
 
 
-        // =========================================
+        // =====================================
         // NEWS-GRUNDSTRUKTUR
-        // =========================================
+        // =====================================
 
         article.innerHTML = `
 
@@ -2844,17 +2872,28 @@ async function loadNews() {
         `;
 
 
-        // =========================================
+        // =====================================
         // NEWS-CONTENT HOLEN
-        // =========================================
+        // =====================================
 
         const newsContent =
-            article.querySelector(".news-content");
+            article.querySelector(
+                ".news-content"
+            );
 
 
-        // =========================================
-        // ERSTES BILD SUCHEN
-        // =========================================
+        if (
+            !newsContent
+        ) {
+
+            continue;
+
+        }
+
+
+        // =====================================
+        // NUR DAS ERSTE BILD VERWENDEN
+        // =====================================
 
         const imageMedia =
             media?.find(
@@ -2863,21 +2902,23 @@ async function loadNews() {
             );
 
 
-        // =========================================
-        // BILD EINMALIG ANHÄNGEN
-        // =========================================
-
         if (
-            newsContent &&
             imageMedia
         ) {
+
+
+            // =================================
+            // ÖFFENTLICHE STORAGE-URL
+            // =================================
 
             const {
                 data: publicUrlData
             } =
                 supabaseClient
                     .storage
-                    .from("news-media")
+                    .from(
+                        "news-media"
+                    )
                     .getPublicUrl(
                         imageMedia.storage_path
                     );
@@ -2887,17 +2928,34 @@ async function loadNews() {
                 publicUrlData?.publicUrl;
 
 
-            if (imageUrl) {
+            if (
+                imageUrl
+            ) {
+
+
+                // =============================
+                // BILD-CONTAINER
+                // =============================
 
                 const mediaContainer =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
+
 
                 mediaContainer.className =
                     "news-media";
 
 
+                // =============================
+                // BILD
+                // =============================
+
                 const image =
-                    document.createElement("img");
+                    document.createElement(
+                        "img"
+                    );
+
 
                 image.className =
                     "news-image";
@@ -2915,18 +2973,10 @@ async function loadNews() {
                 image.loading =
                     "lazy";
 
-                image.addEventListener(
-    "click",
-    () => {
 
-        openImageLightbox(
-            imageUrl,
-            image.alt
-        );
-
-    }
-);
-
+                // =============================
+                // BILD AN NEWS ANHÄNGEN
+                // =============================
 
                 mediaContainer.appendChild(
                     image
@@ -2942,9 +2992,9 @@ async function loadNews() {
         }
 
 
-        // =========================================
+        // =====================================
         // ARTIKEL AUF SEITE SETZEN
-        // =========================================
+        // =====================================
 
         container.appendChild(
             article
@@ -2955,27 +3005,276 @@ async function loadNews() {
 }
 
 
+// =========================================
+// BILD-LIGHTBOX
+// =========================================
+
+function openImageLightbox(
+    imageUrl,
+    altText
+) {
 
 
+    // =====================================
+    // EVENTUELLE ALTE LIGHTBOX ENTFERNEN
+    // =====================================
+
+    const oldLightbox =
+        document.querySelector(
+            ".image-lightbox"
+        );
+
+
+    if (
+        oldLightbox
+    ) {
+
+        oldLightbox.remove();
+
+    }
+
+
+    // =====================================
+    // LIGHTBOX ERSTELLEN
+    // =====================================
+
+    const lightbox =
+        document.createElement(
+            "div"
+        );
+
+
+    lightbox.className =
+        "image-lightbox";
+
+
+    // =====================================
+    // GROSSES BILD ERSTELLEN
+    // =====================================
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+
+    image.src =
+        imageUrl;
+
+
+    image.alt =
+        altText ||
+        "News Bild";
+
+
+    // =====================================
+    // BILD IN LIGHTBOX
+    // =====================================
+
+    lightbox.appendChild(
+        image
+    );
+
+
+    // =====================================
+    // LIGHTBOX IN BODY
+    // =====================================
+
+    document.body.appendChild(
+        lightbox
+    );
+
+
+    // =====================================
+    // HINTERGRUND KLICKEN
+    // =====================================
+
+    lightbox.addEventListener(
+        "click",
+        function () {
+
+            lightbox.remove();
+
+        }
+    );
+
+
+    // =====================================
+    // BILD NICHT SCHLIESSEN
+    // =====================================
+
+    image.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+}
+
+
+// =========================================
+// KLICK AUF NEWS-BILDER
+// =========================================
+//
+// Dieser Listener funktioniert auch für
+// Bilder, die erst später durch loadNews()
+// erzeugt werden.
+//
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+
+        const image =
+            event.target.closest(
+                ".news-image"
+            );
+
+
+        if (
+            !image
+        ) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        openImageLightbox(
+            image.src,
+            image.alt
+        );
+
+    }
+);
 
 
 // =========================================
 // HTML-SICHERHEIT
 // =========================================
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     const div =
         document.createElement(
             "div"
         );
 
+
     div.textContent =
         value ?? "";
+
 
     return div.innerHTML;
 
 }
+// =========================================
+// NEWS-BILD VERGRÖSSERN
+// =========================================
+
+function openImageLightbox(imageUrl, altText) {
+
+    // Falls bereits eine Lightbox existiert:
+    const oldLightbox =
+        document.querySelector(".image-lightbox");
+
+    if (oldLightbox) {
+        oldLightbox.remove();
+    }
+
+
+    // Hintergrund erzeugen
+    const lightbox =
+        document.createElement("div");
+
+    lightbox.className =
+        "image-lightbox";
+
+
+    // Großes Bild erzeugen
+    const image =
+        document.createElement("img");
+
+    image.src =
+        imageUrl;
+
+    image.alt =
+        altText || "News Bild";
+
+
+    lightbox.appendChild(
+        image
+    );
+
+
+    document.body.appendChild(
+        lightbox
+    );
+
+
+    // Klick auf dunklen Hintergrund
+    lightbox.addEventListener(
+        "click",
+        function () {
+
+            lightbox.remove();
+
+        }
+    );
+
+
+    // Klick auf das Bild selbst
+    // darf die Lightbox NICHT schließen
+    image.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+}
+
+
+// =========================================
+// KLICK AUF NEWS-BILDER
+// =========================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const image =
+            event.target.closest(
+                ".news-image"
+            );
+
+
+        if (!image) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        openImageLightbox(
+            image.src,
+            image.alt
+        );
+
+    }
+);
 
 // =========================================
 // BILD-LIGHTBOX
