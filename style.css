@@ -342,15 +342,15 @@ body {
    ========================================= */
 
 .player-row {
-    min-height: 115px;
+    min-height: 100px;
 
     display: grid;
 
     grid-template-columns:
-        90px
-        2fr
-        110px
-        360px;
+        75px
+        minmax(220px, 1fr)
+        75px
+        300px;
 
     align-items: center;
 
