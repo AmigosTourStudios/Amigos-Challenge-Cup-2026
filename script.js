@@ -2664,6 +2664,7 @@ function loadSheetJS() {
 
 }
 
+
 // =========================================
 // NEWS LADEN
 // =========================================
@@ -2671,9 +2672,7 @@ function loadSheetJS() {
 async function loadNews() {
 
     const container =
-        document.getElementById(
-            "news-container"
-        );
+        document.getElementById("news-container");
 
     if (!container) {
         return;
@@ -2690,7 +2689,7 @@ async function loadNews() {
 
 
     // =========================================
-    // NEWS LADEN
+    // NEWS AUS SUPABASE LADEN
     // =========================================
 
     const {
@@ -2733,10 +2732,7 @@ async function loadNews() {
     container.innerHTML = "";
 
 
-    if (
-        !news ||
-        news.length === 0
-    ) {
+    if (!news || news.length === 0) {
 
         container.innerHTML = `
             <div class="news-empty">
@@ -2749,16 +2745,15 @@ async function loadNews() {
 
 
     // =========================================
-    // JEDE NEWS-MELDUNG DARSTELLEN
+    // JEDE NEWS-MELDUNG
     // =========================================
 
-    for (
-        const post of news
-    ) {
+    for (const post of news) {
 
-        // -----------------------------------------
+
+        // =========================================
         // MEDIA ZUR NEWS LADEN
-        // -----------------------------------------
+        // =========================================
 
         const {
             data: media,
@@ -2791,184 +2786,144 @@ async function loadNews() {
 
 
         // =========================================
-// ARTIKEL ERSTELLEN
-// =========================================
+        // ARTIKEL
+        // =========================================
 
-const article =
-    document.createElement(
-        "article"
-    );
+        const article =
+            document.createElement("article");
 
-article.className =
-    "news-item";
-
-
-// =========================================
-// DATUM
-// =========================================
-
-const date =
-    new Date(
-        post.created_at
-    );
-
-
-const formattedDate =
-    date.toLocaleDateString(
-        "de-DE",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        }
-    ).toUpperCase();
-
-
-// =========================================
-// GRUNDSTRUKTUR
-// =========================================
-
-article.innerHTML = `
-
-    <div class="news-date">
-        ${formattedDate}
-    </div>
-
-    <div class="news-content">
-
-        <div class="news-text-content">
-
-            <h2 class="news-title">
-                ${escapeHtml(post.title)}
-            </h2>
-
-            <p class="news-text">
-                ${escapeHtml(post.content)}
-            </p>
-
-        </div>
-
-    </div>
-
-`;
-const newsContent =
-    article.querySelector(".news-content");
-        
-// =========================================
-// BILD ZUR NEWS
-// =========================================
-
+        article.className =
+            "news-item";
 
 
         // =========================================
-        // BILDER
+        // DATUM
         // =========================================
 
-        if (
-            media &&
-            media.length > 0
-        ) {
-
-            const mediaContainer =
-                document.createElement(
-                    "div"
-                );
-
-            mediaContainer.className =
-                "news-media";
+        const date =
+            new Date(post.created_at);
 
 
-            media.forEach(
-                mediaItem => {
-
-                    // Nur Bilder anzeigen
-                    if (
-                        mediaItem.media_type !==
-                        "image"
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    // ---------------------------------
-                    // ÖFFENTLICHE STORAGE-URL
-                    // ---------------------------------
-
-                    const {
-                        data: publicUrlData
-                    } =
-                        supabaseClient
-                            .storage
-                            .from(
-                                "news-media"
-                            )
-                            .getPublicUrl(
-                                mediaItem.storage_path
-                            );
-
-
-                    const imageUrl =
-                        publicUrlData?.publicUrl;
-
-
-                    if (!imageUrl) {
-
-                        console.error(
-                            "Keine öffentliche URL für:",
-                            mediaItem.storage_path
-                        );
-
-                        return;
-
-                    }
-
-
-                    // ---------------------------------
-                    // BILD
-                    // ---------------------------------
-
-                    const image =
-                        document.createElement(
-                            "img"
-                        );
-
-                    image.className =
-                        "news-image";
-
-
-                    image.src =
-                        imageUrl;
-
-
-                    image.alt =
-                        post.title ||
-                        "News Bild";
-
-
-                    image.loading =
-                        "lazy";
-
-
-                    mediaContainer.appendChild(
-                        image
-                    );
-
+        const formattedDate =
+            date.toLocaleDateString(
+                "de-DE",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
                 }
+            ).toUpperCase();
+
+
+        // =========================================
+        // NEWS-GRUNDSTRUKTUR
+        // =========================================
+
+        article.innerHTML = `
+
+            <div class="news-date">
+                ${formattedDate}
+            </div>
+
+            <div class="news-content">
+
+                <div class="news-text-content">
+
+                    <h2 class="news-title">
+                        ${escapeHtml(post.title)}
+                    </h2>
+
+                    <p class="news-text">
+                        ${escapeHtml(post.content)}
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        // =========================================
+        // NEWS-CONTENT HOLEN
+        // =========================================
+
+        const newsContent =
+            article.querySelector(".news-content");
+
+
+        // =========================================
+        // ERSTES BILD SUCHEN
+        // =========================================
+
+        const imageMedia =
+            media?.find(
+                mediaItem =>
+                    mediaItem.media_type === "image"
             );
 
 
-            // Nur hinzufügen, wenn tatsächlich
-            // Bilder vorhanden sind.
+        // =========================================
+        // BILD EINMALIG ANHÄNGEN
+        // =========================================
 
-            if (
-                mediaContainer.children.length > 0
-            ) {
+        if (
+            newsContent &&
+            imageMedia
+        ) {
 
-               newsContent.appendChild(
-    mediaContainer
-);
+            const {
+                data: publicUrlData
+            } =
+                supabaseClient
+                    .storage
+                    .from("news-media")
+                    .getPublicUrl(
+                        imageMedia.storage_path
+                    );
+
+
+            const imageUrl =
+                publicUrlData?.publicUrl;
+
+
+            if (imageUrl) {
+
+                const mediaContainer =
+                    document.createElement("div");
+
+                mediaContainer.className =
+                    "news-media";
+
+
+                const image =
+                    document.createElement("img");
+
+                image.className =
+                    "news-image";
+
+
+                image.src =
+                    imageUrl;
+
+
+                image.alt =
+                    post.title ||
+                    "News Bild";
+
+
+                image.loading =
+                    "lazy";
+
+
+                mediaContainer.appendChild(
+                    image
+                );
+
+
+                newsContent.appendChild(
+                    mediaContainer
+                );
 
             }
 
@@ -2986,6 +2941,8 @@ const newsContent =
     }
 
 }
+
+
 
 
 
