@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="de">
@@ -8,13 +7,15 @@
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
 >
 
 <title>Score Eingabe</title>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -526,14 +527,15 @@
 
 <div class="input-title">
 
-    <h1>Score Eingabe</h1>
+```
+<h1>Score Eingabe</h1>
 
-    <p>
-        Turnier · Scorekarte
-    </p>
+<p>
+    Turnier · Scorekarte
+</p>
+```
 
 </div>
-
 
 <!-- =====================================
      LOCH-AUSWAHL
@@ -541,30 +543,31 @@
 
 <div class="hole-navigation">
 
-    <button
-        type="button"
-        class="navigation-button"
-        id="previous-hole"
-    >
-        ‹
-    </button>
+```
+<button
+    type="button"
+    class="navigation-button"
+    id="previous-hole"
+>
+    ‹
+</button>
 
-    <select
-        class="hole-select"
-        id="hole-select"
-    >
-    </select>
+<select
+    class="hole-select"
+    id="hole-select"
+>
+</select>
 
-    <button
-        type="button"
-        class="navigation-button"
-        id="next-hole"
-    >
-        ›
-    </button>
+<button
+    type="button"
+    class="navigation-button"
+    id="next-hole"
+>
+    ›
+</button>
+```
 
 </div>
-
 
 <!-- =====================================
      PAR
@@ -572,19 +575,20 @@
 
 <div class="par-display">
 
-    <div class="par-label">
-        Par
-    </div>
-
-    <div
-        class="par-value"
-        id="par-value"
-    >
-        –
-    </div>
-
+```
+<div class="par-label">
+    Par
 </div>
 
+<div
+    class="par-value"
+    id="par-value"
+>
+    –
+</div>
+```
+
+</div>
 
 <!-- =====================================
      SPIELER
@@ -592,297 +596,296 @@
 
 <section class="players-card">
 
-    <div class="player-row">
+```
+<div class="player-row">
 
-        <div class="player-name">
-            Ludwig LENZ
-        </div>
-
-        <div class="player-controls">
-
-            <button
-                type="button"
-                class="score-button"
-                data-player="Lenz"
-                data-action="minus"
-            >
-                −
-            </button>
-
-            <input
-                type="number"
-                class="score-input"
-                id="score-Lenz"
-                min="1"
-                max="20"
-            >
-
-            <button
-                type="button"
-                class="score-button"
-                data-player="Lenz"
-                data-action="plus"
-            >
-                +
-            </button>
-
-        </div>
-
+    <div class="player-name">
+        Ludwig LENZ
     </div>
 
-
-    <div class="player-row">
-
-        <div class="player-name">
-            Andreas SCHLEHHUBER
-        </div>
-
-        <div class="player-controls">
-
-            <button
-                type="button"
-                class="score-button"
-                data-player="Schlehhuber"
-                data-action="minus"
-            >
-                −
-            </button>
-
-            <input
-                type="number"
-                class="score-input"
-                id="score-Schlehhuber"
-                min="1"
-                max="20"
-            >
-
-            <button
-                type="button"
-                class="score-button"
-                data-player="Schlehhuber"
-                data-action="plus"
-            >
-                +
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="player-row">
-
-        <div class="player-name">
-            Peter RASER
-        </div>
-
-        <div class="player-controls">
-
-            <button
-                type="button"
-                class="score-button"
-                data-player="Raser"
-                data-action="minus"
-            >
-                −
-            </button>
-
-            <input
-                type="number"
-                class="score-input"
-                id="score-Raser"
-                min="1"
-                max="20"
-            >
-
-            <button
-                type="button"
-                class="score-button"
-                data-player="Raser"
-                data-action="plus"
-            >
-                +
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<button
-    type="button"
-    class="save-button"
-    id="save"
->
-    SCHLÄGE SPEICHERN
-</button>
-
-
-<button
-    type="button"
-    class="reset-button"
-    id="reset-tournament"
->
-    TURNIER ZURÜCKSETZEN
-</button>
-
-
-<div
-    class="status"
-    id="status"
-></div>
-
-
-<!-- =====================================
-     NEWS MESSENGER
-     ===================================== -->
-
-<button
-    type="button"
-    class="news-fab"
-    id="news-fab"
-    aria-label="News erstellen"
->
-    💬
-</button>
-
-
-<div
-    class="news-panel"
-    id="news-panel"
->
-
-    <!-- =====================================
-         NEWS HEADER
-         ===================================== -->
-
-    <div class="news-panel-header">
+    <div class="player-controls">
 
         <button
             type="button"
-            class="news-navigation-button"
-            id="previous-news"
-            aria-label="Vorherige News"
+            class="score-button"
+            data-player="Lenz"
+            data-action="minus"
         >
-            ‹
+            −
         </button>
 
-
-        <div class="news-header-title">
-
-            <strong id="news-header-title">
-                NEWS POSTEN
-            </strong>
-
-            <span id="news-counter">
-                Neuer Post
-            </span>
-
-        </div>
-
-
-        <button
-            type="button"
-            class="news-navigation-button"
-            id="next-news"
-            aria-label="Nächste News"
+        <input
+            type="number"
+            class="score-input"
+            id="score-Lenz"
+            min="1"
+            max="20"
         >
-            ›
-        </button>
-
 
         <button
             type="button"
-            class="news-navigation-button"
-            id="new-news"
-            aria-label="Neue News"
+            class="score-button"
+            data-player="Lenz"
+            data-action="plus"
         >
             +
-        </button>
-
-
-        <button
-            type="button"
-            class="news-close"
-            id="news-close"
-            aria-label="News schließen"
-        >
-            ×
-        </button>
-
-    </div>
-
-
-    <!-- =====================================
-         NEWS FORMULAR
-         ===================================== -->
-
-    <div class="news-form">
-
-        <label for="news-title">
-            Überschrift
-        </label>
-
-        <input
-            type="text"
-            id="news-title"
-            placeholder="z. B. Runde 1 gestartet"
-            maxlength="100"
-        >
-
-
-        <label for="news-content">
-            Nachricht
-        </label>
-
-        <textarea
-            id="news-content"
-            placeholder="Was gibt es Neues?"
-            maxlength="1000"
-        ></textarea>
-
-
-        <label for="news-media">
-            Bild oder Video
-        </label>
-
-        <input
-            type="file"
-            id="news-media"
-            accept="image/*,video/*"
-        >
-
-
-        <div
-            id="news-media-preview"
-            class="news-media-preview"
-        ></div>
-
-
-        <button
-            type="button"
-            class="news-submit"
-            id="news-submit"
-        >
-            NEWS VERÖFFENTLICHEN
-        </button>
-
-
-        <button
-            type="button"
-            class="news-delete"
-            id="news-delete"
-            disabled
-        >
-            NEWS LÖSCHEN
         </button>
 
     </div>
 
 </div>
 
+
+<div class="player-row">
+
+    <div class="player-name">
+        Andreas SCHLEHHUBER
+    </div>
+
+    <div class="player-controls">
+
+        <button
+            type="button"
+            class="score-button"
+            data-player="Schlehhuber"
+            data-action="minus"
+        >
+            −
+        </button>
+
+        <input
+            type="number"
+            class="score-input"
+            id="score-Schlehhuber"
+            min="1"
+            max="20"
+        >
+
+        <button
+            type="button"
+            class="score-button"
+            data-player="Schlehhuber"
+            data-action="plus"
+        >
+            +
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="player-row">
+
+    <div class="player-name">
+        Peter RASER
+    </div>
+
+    <div class="player-controls">
+
+        <button
+            type="button"
+            class="score-button"
+            data-player="Raser"
+            data-action="minus"
+        >
+            −
+        </button>
+
+        <input
+            type="number"
+            class="score-input"
+            id="score-Raser"
+            min="1"
+            max="20"
+        >
+
+        <button
+            type="button"
+            class="score-button"
+            data-player="Raser"
+            data-action="plus"
+        >
+            +
+        </button>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<button
+type="button"
+class="save-button"
+id="save"
+
+>
+
+```
+SCHLÄGE SPEICHERN
+```
+
+</button>
+
+<button
+type="button"
+class="reset-button"
+id="reset-tournament"
+
+>
+
+```
+TURNIER ZURÜCKSETZEN
+```
+
+</button>
+
+<div
+    class="status"
+    id="status"
+></div>
+
+<!-- =====================================
+     NEWS MESSENGER
+     ===================================== -->
+
+<button
+type="button"
+class="news-fab"
+id="news-fab"
+aria-label="News erstellen"
+
+>
+
+```
+💬
+```
+
+</button>
+
+<div
+    class="news-panel"
+    id="news-panel"
+>
+
+```
+<div class="news-panel-header">
+
+    <button
+        type="button"
+        class="news-navigation-button"
+        id="previous-news"
+        aria-label="Vorherige News"
+    >
+        ‹
+    </button>
+
+
+    <div class="news-header-title">
+
+        <strong id="news-header-title">
+            NEWS
+        </strong>
+
+        <span id="news-counter">
+            Laden …
+        </span>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="news-navigation-button"
+        id="next-news"
+        aria-label="Nächste News"
+    >
+        ›
+    </button>
+
+
+    <button
+        type="button"
+        class="news-close"
+        id="news-close"
+        aria-label="News schließen"
+    >
+        ×
+    </button>
+
+</div>
+
+
+<!-- =====================================
+     NEWS FORMULAR
+     ===================================== -->
+
+<div class="news-form">
+
+    <label for="news-title">
+        Überschrift
+    </label>
+
+    <input
+        type="text"
+        id="news-title"
+        placeholder="z. B. Runde 1 gestartet"
+        maxlength="100"
+    >
+
+
+    <label for="news-content">
+        Nachricht
+    </label>
+
+    <textarea
+        id="news-content"
+        placeholder="Was gibt es Neues?"
+        maxlength="1000"
+    ></textarea>
+
+
+    <label for="news-media">
+        Bild oder Video
+    </label>
+
+    <input
+        type="file"
+        id="news-media"
+        accept="image/*,video/*"
+    >
+
+
+    <div
+        id="news-media-preview"
+        class="news-media-preview"
+    ></div>
+
+
+    <button
+        type="button"
+        class="news-submit"
+        id="news-submit"
+    >
+        NEWS VERÖFFENTLICHEN
+    </button>
+
+
+    <button
+        type="button"
+        class="news-delete"
+        id="news-delete"
+        disabled
+    >
+        NEWS LÖSCHEN
+    </button>
+
+</div>
+```
+
+</div>
 
 </main>
 
@@ -1445,10 +1448,6 @@ function showHole(index) {
     }
 
 
-    // =====================================
-    // PAR
-    // =====================================
-
     const parValues =
         Object.values(
             data.par
@@ -1472,10 +1471,6 @@ function showHole(index) {
                 ? par
                 : "–";
 
-
-    // =====================================
-    // SPIELER
-    // =====================================
 
     for (
         const player
@@ -1761,10 +1756,6 @@ document
             }
 
 
-            // =================================
-            // LOKAL SPEICHERN
-            // =================================
-
             localStorage.setItem(
                 STORAGE_KEY,
                 JSON.stringify(
@@ -1772,10 +1763,6 @@ document
                 )
             );
 
-
-            // =================================
-            // SUPABASE SPEICHERN
-            // =================================
 
             const scoresToSave = [];
 
@@ -2071,39 +2058,21 @@ function showStatus(
 // NEWS MESSENGER
 // =========================================
 //
-// News-Funktionen:
+// WICHTIG:
+// Die News-Liste wird aufsteigend nach
+// created_at geladen:
 //
-// - Posts laden
-// - Posts erstellen
-// - Posts bearbeiten
-// - Posts löschen
-// - Bilder hochladen
-// - Videos hochladen
-// - Medien anzeigen
-// - Medien ersetzen
-// - Medien beim Löschen eines Posts
-//   ebenfalls aus Supabase Storage entfernen
+// ältester Post -> Index 0
+// neuester Post -> letzter Index
 //
-// Erwartete Supabase-Struktur:
+// currentNewsIndex >= 0:
+//     vorhandener Post
 //
-// Tabelle: news
-// id
-// title
-// content
-// published
-// created_at
+// currentNewsIndex === -1:
+//     neuer Post
 //
-// Tabelle: news_media
-// id
-// news_id
-// storage_path
-// media_type
-//
-// Storage Bucket:
-// news-media
-//
-// Der Bucket muss öffentlich sein,
-// wenn getPublicUrl() verwendet wird.
+// Dadurch sind vorhandene Posts und der
+// neue Post-Zustand sauber getrennt.
 
 
 // =========================================
@@ -2176,12 +2145,6 @@ const nextNews =
     );
 
 
-const newNews =
-    document.getElementById(
-        "new-news"
-    );
-
-
 const newsCounter =
     document.getElementById(
         "news-counter"
@@ -2192,6 +2155,17 @@ const newsHeaderTitle =
     document.getElementById(
         "news-header-title"
     );
+
+
+// =========================================
+// NEWS DATEN
+// =========================================
+
+let newsPosts = [];
+
+let currentNewsIndex = -1;
+
+let currentNewsId = null;
 
 
 // =========================================
@@ -2218,10 +2192,6 @@ async function uploadNewsMedia(
 
     }
 
-
-    // =====================================
-    // DATEITYP BESTIMMEN
-    // =====================================
 
     let mediaType = null;
 
@@ -2251,10 +2221,6 @@ async function uploadNewsMedia(
     }
 
 
-    // =====================================
-    // DATEIGRÖSSE PRÜFEN
-    // =====================================
-
     const maxFileSize =
         100 * 1024 * 1024;
 
@@ -2269,10 +2235,6 @@ async function uploadNewsMedia(
 
     }
 
-
-    // =====================================
-    // EINDEUTIGEN DATEINAMEN ERZEUGEN
-    // =====================================
 
     const fileExtension =
         file.name.includes(".")
@@ -2295,10 +2257,6 @@ async function uploadNewsMedia(
     const storagePath =
         `${newsId}/${fileName}`;
 
-
-    // =====================================
-    // STORAGE UPLOAD
-    // =====================================
 
     const {
         error: uploadError
@@ -2326,14 +2284,11 @@ async function uploadNewsMedia(
             uploadError
         );
 
+
         throw uploadError;
 
     }
 
-
-    // =====================================
-    // ÖFFENTLICHE URL
-    // =====================================
 
     const {
         data: publicUrlData
@@ -2349,10 +2304,6 @@ async function uploadNewsMedia(
     const publicUrl =
         publicUrlData.publicUrl;
 
-
-    // =====================================
-    // MEDIEN-DATENSATZ SPEICHERN
-    // =====================================
 
     const {
         data: mediaData,
@@ -2738,10 +2689,6 @@ function previewSelectedNewsMedia() {
                 "";
 
 
-            newsMediaPreview.innerHTML =
-                "";
-
-
             URL.revokeObjectURL(
                 objectUrl
             );
@@ -2757,6 +2704,13 @@ function previewSelectedNewsMedia() {
                 .then(
                     renderNewsMediaPreview
                 );
+
+            }
+
+            else {
+
+                newsMediaPreview.innerHTML =
+                    "";
 
             }
 
@@ -2854,17 +2808,6 @@ newsMedia.addEventListener(
 
 
 // =========================================
-// NEWS DATEN
-// =========================================
-
-let newsPosts = [];
-
-let currentNewsIndex = -1;
-
-let currentNewsId = null;
-
-
-// =========================================
 // NEWS PANEL ÖFFNEN
 // =========================================
 
@@ -2895,12 +2838,6 @@ newsFab.addEventListener(
 
 
         await loadNews();
-
-
-        // Beim Öffnen immer direkt
-        // einen neuen Post vorbereiten.
-
-        prepareNewNews();
 
     }
 );
@@ -2958,7 +2895,7 @@ async function loadNews() {
                 .order(
                     "created_at",
                     {
-                        ascending: false
+                        ascending: true
                     }
                 );
 
@@ -2986,32 +2923,36 @@ async function loadNews() {
             data || [];
 
 
+        // =====================================
+        // KEINE NEWS
+        // =====================================
+
         if (
             newsPosts.length === 0
         ) {
 
-            currentNewsIndex =
-                -1;
-
-            currentNewsId =
-                null;
-
-
             prepareNewNews();
-
 
             return;
 
         }
 
 
-        // Die News werden nur geladen.
-        // Es wird hier bewusst KEIN Post
-        // automatisch geöffnet.
-        //
-        // Das Öffnen des News-Fensters soll
-        // immer mit "Neuer Post" beginnen.
+        // =====================================
+        // NEUESTEN BESTEHENDEN POST ANZEIGEN
+        // =====================================
 
+        currentNewsIndex =
+            newsPosts.length - 1;
+
+
+        currentNewsId =
+            newsPosts[
+                currentNewsIndex
+            ].id;
+
+
+        await showNewsPost();
 
     } catch (error) {
 
@@ -3077,8 +3018,16 @@ function prepareNewNews() {
         true;
 
 
+    // Im neuen Post-Modus kann man
+    // mit dem linken Pfeil zum letzten
+    // vorhandenen Post zurückgehen.
+    //
+    // Der rechte Pfeil bleibt deaktiviert,
+    // weil es rechts vom neuen Post nichts
+    // gibt.
+
     previousNews.disabled =
-        true;
+        newsPosts.length === 0;
 
 
     nextNews.disabled =
@@ -3125,7 +3074,7 @@ async function showNewsPost() {
 
 
     // =====================================
-    // AKTUELLEN POST HOLEN
+    // BESTEHENDEN POST HOLEN
     // =====================================
 
     const post =
@@ -3216,7 +3165,41 @@ async function showNewsPost() {
 // VORHERIGE NEWS
 // =========================================
 
-function showPreviousNews() {
+async function showPreviousNews() {
+
+    // Wenn gerade "Neuer Post" aktiv ist,
+    // führt der linke Pfeil zum neuesten
+    // vorhandenen Post.
+
+    if (
+        currentNewsIndex === -1
+    ) {
+
+        if (
+            newsPosts.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        currentNewsIndex =
+            newsPosts.length - 1;
+
+
+        currentNewsId =
+            newsPosts[
+                currentNewsIndex
+            ].id;
+
+
+        await showNewsPost();
+
+        return;
+
+    }
+
 
     if (
         newsPosts.length === 0
@@ -3239,7 +3222,7 @@ function showPreviousNews() {
     currentNewsIndex--;
 
 
-    showNewsPost();
+    await showNewsPost();
 
 }
 
@@ -3248,7 +3231,7 @@ function showPreviousNews() {
 // NÄCHSTE NEWS
 // =========================================
 
-function showNextNews() {
+async function showNextNews() {
 
     if (
         newsPosts.length === 0
@@ -3259,10 +3242,16 @@ function showNextNews() {
     }
 
 
+    // Vom letzten vorhandenen Post aus
+    // führt der rechte Pfeil zum neuen
+    // Post-Modus.
+
     if (
         currentNewsIndex >=
         newsPosts.length - 1
     ) {
+
+        prepareNewNews();
 
         return;
 
@@ -3272,7 +3261,7 @@ function showNextNews() {
     currentNewsIndex++;
 
 
-    showNewsPost();
+    await showNewsPost();
 
 }
 
@@ -3283,9 +3272,9 @@ function showNextNews() {
 
 previousNews.addEventListener(
     "click",
-    () => {
+    async () => {
 
-        showPreviousNews();
+        await showPreviousNews();
 
     }
 );
@@ -3293,23 +3282,9 @@ previousNews.addEventListener(
 
 nextNews.addEventListener(
     "click",
-    () => {
+    async () => {
 
-        showNextNews();
-
-    }
-);
-
-
-// =========================================
-// NEUEN POST ERSTELLEN
-// =========================================
-
-newNews.addEventListener(
-    "click",
-    () => {
-
-        prepareNewNews();
+        await showNextNews();
 
     }
 );
@@ -3321,7 +3296,7 @@ newNews.addEventListener(
 
 document.addEventListener(
     "keydown",
-    event => {
+    async event => {
 
         if (
             !newsPanel.classList.contains(
@@ -3357,7 +3332,7 @@ document.addEventListener(
             event.preventDefault();
 
 
-            showPreviousNews();
+            await showPreviousNews();
 
         }
 
@@ -3369,7 +3344,7 @@ document.addEventListener(
             event.preventDefault();
 
 
-            showNextNews();
+            await showNextNews();
 
         }
 
@@ -3504,10 +3479,6 @@ newsSubmit.addEventListener(
         }
 
 
-        // =====================================
-        // BUTTON SPERREN
-        // =====================================
-
         newsSubmit.disabled =
             true;
 
@@ -3521,7 +3492,9 @@ newsSubmit.addEventListener(
             // BESTEHENDEN POST AKTUALISIEREN
             // =====================================
 
-            if (currentNewsId) {
+            if (
+                currentNewsId !== null
+            ) {
 
                 newsSubmit.textContent =
                     "WIRD AKTUALISIERT …";
@@ -3563,6 +3536,7 @@ newsSubmit.addEventListener(
                         true
                     );
 
+
                     return;
 
                 }
@@ -3576,20 +3550,23 @@ newsSubmit.addEventListener(
                 // LOKALE LISTE AKTUALISIEREN
                 // =================================
 
-                newsPosts[
-                    currentNewsIndex
-                ] =
-                    {
-                        ...newsPosts[
-                            currentNewsIndex
-                        ],
+                if (
+                    currentNewsIndex >= 0 &&
+                    currentNewsIndex < newsPosts.length
+                ) {
 
-                        title:
-                            title,
+                    newsPosts[
+                        currentNewsIndex
+                    ] =
+                        {
+                            ...newsPosts[
+                                currentNewsIndex
+                            ],
 
-                        content:
-                            content
-                    };
+                            ...savedPost
+                        };
+
+                }
 
 
                 // =================================
@@ -3602,19 +3579,11 @@ newsSubmit.addEventListener(
                         "MEDIUM WIRD HOCHGELADEN …";
 
 
-                    // =================================
-                    // ALTE MEDIEN DES POSTS ERMITTELN
-                    // =================================
-
                     const oldMedia =
                         await loadNewsMedia(
                             currentNewsId
                         );
 
-
-                    // =================================
-                    // NEUES MEDIUM HOCHLADEN
-                    // =================================
 
                     const newMedia =
                         await uploadNewsMedia(
@@ -3762,6 +3731,7 @@ newsSubmit.addEventListener(
                         true
                     );
 
+
                     return;
 
                 }
@@ -3794,19 +3764,23 @@ newsSubmit.addEventListener(
 
 
                 // =================================
-                // NEUEN POST AN DEN ANFANG
-                // DER AKTUELLEN LISTE SETZEN
+                // NEUEN POST IN DIE SORTIERTE
+                // LISTE EINFÜGEN
                 // =================================
+                //
+                // Die Liste ist ASCENDING sortiert.
+                // Deshalb gehört ein neuer Post
+                // ans Ende und nicht an den Anfang.
 
                 if (savedPost) {
 
-                    newsPosts.unshift(
+                    newsPosts.push(
                         savedPost
                     );
 
 
                     currentNewsIndex =
-                        0;
+                        newsPosts.length - 1;
 
 
                     currentNewsId =
@@ -3845,7 +3819,9 @@ newsSubmit.addEventListener(
             // AKTUELLES MEDIUM ERNEUT LADEN
             // =====================================
 
-            if (currentNewsId) {
+            if (
+                currentNewsId !== null
+            ) {
 
                 const mediaList =
                     await loadNewsMedia(
@@ -3867,7 +3843,11 @@ newsSubmit.addEventListener(
             }
 
 
-            updateNewsNavigation();
+            // =====================================
+            // NAVIGATION AKTUALISIEREN
+            // =====================================
+
+            await showNewsPost();
 
 
         } catch (error) {
@@ -3892,7 +3872,7 @@ newsSubmit.addEventListener(
 
 
             newsSubmit.textContent =
-                currentNewsId
+                currentNewsId !== null
                     ? "NEWS ÄNDERN"
                     : "NEWS VERÖFFENTLICHEN";
 
@@ -3908,9 +3888,37 @@ newsSubmit.addEventListener(
 
 function updateNewsNavigation() {
 
+    // =====================================
+    // NEUER POST
+    // =====================================
+
     if (
-        newsPosts.length === 0 ||
-        currentNewsIndex < 0
+        currentNewsIndex === -1
+    ) {
+
+        previousNews.disabled =
+            newsPosts.length === 0;
+
+
+        nextNews.disabled =
+            true;
+
+
+        newsCounter.textContent =
+            "Neuer Post";
+
+
+        return;
+
+    }
+
+
+    // =====================================
+    // KEINE POSTS
+    // =====================================
+
+    if (
+        newsPosts.length === 0
     ) {
 
         previousNews.disabled =
@@ -3921,10 +3929,18 @@ function updateNewsNavigation() {
             true;
 
 
+        newsCounter.textContent =
+            "Neuer Post";
+
+
         return;
 
     }
 
+
+    // =====================================
+    // BESTEHENDER POST
+    // =====================================
 
     previousNews.disabled =
         currentNewsIndex <= 0;
@@ -4013,7 +4029,7 @@ newsDelete.addEventListener(
 
 
             // =================================
-            // ZUERST MEDIEN DES POSTS LADEN
+            // MEDIEN DES POSTS LADEN
             // =================================
 
             const mediaList =
@@ -4164,7 +4180,7 @@ newsDelete.addEventListener(
 
 
             // =================================
-            // NACHBARPOST AUSWÄHLEN
+            // NACHBARTPOST AUSWÄHLEN
             // =================================
 
             if (
@@ -4174,12 +4190,20 @@ newsDelete.addEventListener(
                 currentNewsIndex =
                     -1;
 
+
                 currentNewsId =
                     null;
+
+
+                prepareNewNews();
 
             }
 
             else {
+
+                // Wenn der gelöschte Post
+                // der letzte war, wird der
+                // nun letzte Post ausgewählt.
 
                 if (
                     currentNewsIndex >=
@@ -4197,22 +4221,6 @@ newsDelete.addEventListener(
                         currentNewsIndex
                     ].id;
 
-            }
-
-
-            // =================================
-            // FORMULAR AKTUALISIEREN
-            // =================================
-
-            if (
-                newsPosts.length === 0
-            ) {
-
-                prepareNewNews();
-
-            }
-
-            else {
 
                 await showNewsPost();
 
@@ -4271,4 +4279,3 @@ loadExcel();
 </body>
 
 </html>
-
