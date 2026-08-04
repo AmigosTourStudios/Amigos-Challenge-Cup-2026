@@ -36,6 +36,10 @@
         padding: 16px;
     }
 
+    /* =====================================
+       KOPF
+       ===================================== */
+
     .input-title {
         margin-bottom: 15px;
     }
@@ -49,6 +53,10 @@
         margin: 5px 0 0;
         color: #666;
     }
+
+    /* =====================================
+       LOCH-NAVIGATION
+       ===================================== */
 
     .hole-navigation {
         display: grid;
@@ -77,6 +85,10 @@
         font-size: 16px;
     }
 
+    /* =====================================
+       PAR
+       ===================================== */
+
     .par-display {
         text-align: center;
         margin-bottom: 15px;
@@ -99,6 +111,10 @@
         font-size: 28px;
         font-weight: bold;
     }
+
+    /* =====================================
+       SPIELER
+       ===================================== */
 
     .players-card {
         background: white;
@@ -153,6 +169,10 @@
         font-weight: bold;
     }
 
+    /* =====================================
+       SPEICHERN
+       ===================================== */
+
     .save-button {
         width: 100%;
         height: 54px;
@@ -165,6 +185,10 @@
         font-weight: bold;
         cursor: pointer;
     }
+
+    /* =====================================
+       RESET
+       ===================================== */
 
     .reset-button {
         width: 100%;
@@ -179,6 +203,10 @@
         cursor: pointer;
     }
 
+    /* =====================================
+       STATUS
+       ===================================== */
+
     .status {
         display: none;
         margin-top: 12px;
@@ -187,6 +215,10 @@
         background: #eee;
         font-size: 14px;
     }
+
+    /* =====================================
+       MOBILE
+       ===================================== */
 
     @media (max-width: 420px) {
 
@@ -208,6 +240,10 @@
             height: 40px;
         }
     }
+
+    /* =====================================
+       NEWS MESSENGER
+       ===================================== */
 
     .news-fab {
         position: fixed;
@@ -233,6 +269,10 @@
         transform: scale(0.95);
     }
 
+    /* =====================================
+       NEWS PANEL
+       ===================================== */
+
     .news-panel {
         position: fixed;
         right: 20px;
@@ -254,6 +294,10 @@
     .news-panel.open {
         display: block;
     }
+
+    /* =====================================
+       PANEL HEADER
+       ===================================== */
 
     .news-panel-header {
         display: flex;
@@ -322,6 +366,10 @@
         cursor: pointer;
     }
 
+    /* =====================================
+       FORMULAR
+       ===================================== */
+
     .news-form {
         padding: 16px;
         max-height: calc(100vh - 180px);
@@ -357,6 +405,31 @@
         outline: none;
         border-color: #2e7d32;
     }
+
+    /* =====================================
+       NEUER NEWS BUTTON
+       ===================================== */
+
+    .news-new-button {
+        width: 100%;
+        height: 42px;
+        margin-bottom: 14px;
+        border: none;
+        border-radius: 8px;
+        background: #071b2d;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .news-new-button:hover {
+        background: #0c2a43;
+    }
+
+    /* =====================================
+       NEWS MEDIEN
+       ===================================== */
 
     .news-media-preview {
         width: 100%;
@@ -404,6 +477,10 @@
         background: #d5d5d5;
     }
 
+    /* =====================================
+       NEWS BUTTONS
+       ===================================== */
+
     .news-submit {
         width: 100%;
         height: 46px;
@@ -439,6 +516,10 @@
         cursor: default;
     }
 
+    /* =====================================
+       HANDY
+       ===================================== */
+
     @media (max-width: 420px) {
 
         .news-fab {
@@ -473,6 +554,11 @@
 
 </div>
 
+
+<!-- =====================================
+     LOCH-AUSWAHL
+     ===================================== -->
+
 <div class="hole-navigation">
 
     <button
@@ -499,6 +585,11 @@
 
 </div>
 
+
+<!-- =====================================
+     PAR
+     ===================================== -->
+
 <div class="par-display">
 
     <div class="par-label">
@@ -513,6 +604,11 @@
     </div>
 
 </div>
+
+
+<!-- =====================================
+     SPIELER
+     ===================================== -->
 
 <section class="players-card">
 
@@ -554,6 +650,7 @@
 
     </div>
 
+
     <div class="player-row">
 
         <div class="player-name">
@@ -591,6 +688,7 @@
         </div>
 
     </div>
+
 
     <div class="player-row">
 
@@ -632,6 +730,7 @@
 
 </section>
 
+
 <button
     type="button"
     class="save-button"
@@ -639,6 +738,7 @@
 >
     SCHLÄGE SPEICHERN
 </button>
+
 
 <button
     type="button"
@@ -648,10 +748,16 @@
     TURNIER ZURÜCKSETZEN
 </button>
 
+
 <div
     class="status"
     id="status"
 ></div>
+
+
+<!-- =====================================
+     NEWS MESSENGER
+     ===================================== -->
 
 <button
     type="button"
@@ -662,10 +768,15 @@
     💬
 </button>
 
+
 <div
     class="news-panel"
     id="news-panel"
 >
+
+    <!-- =====================================
+         NEWS HEADER
+         ===================================== -->
 
     <div class="news-panel-header">
 
@@ -677,6 +788,7 @@
         >
             ‹
         </button>
+
 
         <div class="news-header-title">
 
@@ -690,6 +802,7 @@
 
         </div>
 
+
         <button
             type="button"
             class="news-navigation-button"
@@ -698,6 +811,7 @@
         >
             ›
         </button>
+
 
         <button
             type="button"
@@ -710,11 +824,26 @@
 
     </div>
 
+
+    <!-- =====================================
+         NEWS FORMULAR
+         ===================================== -->
+
     <div class="news-form">
+
+        <button
+            type="button"
+            class="news-new-button"
+            id="news-new"
+        >
+            + NEUE NEWS SCHREIBEN
+        </button>
+
 
         <label for="news-title">
             Überschrift
         </label>
+
 
         <input
             type="text"
@@ -723,9 +852,11 @@
             maxlength="100"
         >
 
+
         <label for="news-content">
             Nachricht
         </label>
+
 
         <textarea
             id="news-content"
@@ -733,9 +864,11 @@
             maxlength="1000"
         ></textarea>
 
+
         <label for="news-media">
             Bild oder Video
         </label>
+
 
         <input
             type="file"
@@ -743,10 +876,12 @@
             accept="image/*,video/*"
         >
 
+
         <div
             id="news-media-preview"
             class="news-media-preview"
         ></div>
+
 
         <button
             type="button"
@@ -755,6 +890,7 @@
         >
             NEWS VERÖFFENTLICHEN
         </button>
+
 
         <button
             type="button"
@@ -769,23 +905,38 @@
 
 </div>
 
+
 </main>
 
 <script>
 
+
+// =========================================
+// KONFIGURATION
+// =========================================
+
 const excelFile =
     "scorekarte_leaderboard.xlsx";
+
 
 const STORAGE_KEY =
     "golfPlayedScores";
 
+
+// =========================================
+// SUPABASE
+// =========================================
+
 const SUPABASE_URL =
     "https://pdwgmbheawyulnxvzzzb.supabase.co";
+
 
 const SUPABASE_KEY =
     "sb_publishable_Fw5AztwZqtUJfQMFJTWvvA_aqH-83hG";
 
+
 let supabaseClient = null;
+
 
 function initializeSupabase() {
 
@@ -801,34 +952,45 @@ function initializeSupabase() {
 
     }
 
+
     supabaseClient =
         supabase.createClient(
             SUPABASE_URL,
             SUPABASE_KEY
         );
 
+
     console.log(
         "Supabase-Verbindung hergestellt."
     );
+
 
     console.log(
         "Supabase Client:",
         supabaseClient
     );
 
+
     console.log(
         "Supabase URL:",
         SUPABASE_URL
     );
+
 
     console.log(
         "Supabase Key beginnt mit:",
         SUPABASE_KEY.substring(0, 15)
     );
 
+
     return true;
 
 }
+
+
+// =========================================
+// RUNDEN
+// =========================================
 
 const roundStartRows = {
 
@@ -838,6 +1000,11 @@ const roundStartRows = {
     4: 100
 
 };
+
+
+// =========================================
+// SPIELER / EXCEL-SPALTEN
+// =========================================
 
 const playerColumns = {
 
@@ -855,6 +1022,11 @@ const playerColumns = {
 
 };
 
+
+// =========================================
+// DATEN
+// =========================================
+
 let workbook = null;
 
 let holeData = {};
@@ -863,7 +1035,13 @@ let playedScores = {};
 
 let currentHoleIndex = 0;
 
+
+// =========================================
+// 72 LÖCHER ERZEUGEN
+// =========================================
+
 const holes = [];
+
 
 for (
     let round = 1;
@@ -892,10 +1070,16 @@ for (
 
 }
 
+
+// =========================================
+// DROPDOWN
+// =========================================
+
 const holeSelect =
     document.getElementById(
         "hole-select"
     );
+
 
 holes.forEach(
     (hole, index) => {
@@ -905,11 +1089,14 @@ holes.forEach(
                 "option"
             );
 
+
         option.value =
             index;
 
+
         option.textContent =
             hole.label;
+
 
         holeSelect.appendChild(
             option
@@ -918,6 +1105,11 @@ holes.forEach(
     }
 );
 
+
+// =========================================
+// GESPEICHERTE SCHLÄGE LADEN
+// =========================================
+
 function loadPlayedScores() {
 
     const saved =
@@ -925,16 +1117,19 @@ function loadPlayedScores() {
             STORAGE_KEY
         );
 
+
     if (!saved) {
 
         return {};
 
     }
 
+
     try {
 
         const data =
             JSON.parse(saved);
+
 
         if (
             typeof data !== "object" ||
@@ -945,6 +1140,7 @@ function loadPlayedScores() {
 
         }
 
+
         return data;
 
     } catch (error) {
@@ -954,11 +1150,17 @@ function loadPlayedScores() {
             error
         );
 
+
         return {};
 
     }
 
 }
+
+
+// =========================================
+// EXCEL LADEN
+// =========================================
 
 async function loadExcel() {
 
@@ -969,6 +1171,7 @@ async function loadExcel() {
                 excelFile
             );
 
+
         if (!response.ok) {
 
             throw new Error(
@@ -977,8 +1180,10 @@ async function loadExcel() {
 
         }
 
+
         const arrayBuffer =
             await response.arrayBuffer();
+
 
         workbook =
             XLSX.read(
@@ -988,21 +1193,27 @@ async function loadExcel() {
                 }
             );
 
+
         readExcelData();
+
 
         playedScores =
             loadPlayedScores();
 
+
         showHole(0);
+
 
         showStatus(
             "Excel-Datei erfolgreich geladen.",
             false
         );
 
+
     } catch (error) {
 
         console.error(error);
+
 
         showStatus(
             "Die Excel-Datei konnte nicht geladen werden. " +
@@ -1014,10 +1225,16 @@ async function loadExcel() {
 
 }
 
+
+// =========================================
+// EXCEL-DATEN AUSLESEN
+// =========================================
+
 function readExcelData() {
 
     const sheet =
         workbook.Sheets["3-Spieler"];
+
 
     if (!sheet) {
 
@@ -1026,6 +1243,7 @@ function readExcelData() {
         );
 
     }
+
 
     for (
         const hole of holes
@@ -1036,13 +1254,16 @@ function readExcelData() {
                 hole.round
             ];
 
+
         const excelRow =
             startRow +
             8 +
             hole.hole;
 
+
         const key =
             `${hole.round}_${hole.hole}`;
+
 
         holeData[key] = {
 
@@ -1056,6 +1277,7 @@ function readExcelData() {
 
         };
 
+
         for (
             const player
             of Object.keys(playerColumns)
@@ -1063,6 +1285,7 @@ function readExcelData() {
 
             const columns =
                 playerColumns[player];
+
 
             const parCell =
                 sheet[
@@ -1077,6 +1300,7 @@ function readExcelData() {
                     })
                 ];
 
+
             holeData[key].par[player] =
                 getCellNumber(
                     parCell
@@ -1088,6 +1312,11 @@ function readExcelData() {
 
 }
 
+
+// =========================================
+// ZAHL AUS EXCEL-ZELLE
+// =========================================
+
 function getCellNumber(cell) {
 
     if (!cell) {
@@ -1096,8 +1325,10 @@ function getCellNumber(cell) {
 
     }
 
+
     const value =
         cell.v;
+
 
     if (
         value === undefined ||
@@ -1109,14 +1340,21 @@ function getCellNumber(cell) {
 
     }
 
+
     const number =
         Number(value);
+
 
     return Number.isFinite(number)
         ? number
         : null;
 
 }
+
+
+// =========================================
+// SCORE-SCHLÜSSEL
+// =========================================
 
 function getScoreKey(
     round,
@@ -1129,6 +1367,11 @@ function getScoreKey(
     );
 
 }
+
+
+// =========================================
+// GESPEICHERTEN SCORE HOLEN
+// =========================================
 
 function getPlayedScore(
     round,
@@ -1143,8 +1386,10 @@ function getPlayedScore(
             player
         );
 
+
     const value =
         playedScores[key];
+
 
     if (
         value === undefined ||
@@ -1155,8 +1400,10 @@ function getPlayedScore(
 
     }
 
+
     const number =
         Number(value);
+
 
     if (!Number.isFinite(number)) {
 
@@ -1164,9 +1411,15 @@ function getPlayedScore(
 
     }
 
+
     return number;
 
 }
+
+
+// =========================================
+// AKTUELLES LOCH ANZEIGEN
+// =========================================
 
 function showHole(index) {
 
@@ -1176,6 +1429,7 @@ function showHole(index) {
 
     }
 
+
     if (index >= holes.length) {
 
         index =
@@ -1183,28 +1437,39 @@ function showHole(index) {
 
     }
 
+
     currentHoleIndex =
         index;
 
+
     holeSelect.value =
         currentHoleIndex;
+
 
     const hole =
         holes[
             currentHoleIndex
         ];
 
+
     const key =
         `${hole.round}_${hole.hole}`;
 
+
     const data =
         holeData[key];
+
 
     if (!data) {
 
         return;
 
     }
+
+
+    // =====================================
+    // PAR
+    // =====================================
 
     const parValues =
         Object.values(
@@ -1215,10 +1480,12 @@ function showHole(index) {
                 value !== null
         );
 
+
     const par =
         parValues.length > 0
             ? parValues[0]
             : null;
+
 
     document
         .getElementById("par-value")
@@ -1226,6 +1493,11 @@ function showHole(index) {
             par !== null
                 ? par
                 : "–";
+
+
+    // =====================================
+    // SPIELER
+    // =====================================
 
     for (
         const player
@@ -1237,12 +1509,14 @@ function showHole(index) {
                 `score-${player}`
             );
 
+
         const savedScore =
             getPlayedScore(
                 hole.round,
                 hole.hole,
                 player
             );
+
 
         if (
             savedScore !== null
@@ -1273,6 +1547,11 @@ function showHole(index) {
 
 }
 
+
+// =========================================
+// LOCH AUS DROPDOWN
+// =========================================
+
 holeSelect.addEventListener(
     "change",
     () => {
@@ -1285,6 +1564,11 @@ holeSelect.addEventListener(
 
     }
 );
+
+
+// =========================================
+// VORHERIGES LOCH
+// =========================================
 
 document
     .getElementById(
@@ -1301,6 +1585,11 @@ document
         }
     );
 
+
+// =========================================
+// NÄCHSTES LOCH
+// =========================================
+
 document
     .getElementById(
         "next-hole"
@@ -1316,6 +1605,11 @@ document
         }
     );
 
+
+// =========================================
+// PLUS / MINUS
+// =========================================
+
 document
     .querySelectorAll(
         ".score-button"
@@ -1330,18 +1624,22 @@ document
                     const player =
                         button.dataset.player;
 
+
                     const action =
                         button.dataset.action;
+
 
                     const input =
                         document.getElementById(
                             `score-${player}`
                         );
 
+
                     let value =
                         Number(
                             input.value
                         );
+
 
                     if (
                         !Number.isFinite(
@@ -1358,12 +1656,14 @@ document
                                     .textContent
                             );
 
+
                         value =
                             Number.isFinite(par)
                                 ? par
                                 : 1;
 
                     }
+
 
                     if (
                         action === "plus"
@@ -1373,6 +1673,7 @@ document
 
                     }
 
+
                     if (
                         action === "minus"
                     ) {
@@ -1380,6 +1681,7 @@ document
                         value--;
 
                     }
+
 
                     value =
                         Math.max(
@@ -1390,6 +1692,7 @@ document
                             )
                         );
 
+
                     input.value =
                         value;
 
@@ -1398,6 +1701,11 @@ document
 
         }
     );
+
+
+// =========================================
+// SCHLÄGE SPEICHERN
+// =========================================
 
 document
     .getElementById("save")
@@ -1410,8 +1718,10 @@ document
                     currentHoleIndex
                 ];
 
+
             let allPlayersEntered =
                 true;
+
 
             for (
                 const player
@@ -1425,10 +1735,12 @@ document
                         `score-${player}`
                     );
 
+
                 const value =
                     Number(
                         input.value
                     );
+
 
                 if (
                     !Number.isFinite(value) ||
@@ -1443,6 +1755,7 @@ document
 
                 }
 
+
                 const scoreKey =
                     getScoreKey(
                         hole.round,
@@ -1450,10 +1763,12 @@ document
                         player
                     );
 
+
                 playedScores[scoreKey] =
                     value;
 
             }
+
 
             if (!allPlayersEntered) {
 
@@ -1462,9 +1777,15 @@ document
                     true
                 );
 
+
                 return;
 
             }
+
+
+            // =================================
+            // LOKAL SPEICHERN
+            // =================================
 
             localStorage.setItem(
                 STORAGE_KEY,
@@ -1473,7 +1794,13 @@ document
                 )
             );
 
+
+            // =================================
+            // SUPABASE SPEICHERN
+            // =================================
+
             const scoresToSave = [];
+
 
             for (
                 const player
@@ -1488,6 +1815,7 @@ document
                         hole.hole,
                         player
                     );
+
 
                 scoresToSave.push({
 
@@ -1506,6 +1834,7 @@ document
                 });
 
             }
+
 
             for (
                 const scoreData
@@ -1533,6 +1862,7 @@ document
                         )
                         .maybeSingle();
 
+
                 if (selectError) {
 
                     console.error(
@@ -1540,14 +1870,17 @@ document
                         selectError
                     );
 
+
                     showStatus(
                         "Scores konnten online nicht geprüft werden.",
                         true
                     );
 
+
                     return;
 
                 }
+
 
                 if (existingScore) {
 
@@ -1565,6 +1898,7 @@ document
                                 existingScore.id
                             );
 
+
                     if (updateError) {
 
                         console.error(
@@ -1572,10 +1906,12 @@ document
                             updateError
                         );
 
+
                         showStatus(
                             "Score konnte online nicht aktualisiert werden.",
                             true
                         );
+
 
                         return;
 
@@ -1594,6 +1930,7 @@ document
                                 scoreData
                             ]);
 
+
                     if (insertError) {
 
                         console.error(
@@ -1601,10 +1938,12 @@ document
                             insertError
                         );
 
+
                         showStatus(
                             "Score konnte online nicht gespeichert werden.",
                             true
                         );
+
 
                         return;
 
@@ -1614,10 +1953,12 @@ document
 
             }
 
+
             showStatus(
                 `${hole.label} gespeichert.`,
                 false
             );
+
 
             if (
                 currentHoleIndex
@@ -1641,6 +1982,11 @@ document
         }
     );
 
+
+// =========================================
+// KOMPLETTES TURNIER ZURÜCKSETZEN
+// =========================================
+
 document.getElementById("reset-tournament")
     .addEventListener(
         "click",
@@ -1651,11 +1997,13 @@ document.getElementById("reset-tournament")
                     "Soll wirklich das komplette Turnier gelöscht werden?"
                 );
 
+
             if (!confirmed) {
 
                 return;
 
             }
+
 
             const {
                 error
@@ -1665,6 +2013,7 @@ document.getElementById("reset-tournament")
                     .delete()
                     .not("id", "is", null);
 
+
             if (error) {
 
                 console.error(
@@ -1672,26 +2021,33 @@ document.getElementById("reset-tournament")
                     error
                 );
 
+
                 showStatus(
                     "Turnier konnte online nicht zurückgesetzt werden.",
                     true
                 );
 
+
                 return;
 
             }
+
 
             localStorage.removeItem(
                 "golfHoleData"
             );
 
+
             localStorage.removeItem(
                 "golfPlayedScores"
             );
 
+
             playedScores = {};
 
+
             showHole(0);
+
 
             showStatus(
                 "Das komplette Turnier wurde zurückgesetzt.",
@@ -1700,6 +2056,11 @@ document.getElementById("reset-tournament")
 
         }
     );
+
+
+// =========================================
+// STATUS
+// =========================================
 
 function showStatus(
     message,
@@ -1711,11 +2072,14 @@ function showStatus(
             "status"
         );
 
+
     status.style.display =
         "block";
 
+
     status.textContent =
         message;
+
 
     status.style.background =
         error
@@ -1729,70 +2093,98 @@ function showStatus(
 // NEWS MESSENGER
 // =========================================
 
+
+// =========================================
+// NEWS ELEMENTE
+// =========================================
+
 const newsFab =
     document.getElementById(
         "news-fab"
     );
+
 
 const newsPanel =
     document.getElementById(
         "news-panel"
     );
 
+
 const newsClose =
     document.getElementById(
         "news-close"
     );
+
+
+const newsNew =
+    document.getElementById(
+        "news-new"
+    );
+
 
 const newsSubmit =
     document.getElementById(
         "news-submit"
     );
 
+
 const newsTitle =
     document.getElementById(
         "news-title"
     );
+
 
 const newsContent =
     document.getElementById(
         "news-content"
     );
 
+
 const newsMedia =
     document.getElementById(
         "news-media"
     );
+
 
 const newsMediaPreview =
     document.getElementById(
         "news-media-preview"
     );
 
+
 const newsDelete =
     document.getElementById(
         "news-delete"
     );
+
 
 const previousNews =
     document.getElementById(
         "previous-news"
     );
 
+
 const nextNews =
     document.getElementById(
         "next-news"
     );
+
 
 const newsCounter =
     document.getElementById(
         "news-counter"
     );
 
+
 const newsHeaderTitle =
     document.getElementById(
         "news-header-title"
     );
+
+
+// =========================================
+// NEWS MEDIEN
+// =========================================
 
 async function uploadNewsMedia(
     file,
@@ -1805,6 +2197,7 @@ async function uploadNewsMedia(
 
     }
 
+
     if (!newsId) {
 
         throw new Error(
@@ -1813,7 +2206,9 @@ async function uploadNewsMedia(
 
     }
 
+
     let mediaType = null;
+
 
     if (
         file.type.startsWith("image/")
@@ -1839,8 +2234,10 @@ async function uploadNewsMedia(
 
     }
 
+
     const maxFileSize =
         100 * 1024 * 1024;
+
 
     if (
         file.size > maxFileSize
@@ -1852,6 +2249,7 @@ async function uploadNewsMedia(
 
     }
 
+
     const fileExtension =
         file.name.includes(".")
             ? file.name
@@ -1859,6 +2257,7 @@ async function uploadNewsMedia(
                 .pop()
                 .toLowerCase()
             : "";
+
 
     const fileName =
         `${crypto.randomUUID()}` +
@@ -1868,8 +2267,10 @@ async function uploadNewsMedia(
                 : ""
         );
 
+
     const storagePath =
         `${newsId}/${fileName}`;
+
 
     const {
         error: uploadError
@@ -1889,6 +2290,7 @@ async function uploadNewsMedia(
                 }
             );
 
+
     if (uploadError) {
 
         console.error(
@@ -1900,6 +2302,7 @@ async function uploadNewsMedia(
 
     }
 
+
     const {
         data: publicUrlData
     } =
@@ -1910,8 +2313,10 @@ async function uploadNewsMedia(
                 storagePath
             );
 
+
     const publicUrl =
         publicUrlData.publicUrl;
+
 
     const {
         data: mediaData,
@@ -1936,12 +2341,14 @@ async function uploadNewsMedia(
             .select()
             .single();
 
+
     if (mediaError) {
 
         console.error(
             "News-Medium konnte nicht gespeichert werden:",
             mediaError
         );
+
 
         await supabaseClient
             .storage
@@ -1950,9 +2357,11 @@ async function uploadNewsMedia(
                 storagePath
             ]);
 
+
         throw mediaError;
 
     }
+
 
     return {
 
@@ -1965,6 +2374,11 @@ async function uploadNewsMedia(
 
 }
 
+
+// =========================================
+// MEDIEN DES POSTS LADEN
+// =========================================
+
 async function loadNewsMedia(
     newsId
 ) {
@@ -1974,6 +2388,7 @@ async function loadNewsMedia(
         return [];
 
     }
+
 
     const {
         data,
@@ -1995,6 +2410,7 @@ async function loadNewsMedia(
                 }
             );
 
+
     if (error) {
 
         console.error(
@@ -2002,9 +2418,11 @@ async function loadNewsMedia(
             error
         );
 
+
         return [];
 
     }
+
 
     return (
         data || []
@@ -2022,6 +2440,7 @@ async function loadNewsMedia(
                         media.storage_path
                     );
 
+
             return {
 
                 ...media,
@@ -2036,12 +2455,18 @@ async function loadNewsMedia(
 
 }
 
+
+// =========================================
+// MEDIEN-VORSCHAU RENDERN
+// =========================================
+
 function renderNewsMediaPreview(
     mediaList
 ) {
 
     newsMediaPreview.innerHTML =
         "";
+
 
     if (
         !mediaList ||
@@ -2052,6 +2477,7 @@ function renderNewsMediaPreview(
 
     }
 
+
     mediaList.forEach(
         media => {
 
@@ -2060,22 +2486,27 @@ function renderNewsMediaPreview(
                     "div"
                 );
 
+
             const label =
                 document.createElement(
                     "div"
                 );
 
+
             label.className =
                 "news-media-preview-label";
+
 
             label.textContent =
                 media.media_type === "video"
                     ? "Vorhandenes Video"
                     : "Vorhandenes Bild";
 
+
             wrapper.appendChild(
                 label
             );
+
 
             if (
                 media.media_type === "image"
@@ -2086,14 +2517,18 @@ function renderNewsMediaPreview(
                         "img"
                     );
 
+
                 image.src =
                     media.publicUrl;
+
 
                 image.alt =
                     "News-Bild";
 
+
                 image.loading =
                     "lazy";
+
 
                 wrapper.appendChild(
                     image
@@ -2110,20 +2545,25 @@ function renderNewsMediaPreview(
                         "video"
                     );
 
+
                 video.src =
                     media.publicUrl;
+
 
                 video.controls =
                     true;
 
+
                 video.playsInline =
                     true;
+
 
                 wrapper.appendChild(
                     video
                 );
 
             }
+
 
             newsMediaPreview.appendChild(
                 wrapper
@@ -2134,6 +2574,11 @@ function renderNewsMediaPreview(
 
 }
 
+
+// =========================================
+// AUSGEWÄHLTE DATEI VORSCHAUEN
+// =========================================
+
 function previewSelectedNewsMedia() {
 
     const file =
@@ -2141,34 +2586,42 @@ function previewSelectedNewsMedia() {
             ? newsMedia.files[0]
             : null;
 
+
     if (!file) {
 
         return;
 
     }
 
+
     newsMediaPreview.innerHTML =
         "";
+
 
     const label =
         document.createElement(
             "div"
         );
 
+
     label.className =
         "news-media-preview-label";
 
+
     label.textContent =
         "Ausgewähltes Medium";
+
 
     newsMediaPreview.appendChild(
         label
     );
 
+
     const objectUrl =
         URL.createObjectURL(
             file
         );
+
 
     if (
         file.type.startsWith("image/")
@@ -2179,11 +2632,14 @@ function previewSelectedNewsMedia() {
                 "img"
             );
 
+
         image.src =
             objectUrl;
 
+
         image.alt =
             "Vorschau";
+
 
         newsMediaPreview.appendChild(
             image
@@ -2200,14 +2656,18 @@ function previewSelectedNewsMedia() {
                 "video"
             );
 
+
         video.src =
             objectUrl;
+
 
         video.controls =
             true;
 
+
         video.playsInline =
             true;
+
 
         newsMediaPreview.appendChild(
             video
@@ -2215,19 +2675,24 @@ function previewSelectedNewsMedia() {
 
     }
 
+
     const removeButton =
         document.createElement(
             "button"
         );
 
+
     removeButton.type =
         "button";
+
 
     removeButton.className =
         "news-media-remove";
 
+
     removeButton.textContent =
         "Auswahl entfernen";
+
 
     removeButton.addEventListener(
         "click",
@@ -2236,12 +2701,15 @@ function previewSelectedNewsMedia() {
             newsMedia.value =
                 "";
 
+
             newsMediaPreview.innerHTML =
                 "";
+
 
             URL.revokeObjectURL(
                 objectUrl
             );
+
 
             if (
                 currentNewsId
@@ -2259,11 +2727,17 @@ function previewSelectedNewsMedia() {
         }
     );
 
+
     newsMediaPreview.appendChild(
         removeButton
     );
 
 }
+
+
+// =========================================
+// DATEI-AUSWAHL
+// =========================================
 
 newsMedia.addEventListener(
     "change",
@@ -2273,6 +2747,7 @@ newsMedia.addEventListener(
             newsMedia.files.length > 0
                 ? newsMedia.files[0]
                 : null;
+
 
         if (!file) {
 
@@ -2294,19 +2769,23 @@ newsMedia.addEventListener(
 
             }
 
+
             return;
 
         }
+
 
         const isImage =
             file.type.startsWith(
                 "image/"
             );
 
+
         const isVideo =
             file.type.startsWith(
                 "video/"
             );
+
 
         if (
             !isImage &&
@@ -2316,17 +2795,21 @@ newsMedia.addEventListener(
             newsMedia.value =
                 "";
 
+
             newsMediaPreview.innerHTML =
                 "";
+
 
             showStatus(
                 "Bitte nur Bilder oder Videos auswählen.",
                 true
             );
 
+
             return;
 
         }
+
 
         previewSelectedNewsMedia();
 
@@ -2346,6 +2829,63 @@ let currentNewsId = null;
 
 
 // =========================================
+// DATUM UND UHRZEIT FORMATIEREN
+// =========================================
+
+function formatNewsDateTime(
+    dateString
+) {
+
+    if (!dateString) {
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            dateString
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+        "de-DE",
+        {
+            day:
+                "2-digit",
+
+            month:
+                "2-digit",
+
+            year:
+                "numeric",
+
+            hour:
+                "2-digit",
+
+            minute:
+                "2-digit"
+        }
+    ).format(
+        date
+    );
+
+}
+
+
+// =========================================
 // NEWS PANEL ÖFFNEN
 // =========================================
 
@@ -2358,6 +2898,7 @@ newsFab.addEventListener(
                 "open"
             );
 
+
         if (isOpen) {
 
             newsPanel.classList.remove(
@@ -2368,13 +2909,13 @@ newsFab.addEventListener(
 
         }
 
+
         newsPanel.classList.add(
             "open"
         );
 
-        await loadNews();
 
-        prepareNewNews();
+        await loadNews();
 
     }
 );
@@ -2413,6 +2954,7 @@ async function loadNews() {
 
     }
 
+
     try {
 
         const {
@@ -2435,6 +2977,7 @@ async function loadNews() {
                     }
                 );
 
+
         if (error) {
 
             console.error(
@@ -2442,23 +2985,34 @@ async function loadNews() {
                 error
             );
 
+
             showStatus(
                 "News konnten nicht geladen werden.",
                 true
             );
 
+
             return;
 
         }
 
+
         newsPosts =
             data || [];
 
-        currentNewsIndex =
-            -1;
 
-        currentNewsId =
-            null;
+        /*
+         * WICHTIG:
+         * Beim Öffnen wird IMMER ein neuer,
+         * leerer Post angezeigt.
+         *
+         * Die vorhandenen Posts bleiben aber
+         * vollständig in newsPosts erhalten
+         * und können über die Pfeile geöffnet
+         * werden.
+         */
+
+        prepareNewNews();
 
     } catch (error) {
 
@@ -2466,6 +3020,7 @@ async function loadNews() {
             "Fehler beim Laden der News:",
             error
         );
+
 
         showStatus(
             "News konnten nicht geladen werden.",
@@ -2478,7 +3033,7 @@ async function loadNews() {
 
 
 // =========================================
-// NEWS FORMULAR AUF "NEUER POST" SETZEN
+// NEWS AUF "NEUER POST" SETZEN
 // =========================================
 
 function prepareNewNews() {
@@ -2486,38 +3041,57 @@ function prepareNewNews() {
     currentNewsIndex =
         -1;
 
+
     currentNewsId =
         null;
+
 
     newsTitle.value =
         "";
 
+
     newsContent.value =
         "";
+
 
     newsMedia.value =
         "";
 
+
     newsMediaPreview.innerHTML =
         "";
+
 
     newsHeaderTitle.textContent =
         "NEWS POSTEN";
 
+
     newsCounter.textContent =
         "Neuer Post";
+
 
     newsSubmit.textContent =
         "NEWS VERÖFFENTLICHEN";
 
+
     newsDelete.disabled =
         true;
+
+
+    /*
+     * Die Navigation zu bestehenden Posts
+     * bleibt aktiv, wenn Posts vorhanden sind.
+     *
+     * Dadurch kann man von "Neuer Post"
+     * jederzeit zu den vorhandenen News wechseln.
+     */
 
     previousNews.disabled =
         newsPosts.length === 0;
 
+
     nextNews.disabled =
-        true;
+        newsPosts.length === 0;
 
 }
 
@@ -2538,6 +3112,7 @@ async function showNewsPost() {
 
     }
 
+
     if (
         currentNewsIndex < 0 ||
         currentNewsIndex >= newsPosts.length
@@ -2549,55 +3124,96 @@ async function showNewsPost() {
 
     }
 
+
     const post =
         newsPosts[
             currentNewsIndex
         ];
 
+
     currentNewsId =
         post.id;
+
 
     newsTitle.value =
         post.title || "";
 
+
     newsContent.value =
         post.content || "";
+
 
     newsMedia.value =
         "";
 
+
     newsMediaPreview.innerHTML =
         "";
+
 
     const mediaList =
         await loadNewsMedia(
             post.id
         );
 
+
     renderNewsMediaPreview(
         mediaList
     );
 
+
     newsHeaderTitle.textContent =
         "NEWS BEARBEITEN";
 
+
+    const formattedDate =
+        formatNewsDateTime(
+            post.created_at
+        );
+
+
     newsCounter.textContent =
-        `${currentNewsIndex + 1} von ${newsPosts.length}`;
+        `${currentNewsIndex + 1} von ${newsPosts.length}` +
+        (
+            formattedDate
+                ? ` · ${formattedDate}`
+                : ""
+        );
+
 
     previousNews.disabled =
         currentNewsIndex <= 0;
+
 
     nextNews.disabled =
         currentNewsIndex >=
         newsPosts.length - 1;
 
+
     newsDelete.disabled =
         false;
+
 
     newsSubmit.textContent =
         "NEWS ÄNDERN";
 
 }
+
+
+// =========================================
+// NEUE NEWS
+// =========================================
+
+newsNew.addEventListener(
+    "click",
+    () => {
+
+        prepareNewNews();
+
+        newsTitle.focus();
+
+    }
+);
 
 
 // =========================================
@@ -2614,6 +3230,12 @@ function showPreviousNews() {
 
     }
 
+
+    /*
+     * Wenn gerade "Neuer Post" angezeigt wird,
+     * führt der Pfeil zur neuesten vorhandenen News.
+     */
+
     if (
         currentNewsIndex < 0
     ) {
@@ -2621,11 +3243,13 @@ function showPreviousNews() {
         currentNewsIndex =
             newsPosts.length - 1;
 
+
         showNewsPost();
 
         return;
 
     }
+
 
     if (
         currentNewsIndex <= 0
@@ -2635,7 +3259,9 @@ function showPreviousNews() {
 
     }
 
+
     currentNewsIndex--;
+
 
     showNewsPost();
 
@@ -2656,6 +3282,16 @@ function showNextNews() {
 
     }
 
+
+    /*
+     * Wenn gerade ein bestehender Post
+     * angezeigt wird, geht der Pfeil nach
+     * vorne.
+     *
+     * Beim letzten Post wird nicht weiter
+     * gegangen.
+     */
+
     if (
         currentNewsIndex < 0
     ) {
@@ -2663,6 +3299,7 @@ function showNextNews() {
         return;
 
     }
+
 
     if (
         currentNewsIndex >=
@@ -2673,7 +3310,9 @@ function showNextNews() {
 
     }
 
+
     currentNewsIndex++;
+
 
     showNewsPost();
 
@@ -2692,6 +3331,7 @@ previousNews.addEventListener(
 
     }
 );
+
 
 nextNews.addEventListener(
     "click",
@@ -2721,12 +3361,15 @@ document.addEventListener(
 
         }
 
+
         const activeElement =
             document.activeElement;
+
 
         const isTextInput =
             activeElement === newsTitle ||
             activeElement === newsContent;
+
 
         if (isTextInput) {
 
@@ -2734,15 +3377,18 @@ document.addEventListener(
 
         }
 
+
         if (
             event.key === "ArrowLeft"
         ) {
 
             event.preventDefault();
 
+
             showPreviousNews();
 
         }
+
 
         if (
             event.key === "ArrowRight"
@@ -2750,9 +3396,11 @@ document.addEventListener(
 
             event.preventDefault();
 
+
             showNextNews();
 
         }
+
 
         if (
             event.key === "Escape"
@@ -2779,13 +3427,16 @@ newsSubmit.addEventListener(
         const title =
             newsTitle.value.trim();
 
+
         const content =
             newsContent.value.trim();
+
 
         const selectedFile =
             newsMedia.files.length > 0
                 ? newsMedia.files[0]
                 : null;
+
 
         if (!title) {
 
@@ -2798,6 +3449,7 @@ newsSubmit.addEventListener(
 
         }
 
+
         if (!content) {
 
             showStatus(
@@ -2808,6 +3460,7 @@ newsSubmit.addEventListener(
             return;
 
         }
+
 
         if (!supabaseClient) {
 
@@ -2820,6 +3473,7 @@ newsSubmit.addEventListener(
 
         }
 
+
         if (selectedFile) {
 
             const isImage =
@@ -2827,10 +3481,12 @@ newsSubmit.addEventListener(
                     "image/"
                 );
 
+
             const isVideo =
                 selectedFile.type.startsWith(
                     "video/"
                 );
+
 
             if (
                 !isImage &&
@@ -2846,8 +3502,10 @@ newsSubmit.addEventListener(
 
             }
 
+
             const maxFileSize =
                 100 * 1024 * 1024;
+
 
             if (
                 selectedFile.size >
@@ -2865,17 +3523,25 @@ newsSubmit.addEventListener(
 
         }
 
+
         newsSubmit.disabled =
             true;
+
 
         try {
 
             let savedPost = null;
 
+
+            // =================================
+            // BESTEHENDEN POST AKTUALISIEREN
+            // =================================
+
             if (currentNewsId) {
 
                 newsSubmit.textContent =
                     "WIRD AKTUALISIERT …";
+
 
                 const {
                     data,
@@ -2899,12 +3565,14 @@ newsSubmit.addEventListener(
                         .select()
                         .single();
 
+
                 if (error) {
 
                     console.error(
                         "News konnte nicht aktualisiert werden:",
                         error
                     );
+
 
                     showStatus(
                         "News konnte nicht aktualisiert werden.",
@@ -2915,8 +3583,10 @@ newsSubmit.addEventListener(
 
                 }
 
+
                 savedPost =
                     data;
+
 
                 newsPosts[
                     currentNewsIndex
@@ -2933,21 +3603,25 @@ newsSubmit.addEventListener(
                             content
                     };
 
+
                 if (selectedFile) {
 
                     newsSubmit.textContent =
                         "MEDIUM WIRD HOCHGELADEN …";
+
 
                     const oldMedia =
                         await loadNewsMedia(
                             currentNewsId
                         );
 
+
                     const newMedia =
                         await uploadNewsMedia(
                             selectedFile,
                             currentNewsId
                         );
+
 
                     if (
                         oldMedia.length > 0
@@ -2962,6 +3636,7 @@ newsSubmit.addEventListener(
                                 .filter(
                                     Boolean
                                 );
+
 
                         if (
                             oldStoragePaths.length > 0
@@ -2978,6 +3653,7 @@ newsSubmit.addEventListener(
                                         oldStoragePaths
                                     );
 
+
                             if (
                                 storageDeleteError
                             ) {
@@ -2990,6 +3666,7 @@ newsSubmit.addEventListener(
                             }
 
                         }
+
 
                         const {
                             error:
@@ -3007,6 +3684,7 @@ newsSubmit.addEventListener(
                                     newMedia.id
                                 );
 
+
                         if (
                             oldDatabaseDeleteError
                         ) {
@@ -3022,6 +3700,7 @@ newsSubmit.addEventListener(
 
                 }
 
+
                 showStatus(
                     selectedFile
                         ? "News und Medium wurden aktualisiert."
@@ -3031,10 +3710,16 @@ newsSubmit.addEventListener(
 
             }
 
+
+            // =================================
+            // NEUEN POST ERSTELLEN
+            // =================================
+
             else {
 
                 newsSubmit.textContent =
                     "WIRD VERÖFFENTLICHT …";
+
 
                 const {
                     data,
@@ -3059,12 +3744,14 @@ newsSubmit.addEventListener(
                         .select()
                         .single();
 
+
                 if (error) {
 
                     console.error(
                         "News konnte nicht veröffentlicht werden:",
                         error
                     );
+
 
                     showStatus(
                         "News konnte nicht veröffentlicht werden.",
@@ -3075,8 +3762,10 @@ newsSubmit.addEventListener(
 
                 }
 
+
                 savedPost =
                     data;
+
 
                 if (
                     selectedFile &&
@@ -3086,6 +3775,7 @@ newsSubmit.addEventListener(
                     newsSubmit.textContent =
                         "MEDIUM WIRD HOCHGELADEN …";
 
+
                     await uploadNewsMedia(
                         selectedFile,
                         savedPost.id
@@ -3093,19 +3783,33 @@ newsSubmit.addEventListener(
 
                 }
 
+
                 if (savedPost) {
+
+                    /*
+                     * Der neue Post wird korrekt
+                     * an das Ende der bestehenden
+                     * Liste gesetzt.
+                     *
+                     * Dadurch bleibt die Reihenfolge
+                     * von "ältester -> neuester"
+                     * erhalten.
+                     */
 
                     newsPosts.push(
                         savedPost
                     );
 
+
                     currentNewsIndex =
                         newsPosts.length - 1;
+
 
                     currentNewsId =
                         savedPost.id;
 
                 }
+
 
                 showStatus(
                     selectedFile
@@ -3116,14 +3820,18 @@ newsSubmit.addEventListener(
 
             }
 
+
             newsTitle.value =
                 title;
+
 
             newsContent.value =
                 content;
 
+
             newsMedia.value =
                 "";
+
 
             if (currentNewsId) {
 
@@ -3131,6 +3839,7 @@ newsSubmit.addEventListener(
                     await loadNewsMedia(
                         currentNewsId
                     );
+
 
                 renderNewsMediaPreview(
                     mediaList
@@ -3145,7 +3854,9 @@ newsSubmit.addEventListener(
 
             }
 
+
             updateNewsNavigation();
+
 
         } catch (error) {
 
@@ -3153,6 +3864,7 @@ newsSubmit.addEventListener(
                 "Fehler beim Speichern der News:",
                 error
             );
+
 
             showStatus(
                 error && error.message
@@ -3165,6 +3877,7 @@ newsSubmit.addEventListener(
 
             newsSubmit.disabled =
                 false;
+
 
             newsSubmit.textContent =
                 currentNewsId
@@ -3183,32 +3896,82 @@ newsSubmit.addEventListener(
 
 function updateNewsNavigation() {
 
+    /*
+     * Bei "Neuer Post":
+     * beide Pfeile bleiben aktiv, sofern
+     * mindestens ein vorhandener Post existiert.
+     */
+
     if (
-        currentNewsIndex < 0
+        newsPosts.length === 0
     ) {
 
         previousNews.disabled =
-            newsPosts.length === 0;
+            true;
+
 
         nextNews.disabled =
             true;
 
+
         newsCounter.textContent =
             "Neuer Post";
+
 
         return;
 
     }
 
+
+    if (
+        currentNewsIndex < 0
+    ) {
+
+        previousNews.disabled =
+            false;
+
+
+        nextNews.disabled =
+            false;
+
+
+        newsCounter.textContent =
+            "Neuer Post";
+
+
+        return;
+
+    }
+
+
     previousNews.disabled =
         currentNewsIndex <= 0;
+
 
     nextNews.disabled =
         currentNewsIndex >=
         newsPosts.length - 1;
 
+
+    const post =
+        newsPosts[
+            currentNewsIndex
+        ];
+
+
+    const formattedDate =
+        formatNewsDateTime(
+            post.created_at
+        );
+
+
     newsCounter.textContent =
-        `${currentNewsIndex + 1} von ${newsPosts.length}`;
+        `${currentNewsIndex + 1} von ${newsPosts.length}` +
+        (
+            formattedDate
+                ? ` · ${formattedDate}`
+                : ""
+        );
 
 }
 
@@ -3236,16 +3999,19 @@ newsDelete.addEventListener(
 
         }
 
+
         const confirmed =
             confirm(
                 "Soll dieser News-Post wirklich gelöscht werden?"
             );
+
 
         if (!confirmed) {
 
             return;
 
         }
+
 
         if (!supabaseClient) {
 
@@ -3258,24 +4024,30 @@ newsDelete.addEventListener(
 
         }
 
+
         newsDelete.disabled =
             true;
+
 
         newsSubmit.disabled =
             true;
 
+
         newsDelete.textContent =
             "WIRD GELÖSCHT …";
+
 
         try {
 
             const postId =
                 currentNewsId;
 
+
             const mediaList =
                 await loadNewsMedia(
                     postId
                 );
+
 
             if (
                 mediaList.length > 0
@@ -3290,6 +4062,7 @@ newsDelete.addEventListener(
                         .filter(
                             Boolean
                         );
+
 
                 if (
                     storagePaths.length > 0
@@ -3306,6 +4079,7 @@ newsDelete.addEventListener(
                                 storagePaths
                             );
 
+
                     if (storageError) {
 
                         console.error(
@@ -3313,10 +4087,12 @@ newsDelete.addEventListener(
                             storageError
                         );
 
+
                         showStatus(
                             "Die Medien konnten nicht aus dem Storage gelöscht werden.",
                             true
                         );
+
 
                         return;
 
@@ -3325,6 +4101,7 @@ newsDelete.addEventListener(
                 }
 
             }
+
 
             const {
                 error:
@@ -3338,6 +4115,7 @@ newsDelete.addEventListener(
                         postId
                     );
 
+
             if (
                 mediaDatabaseError
             ) {
@@ -3347,14 +4125,17 @@ newsDelete.addEventListener(
                     mediaDatabaseError
                 );
 
+
                 showStatus(
                     "Die News-Mediendaten konnten nicht gelöscht werden.",
                     true
                 );
 
+
                 return;
 
             }
+
 
             const {
                 error
@@ -3367,6 +4148,7 @@ newsDelete.addEventListener(
                         postId
                     );
 
+
             if (error) {
 
                 console.error(
@@ -3374,57 +4156,41 @@ newsDelete.addEventListener(
                     error
                 );
 
+
                 showStatus(
                     "News konnte nicht gelöscht werden.",
                     true
                 );
 
+
                 return;
 
             }
+
 
             newsPosts.splice(
                 currentNewsIndex,
                 1
             );
 
-            if (
-                newsPosts.length === 0
-            ) {
 
-                currentNewsIndex =
-                    -1;
+            /*
+             * Nach dem Löschen wird NICHT
+             * automatisch wieder irgendein Post
+             * geladen.
+             *
+             * Stattdessen erscheint das leere
+             * Formular für einen neuen Post.
+             */
 
-                currentNewsId =
-                    null;
+            prepareNewNews();
 
-            }
-
-            else {
-
-                if (
-                    currentNewsIndex >=
-                    newsPosts.length
-                ) {
-
-                    currentNewsIndex =
-                        newsPosts.length - 1;
-
-                }
-
-                currentNewsId =
-                    newsPosts[
-                        currentNewsIndex
-                    ].id;
-
-            }
-
-            showNewsPost();
 
             showStatus(
                 "News und zugehörige Medien wurden gelöscht.",
                 false
             );
+
 
         } catch (error) {
 
@@ -3432,6 +4198,7 @@ newsDelete.addEventListener(
                 "Fehler beim Löschen der News:",
                 error
             );
+
 
             showStatus(
                 "Beim Löschen der News ist ein Fehler aufgetreten.",
@@ -3443,8 +4210,10 @@ newsDelete.addEventListener(
             newsDelete.disabled =
                 currentNewsId === null;
 
+
             newsSubmit.disabled =
                 false;
+
 
             newsDelete.textContent =
                 "NEWS LÖSCHEN";
@@ -3462,6 +4231,7 @@ newsDelete.addEventListener(
 initializeSupabase();
 
 loadExcel();
+
 
 </script>
 
