@@ -2915,6 +2915,18 @@ async function loadNews() {
                 image.loading =
                     "lazy";
 
+                image.addEventListener(
+    "click",
+    () => {
+
+        openImageLightbox(
+            imageUrl,
+            image.alt
+        );
+
+    }
+);
+
 
                 mediaContainer.appendChild(
                     image
@@ -2962,6 +2974,95 @@ function escapeHtml(value) {
         value ?? "";
 
     return div.innerHTML;
+
+}
+
+// =========================================
+// BILD-LIGHTBOX
+// =========================================
+
+function openImageLightbox(imageUrl, altText) {
+
+    // Bereits vorhandene Lightbox entfernen
+    const existing =
+        document.querySelector(".image-lightbox");
+
+    if (existing) {
+        existing.remove();
+    }
+
+
+    // Lightbox erzeugen
+    const lightbox =
+        document.createElement("div");
+
+    lightbox.className =
+        "image-lightbox";
+
+
+    // Großes Bild
+    const image =
+        document.createElement("img");
+
+    image.src =
+        imageUrl;
+
+    image.alt =
+        altText || "News Bild";
+
+
+    lightbox.appendChild(
+        image
+    );
+
+
+    document.body.appendChild(
+        lightbox
+    );
+
+
+    // Klick auf Hintergrund schließt
+    lightbox.addEventListener(
+        "click",
+        () => {
+
+            lightbox.remove();
+
+        }
+    );
+
+
+    // Klick direkt auf Bild nicht schließen
+    image.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    // ESC schließt
+    document.addEventListener(
+        "keydown",
+        function closeWithEscape(event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                lightbox.remove();
+
+                document.removeEventListener(
+                    "keydown",
+                    closeWithEscape
+                );
+
+            }
+
+        }
+    );
 
 }
 
