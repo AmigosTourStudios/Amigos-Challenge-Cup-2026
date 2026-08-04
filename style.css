@@ -907,6 +907,59 @@ body {
     opacity: 0.92;
 }
 
+/* =========================================
+   NEWS-BILD VERGRÖSSERN
+   ========================================= */
+
+.news-image {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.news-image:hover {
+    transform: scale(1.02);
+    opacity: 0.92;
+    cursor: zoom-in;
+}
+
+
+/* Großansicht */
+
+.image-lightbox {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(0, 0, 0, 0.85);
+
+    cursor: zoom-out;
+}
+
+
+.image-lightbox img {
+    display: block;
+
+    max-width: 95vw;
+    max-height: 95vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
 
 /* =========================================
    MOBIL
